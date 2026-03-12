@@ -266,6 +266,55 @@ Run the test suites:
 ./gradlew allTests
 ```
 
+## JMH Benchmarks
+
+The project includes JMH microbenchmarks for measuring read throughput of the BufferPool (encrypted) directory vs MMap (plaintext) directory. Benchmark sources live under `src/jmh/java/org/opensearch/index/store/benchmark/`.
+
+### Running Benchmarks
+
+```bash
+# Full run (defaults: 2 forks, 3 warmup iterations, 5 measurement iterations, 3s/5s durations)
+./gradlew jmh
+
+# Quick smoke test with overrides
+./gradlew jmh -Pjmh.fork=1 -Pjmh.wi=1 -Pjmh.i=1 -Pjmh.w=1s -Pjmh.r=1s
+```
+
+All JMH parameters are overridable via `-P` flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `-Pjmh.fork` | `2` | Number of forked JVM processes |
+| `-Pjmh.wi` | `3` | Warmup iterations |
+| `-Pjmh.i` | `5` | Measurement iterations |
+| `-Pjmh.w` | `3s` | Warmup iteration duration |
+| `-Pjmh.r` | `5s` | Measurement iteration duration |
+
+Results are written to:
+- `build/reports/jmh/human.txt` — human-readable output
+- `build/reports/jmh/results.json` — JSON format for tooling
+
+### Regenerating JMH Harness Classes
+
+After adding, removing, or renaming any `@Benchmark` method, regenerate the JMH harness:
+
+```bash
+./gradlew jmhPrepare
+```
+
+### Benchmark Classes
+
+- `HotPathReadBenchmarks` — 16 benchmark methods measuring throughput with data pre-warmed in block cache (BufferPool) or page cache (MMap). Covers all `RandomAccessInput` and `IndexInput` read APIs plus a mixed workload that randomly interleaves all API types.
+
+### Key Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `directoryType` | `bufferpool`, `mmap` | Encrypted BufferPool vs plaintext MMap |
+| `fileSizeMB` | `1` | Size of each test file in MB |
+| `threadCount` | `8` | Number of concurrent reader threads per benchmark invocation |
+| `numFilesToRead` | `1` | Number of files read per invocation |
+
 ## Limitations
 
 - Currently only AWS KMS and linux are supported.
