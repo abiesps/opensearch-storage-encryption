@@ -306,12 +306,25 @@ After adding, removing, or renaming any `@Benchmark` method, regenerate the JMH 
 
 - `HotPathReadBenchmarks` — 16 benchmark methods measuring throughput with data pre-warmed in block cache (BufferPool) or page cache (MMap). Covers all `RandomAccessInput` and `IndexInput` read APIs plus a mixed workload that randomly interleaves all API types.
 
+### Filtering Benchmarks
+
+Use `-Pjmh.includes` to run a specific benchmark method (regex match):
+
+```bash
+# Run only the sequential readByte benchmark
+./gradlew jmh -Pjmh.includes='sequentialReadBytesFromClone'
+
+# Run all random read benchmarks
+./gradlew jmh -Pjmh.includes='randomRead.*'
+```
+
 ### Key Parameters
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
+| Parameter | Values | Description |
+|-----------|--------|-------------|
 | `directoryType` | `bufferpool`, `mmap` | Encrypted BufferPool vs plaintext MMap |
-| `fileSizeMB` | `1` | Size of each test file in MB |
+| `fileSizeMB` | `32` | Size of each test file in MB |
+| `cacheBlockSizeKB` | `32`, `128` | Cache block size in KB (power of 2, 1–1024) |
 | `threadCount` | `8` | Number of concurrent reader threads per benchmark invocation |
 | `numFilesToRead` | `1` | Number of files read per invocation |
 
