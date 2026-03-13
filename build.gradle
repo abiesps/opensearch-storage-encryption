@@ -218,6 +218,7 @@ jmh {
     iterations = project.hasProperty('jmh.i') ? project.property('jmh.i') as int : 5
     timeOnIteration = project.hasProperty('jmh.r') ? project.property('jmh.r') : '5s'
     warmup = project.hasProperty('jmh.w') ? project.property('jmh.w') : '3s'
+    profilers = project.hasProperty('jmh.prof') ? [project.property('jmh.prof')] : []
     resultFormat = 'JSON'
     resultsFile = project.file("${project.buildDir}/reports/jmh/results.json")
     humanOutputFile = project.file("${project.buildDir}/reports/jmh/human.txt")
