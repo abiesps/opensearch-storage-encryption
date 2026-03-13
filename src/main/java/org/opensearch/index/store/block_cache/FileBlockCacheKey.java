@@ -45,6 +45,24 @@ public final class FileBlockCacheKey implements BlockCacheKey {
         this.pathString = this.filePath.toString();
     }
 
+    /**
+     * Fast constructor that accepts a pre-normalized path and its cached string representation.
+     * Skips {@code toAbsolutePath().normalize()} — caller is responsible for ensuring the path
+     * is already absolute and normalized.
+     *
+     * <p>This is used on the hot read path where the same file's path is reused across many
+     * block lookups, avoiding repeated {@code UnixPath.normalize()} overhead.
+     *
+     * @param normalizedPath pre-normalized absolute path
+     * @param pathString cached {@code normalizedPath.toString()}
+     * @param fileOffset the byte offset within the file where the block starts
+     */
+    public FileBlockCacheKey(Path normalizedPath, String pathString, long fileOffset) {
+        this.filePath = normalizedPath;
+        this.fileOffset = fileOffset;
+        this.pathString = pathString;
+    }
+
     @Override
     public int hashCode() {
         int h = hash;
