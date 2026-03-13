@@ -11,11 +11,8 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
-import java.lang.reflect.Field;
 import java.nio.ByteOrder;
 import java.nio.file.Path;
-
-import sun.misc.Unsafe;
 
 import org.apache.lucene.store.AlreadyClosedException;
 import org.apache.lucene.store.IndexInput;
@@ -45,28 +42,16 @@ import org.opensearch.index.store.read_ahead.ReadaheadManager;
  *
  * <p><b>JIT bounds-check elimination:</b> Sequential scalar reads (readByte, readShort,
  * readInt, readLong) use a {@code currentOffsetInBlock} field bounded by the compile-time
- * constant {@code CACHE_BLOCK_SIZE}. HotSpot can prove {@code 0 <= off < CACHE_BLOCK_SIZE}
+ * constant {@code CACHE_BLOCK_SIZE}. HotSpot should be able to prove {@code 0 <= off < CACHE_BLOCK_SIZE}
  * and eliminate MemorySegment bounds checks (checkBounds, checkValidStateRaw, sessionImpl).
- * Bulk and positional reads use {@code seg.byteSize()} because the last block of a file
- * may be smaller than CACHE_BLOCK_SIZE.
+ * This branch investigates why that elimination may not be happening compared to Lucene's
+ * MemorySegmentIndexInput. Bulk and positional reads use {@code seg.byteSize()} because
+ * the last block of a file may be smaller than CACHE_BLOCK_SIZE.
  *
  * @opensearch.internal
  */
 @SuppressWarnings("preview")
 public class CachedMemorySegmentIndexInput extends IndexInput implements RandomAccessInput {
-    // Unsafe instance for direct memory access — bypasses MemorySegment bounds/session checks
-    // on the hot path (readByte, readShort, readInt, readLong). Same pattern as Lucene's
-    // MemorySegmentIndexInput which uses Unsafe internally via ScopedMemoryAccess.
-    static final Unsafe UNSAFE;
-    static {
-        try {
-            Field f = Unsafe.class.getDeclaredField("theUnsafe");
-            f.setAccessible(true);
-            UNSAFE = (Unsafe) f.get(null);
-        } catch (ReflectiveOperationException e) {
-            throw new ExceptionInInitializerError(e);
-        }
-    }
 
     static final ValueLayout.OfByte LAYOUT_BYTE = ValueLayout.JAVA_BYTE;
     static final ValueLayout.OfShort LAYOUT_LE_SHORT = ValueLayout.JAVA_SHORT_UNALIGNED.withOrder(ByteOrder.LITTLE_ENDIAN);
@@ -91,7 +76,6 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
     private long currentBlockOffset = -1;
     private BlockCacheValue<RefCountedMemorySegment> currentBlock = null;
     private MemorySegment currentSegment = null; // cached raw segment — avoids value().segment() virtual calls on hot path
-    private long currentBaseAddress = 0L; // raw native address of currentSegment — for Unsafe reads
 
     // JIT-friendly: track current offset within the cached block.
     // Sequential scalar reads use `off < CACHE_BLOCK_SIZE` guard with this field so
@@ -243,9 +227,6 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
         } else {
             currentSegment = pinnedBlock.segment();
         }
-        // Cache the raw native address for Unsafe reads — bypasses all MemorySegment
-        // bounds checks, session checks, and VarHandle overhead on the hot path.
-        currentBaseAddress = currentSegment.address();
 
         // Notify readahead manager of access pattern
         if (readaheadContext != null) {
@@ -260,13 +241,14 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
     @Override
     public final byte readByte() throws IOException {
         try {
-            // Unsafe fast path: direct memory read bypassing all MemorySegment overhead
-            // (checkBounds, checkValidStateRaw, sessionImpl, VarHandle dispatch).
-            // Safe because the block is pinned (refCount > 1) so memory cannot be freed,
+            // MemorySegment fast path: direct read from cached block.
+            // The block is pinned (refCount > 1) so memory cannot be freed,
             // and Lucene's EOF contract guarantees callers won't read past file length.
+            // HotSpot should be able to prove 0 <= off < CACHE_BLOCK_SIZE and
+            // eliminate bounds checks — investigating why this doesn't happen vs Lucene's impl.
             final int off = currentOffsetInBlock;
-            if (off < CACHE_BLOCK_SIZE && currentBaseAddress != 0L) {
-                final byte v = UNSAFE.getByte(currentBaseAddress + off);
+            if (off < CACHE_BLOCK_SIZE && currentSegment != null) {
+                final byte v = currentSegment.get(LAYOUT_BYTE, off);
                 currentOffsetInBlock = off + 1;
                 curPosition++;
                 return v;
@@ -274,7 +256,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
             // Slow path: block exhausted or first access — load next block
             final long currentPos = curPosition;
             final MemorySegment seg = getCacheBlockWithOffset(currentPos);
-            final byte v = UNSAFE.getByte(currentBaseAddress + lastOffsetInBlock);
+            final byte v = seg.get(LAYOUT_BYTE, lastOffsetInBlock);
             currentOffsetInBlock = lastOffsetInBlock + 1;
             curPosition = currentPos + 1;
             return v;
@@ -419,10 +401,10 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
     @Override
     public final short readShort() throws IOException {
         try {
-            // Unsafe fast path
+            // MemorySegment fast path
             final int off = currentOffsetInBlock;
-            if (off + Short.BYTES <= CACHE_BLOCK_SIZE && currentBaseAddress != 0L) {
-                final short v = UNSAFE.getShort(currentBaseAddress + off);
+            if (off + Short.BYTES <= CACHE_BLOCK_SIZE && currentSegment != null) {
+                final short v = currentSegment.get(LAYOUT_LE_SHORT, off);
                 currentOffsetInBlock = off + Short.BYTES;
                 curPosition += Short.BYTES;
                 return v;
@@ -440,7 +422,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
             if (offsetInBlock + Short.BYTES > CACHE_BLOCK_SIZE) {
                 return super.readShort();
             }
-            final short v = UNSAFE.getShort(currentBaseAddress + offsetInBlock);
+            final short v = seg.get(LAYOUT_LE_SHORT, offsetInBlock);
             currentOffsetInBlock = offsetInBlock + Short.BYTES;
             curPosition = currentPos + Short.BYTES;
             return v;
@@ -455,8 +437,8 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
     public final int readInt() throws IOException {
         try {
             final int off = currentOffsetInBlock;
-            if (off + Integer.BYTES <= CACHE_BLOCK_SIZE && currentBaseAddress != 0L) {
-                final int v = UNSAFE.getInt(currentBaseAddress + off);
+            if (off + Integer.BYTES <= CACHE_BLOCK_SIZE && currentSegment != null) {
+                final int v = currentSegment.get(LAYOUT_LE_INT, off);
                 currentOffsetInBlock = off + Integer.BYTES;
                 curPosition += Integer.BYTES;
                 return v;
@@ -474,7 +456,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
             if (offsetInBlock + Integer.BYTES > CACHE_BLOCK_SIZE) {
                 return super.readInt();
             }
-            final int v = UNSAFE.getInt(currentBaseAddress + offsetInBlock);
+            final int v = seg.get(LAYOUT_LE_INT, offsetInBlock);
             currentOffsetInBlock = offsetInBlock + Integer.BYTES;
             curPosition = currentPos + Integer.BYTES;
             return v;
@@ -489,8 +471,8 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
     public final long readLong() throws IOException {
         try {
             final int off = currentOffsetInBlock;
-            if (off + Long.BYTES <= CACHE_BLOCK_SIZE && currentBaseAddress != 0L) {
-                final long v = UNSAFE.getLong(currentBaseAddress + off);
+            if (off + Long.BYTES <= CACHE_BLOCK_SIZE && currentSegment != null) {
+                final long v = currentSegment.get(LAYOUT_LE_LONG, off);
                 currentOffsetInBlock = off + Long.BYTES;
                 curPosition += Long.BYTES;
                 return v;
@@ -508,7 +490,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
             if (offsetInBlock + Long.BYTES > CACHE_BLOCK_SIZE) {
                 return super.readLong();
             }
-            final long v = UNSAFE.getLong(currentBaseAddress + offsetInBlock);
+            final long v = seg.get(LAYOUT_LE_LONG, offsetInBlock);
             currentOffsetInBlock = offsetInBlock + Long.BYTES;
             curPosition = currentPos + Long.BYTES;
             return v;
@@ -608,15 +590,15 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
         }
 
         try {
-            // Inlined fast path using cached block + Unsafe
+            // Inlined fast path using cached block + MemorySegment
             final long fileOffset = absoluteBaseOffset + pos;
             final long blockOffset = fileOffset & ~CACHE_BLOCK_MASK;
             final int offInBlock = (int) (fileOffset - blockOffset);
-            if (blockOffset == currentBlockOffset && currentBaseAddress != 0L) {
-                return UNSAFE.getByte(currentBaseAddress + offInBlock);
+            if (blockOffset == currentBlockOffset && currentSegment != null) {
+                return currentSegment.get(LAYOUT_BYTE, offInBlock);
             }
-            getCacheBlockWithOffset(pos);
-            return UNSAFE.getByte(currentBaseAddress + lastOffsetInBlock);
+            final MemorySegment seg = getCacheBlockWithOffset(pos);
+            return seg.get(LAYOUT_BYTE, lastOffsetInBlock);
         } catch (IndexOutOfBoundsException ioobe) {
             throw handlePositionalIOOBE(ioobe, "read", pos);
         } catch (NullPointerException | IllegalStateException e) {
@@ -634,7 +616,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
             if (blockOffset == currentBlockOffset && seg != null) {
                 // Use seg.byteSize() — last block may be smaller than CACHE_BLOCK_SIZE
                 if (offInBlock + Short.BYTES <= seg.byteSize()) {
-                    return UNSAFE.getShort(currentBaseAddress + offInBlock);
+                    return seg.get(LAYOUT_LE_SHORT, offInBlock);
                 }
                 long savedPos = curPosition;
                 try {
@@ -655,7 +637,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
                     curPosition = savedPos;
                 }
             }
-            return UNSAFE.getShort(currentBaseAddress + offsetInBlock);
+            return seg.get(LAYOUT_LE_SHORT, offsetInBlock);
         } catch (IndexOutOfBoundsException ioobe) {
             throw handlePositionalIOOBE(ioobe, "read", pos);
         } catch (NullPointerException | IllegalStateException e) {
@@ -672,7 +654,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
             MemorySegment seg = currentSegment;
             if (blockOffset == currentBlockOffset && seg != null) {
                 if (offInBlock + Integer.BYTES <= seg.byteSize()) {
-                    return UNSAFE.getInt(currentBaseAddress + offInBlock);
+                    return seg.get(LAYOUT_LE_INT, offInBlock);
                 }
                 long savedPos = curPosition;
                 try {
@@ -693,7 +675,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
                     curPosition = savedPos;
                 }
             }
-            return UNSAFE.getInt(currentBaseAddress + offsetInBlock);
+            return seg.get(LAYOUT_LE_INT, offsetInBlock);
         } catch (IndexOutOfBoundsException ioobe) {
             throw handlePositionalIOOBE(ioobe, "read", pos);
         } catch (NullPointerException | IllegalStateException e) {
@@ -710,7 +692,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
             MemorySegment seg = currentSegment;
             if (blockOffset == currentBlockOffset && seg != null) {
                 if (offInBlock + Long.BYTES <= seg.byteSize()) {
-                    return UNSAFE.getLong(currentBaseAddress + offInBlock);
+                    return seg.get(LAYOUT_LE_LONG, offInBlock);
                 }
                 long savedPos = curPosition;
                 try {
@@ -731,7 +713,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
                     curPosition = savedPos;
                 }
             }
-            return UNSAFE.getLong(currentBaseAddress + offsetInBlock);
+            return seg.get(LAYOUT_LE_LONG, offsetInBlock);
         } catch (IndexOutOfBoundsException ioobe) {
             throw handlePositionalIOOBE(ioobe, "read", pos);
         } catch (NullPointerException | IllegalStateException e) {
@@ -820,7 +802,6 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
             currentBlock.unpin();
             currentBlock = null;
             currentSegment = null;
-            currentBaseAddress = 0L;
             currentOffsetInBlock = CACHE_BLOCK_SIZE;
         }
 
