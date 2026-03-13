@@ -4,7 +4,7 @@
  */
 package org.opensearch.index.store.benchmark;
 
-import static org.opensearch.index.store.bufferpoolfs.StaticConfigs.CACHE_BLOCK_SIZE;
+import org.opensearch.index.store.bufferpoolfs.StaticConfigs;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ import org.openjdk.jmh.infra.Blackhole;
 public class HotPathReadBenchmarks extends ReadBenchmarkBase {
 
     // Expand to "1", "4", "8", "16", "32" for full sweep
-    @Param({ "1", "8" })
+    @Param({ "8" })
     public int threadCount;
 
     private ExecutorService executor;
@@ -62,7 +62,8 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     public void setupHotPathTrial() throws Exception {
         super.setupTrial();
 
-        byte[] buf = new byte[CACHE_BLOCK_SIZE];
+        final int blockSize = StaticConfigs.CACHE_BLOCK_SIZE;
+        byte[] buf = new byte[blockSize];
         // BufferPool: read all files to populate block cache
         if ("bufferpool".equals(directoryType)) {
             for (String fileName : fileNames) {
@@ -112,7 +113,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
             futures.add(executor.submit(() -> {
                 try {
                     Random rng = new Random(BenchmarkConfig.RANGE_SEED + threadId);
-                    byte[] buf = new byte[CACHE_BLOCK_SIZE * 2];
+                    byte[] buf = new byte[StaticConfigs.CACHE_BLOCK_SIZE * 2];
                     task.run(rng, buf, bh);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -244,7 +245,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     public void randomReadBulkBytesFromClone(Blackhole bh) throws Exception {
         runConcurrent((rng, buf, hole) -> {
             long[] offsets = randomReadByteOffsets();
-            byte[] readBuf = new byte[CACHE_BLOCK_SIZE];
+            byte[] readBuf = new byte[StaticConfigs.CACHE_BLOCK_SIZE];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
                 try {
@@ -269,7 +270,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     @Benchmark
     public void sequentialReadBulkBytesFromClone(Blackhole bh) throws Exception {
         runConcurrent((rng, buf, hole) -> {
-            byte[] readBuf = new byte[CACHE_BLOCK_SIZE];
+            byte[] readBuf = new byte[StaticConfigs.CACHE_BLOCK_SIZE];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
                 try {
@@ -352,7 +353,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     @Benchmark
     public void sequentialReadIntsFromClone(Blackhole bh) throws Exception {
         runConcurrent((rng, buf, hole) -> {
-            int numInts = CACHE_BLOCK_SIZE / Integer.BYTES;
+            int numInts = StaticConfigs.CACHE_BLOCK_SIZE / Integer.BYTES;
             int[] intBuf = new int[numInts];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
@@ -377,7 +378,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     @Benchmark
     public void sequentialReadLongsFromClone(Blackhole bh) throws Exception {
         runConcurrent((rng, buf, hole) -> {
-            int numLongs = CACHE_BLOCK_SIZE / Long.BYTES;
+            int numLongs = StaticConfigs.CACHE_BLOCK_SIZE / Long.BYTES;
             long[] longBuf = new long[numLongs];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
@@ -402,7 +403,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     @Benchmark
     public void sequentialReadFloatsFromClone(Blackhole bh) throws Exception {
         runConcurrent((rng, buf, hole) -> {
-            int numFloats = CACHE_BLOCK_SIZE / Float.BYTES;
+            int numFloats = StaticConfigs.CACHE_BLOCK_SIZE / Float.BYTES;
             float[] floatBuf = new float[numFloats];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
@@ -427,12 +428,12 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     @Benchmark
     public void sliceReadBytesFromClone(Blackhole bh) throws Exception {
         runConcurrent((rng, buf, hole) -> {
-            byte[] readBuf = new byte[CACHE_BLOCK_SIZE];
+            byte[] readBuf = new byte[StaticConfigs.CACHE_BLOCK_SIZE];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
                 try {
                     for (long offset : blockStartOffsets) {
-                        long sliceLen = Math.min(CACHE_BLOCK_SIZE, fileSize - offset);
+                        long sliceLen = Math.min(StaticConfigs.CACHE_BLOCK_SIZE, fileSize - offset);
                         if (sliceLen > 0) {
                             try (IndexInput slice = fileInput.slice("bench-slice", offset, sliceLen)) {
                                 slice.readBytes(readBuf, 0, (int) sliceLen);
@@ -456,9 +457,9 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                 try {
                     fileInput.seek(0);
                     long pos = 0;
-                    while (pos + CACHE_BLOCK_SIZE < fileSize) {
-                        fileInput.skipBytes(CACHE_BLOCK_SIZE);
-                        pos += CACHE_BLOCK_SIZE;
+                    while (pos + StaticConfigs.CACHE_BLOCK_SIZE < fileSize) {
+                        fileInput.skipBytes(StaticConfigs.CACHE_BLOCK_SIZE);
+                        pos += StaticConfigs.CACHE_BLOCK_SIZE;
                         if (pos + 1 <= fileSize) {
                             hole.consume(fileInput.readByte());
                             pos++;
@@ -477,12 +478,12 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     public void mixedReadWorkload(Blackhole bh) throws Exception {
         runConcurrent((rng, buf, hole) -> {
             long[] offsets = randomReadByteOffsets();
-            byte[] readBuf = new byte[CACHE_BLOCK_SIZE];
-            int numInts = CACHE_BLOCK_SIZE / Integer.BYTES;
+            byte[] readBuf = new byte[StaticConfigs.CACHE_BLOCK_SIZE];
+            int numInts = StaticConfigs.CACHE_BLOCK_SIZE / Integer.BYTES;
             int[] intBuf = new int[numInts];
-            int numLongs = CACHE_BLOCK_SIZE / Long.BYTES;
+            int numLongs = StaticConfigs.CACHE_BLOCK_SIZE / Long.BYTES;
             long[] longBuf = new long[numLongs];
-            int numFloats = CACHE_BLOCK_SIZE / Float.BYTES;
+            int numFloats = StaticConfigs.CACHE_BLOCK_SIZE / Float.BYTES;
             float[] floatBuf = new float[numFloats];
 
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
@@ -553,7 +554,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                                 }
                             }
                             case 10 -> {
-                                long sliceLen = Math.min(CACHE_BLOCK_SIZE, fileSize - offset);
+                                long sliceLen = Math.min(StaticConfigs.CACHE_BLOCK_SIZE, fileSize - offset);
                                 if (sliceLen > 0) {
                                     try (IndexInput slice = fileInput.slice("bench-slice", offset, sliceLen)) {
                                         slice.readBytes(readBuf, 0, (int) sliceLen);
@@ -563,7 +564,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                             }
                             case 11 -> {
                                 fileInput.seek(offset);
-                                long skip = Math.min(CACHE_BLOCK_SIZE, fileSize - offset);
+                                long skip = Math.min(StaticConfigs.CACHE_BLOCK_SIZE, fileSize - offset);
                                 if (skip > 0) {
                                     fileInput.skipBytes(skip);
                                     hole.consume(fileInput.getFilePointer());
