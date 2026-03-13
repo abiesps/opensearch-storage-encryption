@@ -45,19 +45,35 @@ public class StaticConfigs {
     public static final int DIRECT_IO_WRITE_BUFFER_SIZE_POWER = 18;
 
     /** 
-     * Power of 2 for cache block size (2^13 = 8KB blocks).
+     * Power of 2 for cache block size. Default 2^15 = 32KB blocks.
+     * Non-final to allow benchmark override via {@link #overrideCacheBlockSize(int)}.
      */
-    public static final int CACHE_BLOCK_SIZE_POWER = 13;
+    public static int CACHE_BLOCK_SIZE_POWER = 15;
 
     /** 
-     * Size of each cache block in bytes (8KB).
+     * Size of each cache block in bytes. Default 32KB.
      */
-    public static final int CACHE_BLOCK_SIZE = 1 << CACHE_BLOCK_SIZE_POWER;
+    public static int CACHE_BLOCK_SIZE = 1 << CACHE_BLOCK_SIZE_POWER;
 
     /**
      * Bit mask for cache block alignment (block_size - 1).
      */
-    public static final long CACHE_BLOCK_MASK = CACHE_BLOCK_SIZE - 1;
+    public static long CACHE_BLOCK_MASK = CACHE_BLOCK_SIZE - 1;
+
+    /**
+     * Override cache block size for benchmarking. Must be called before any
+     * directory or pool creation. The power must yield a valid power-of-2 size.
+     *
+     * @param power the power of 2 (e.g. 15 for 32KB, 17 for 128KB)
+     */
+    public static void overrideCacheBlockSize(int power) {
+        if (power < 10 || power > 20) {
+            throw new IllegalArgumentException("Cache block size power must be between 10 and 20, got: " + power);
+        }
+        CACHE_BLOCK_SIZE_POWER = power;
+        CACHE_BLOCK_SIZE = 1 << power;
+        CACHE_BLOCK_MASK = CACHE_BLOCK_SIZE - 1;
+    }
 
     /**
      * Returns the correct Direct I/O alignment for the filesystem containing the given path.

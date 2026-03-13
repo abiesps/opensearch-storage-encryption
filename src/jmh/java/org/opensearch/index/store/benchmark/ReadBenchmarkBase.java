@@ -5,7 +5,8 @@
 package org.opensearch.index.store.benchmark;
 
 import static org.opensearch.index.store.CryptoDirectoryFactory.DEFAULT_CRYPTO_PROVIDER;
-import static org.opensearch.index.store.bufferpoolfs.StaticConfigs.CACHE_BLOCK_SIZE;
+
+import org.opensearch.index.store.bufferpoolfs.StaticConfigs;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -59,11 +60,14 @@ public class ReadBenchmarkBase {
     @Param({ "bufferpool", "mmap" })
     public String directoryType;
 
-    @Param({ "1" })
+    @Param({ "32" })
     public int fileSizeMB;
 
     @Param({ "1" })
     public int numFilesToRead;
+
+    @Param({ "32", "128" })
+    public int cacheBlockSizeKB;
 
     public int sequentialReadNumBytes;
 
@@ -92,14 +96,32 @@ public class ReadBenchmarkBase {
      * Subclasses must call this from their own {@code @Setup(Level.Trial)} method.
      */
     public void setupTrial() throws Exception {
+        // Override cache block size before any directory/pool creation
+        int power = switch (cacheBlockSizeKB) {
+            case 1 -> 10;    // 1KB
+            case 2 -> 11;    // 2KB
+            case 4 -> 12;    // 4KB
+            case 8 -> 13;    // 8KB
+            case 16 -> 14;   // 16KB
+            case 32 -> 15;   // 32KB
+            case 64 -> 16;   // 64KB
+            case 128 -> 17;  // 128KB
+            case 256 -> 18;  // 256KB
+            case 512 -> 19;  // 512KB
+            case 1024 -> 20; // 1MB
+            default -> throw new IllegalArgumentException("cacheBlockSizeKB must be a power of 2 between 1 and 1024, got: " + cacheBlockSizeKB);
+        };
+        StaticConfigs.overrideCacheBlockSize(power);
+
         // Initialize metrics service with no-op registry (normally done during node startup)
         CryptoMetricsService.initialize(NoopMetricsRegistry.INSTANCE);
 
+        final int blockSize = StaticConfigs.CACHE_BLOCK_SIZE;
         fileSize = fileSizeMB * 1024 * 1024 + 3; // Always add a partial block
-        numBlocks = (fileSize + CACHE_BLOCK_SIZE - 1) / CACHE_BLOCK_SIZE;
+        numBlocks = (fileSize + blockSize - 1) / blockSize;
         fileData = BenchmarkConfig.buildDeterministicPattern(fileSize);
         random = new Random(BenchmarkConfig.RANGE_SEED);
-        sequentialReadNumBytes = random.nextInt(0, CACHE_BLOCK_SIZE - 3);
+        sequentialReadNumBytes = random.nextInt(0, blockSize - 3);
 
         // Allocate arrays now that numFilesToRead and numBlocks are known
         fileNames = new String[numFilesToRead];
@@ -235,15 +257,17 @@ public class ReadBenchmarkBase {
     }
 
     protected void setBlockStartOffset() {
+        final int blockSize = StaticConfigs.CACHE_BLOCK_SIZE;
         for (int block = 0; block < numBlocks; block++) {
-            blockStartOffsets[block] = (long) block * CACHE_BLOCK_SIZE;
+            blockStartOffsets[block] = (long) block * blockSize;
         }
     }
 
     protected void setRandomReadByteOffsets() {
+        final int blockSize = StaticConfigs.CACHE_BLOCK_SIZE;
         this.randomReadByteOffsets = new long[numBlocks];
         for (int i = 0; i < numBlocks; i++) {
-            int blockBytes = (i == numBlocks - 1) ? Math.max(1, fileSize - (int) blockStartOffsets[i]) : CACHE_BLOCK_SIZE;
+            int blockBytes = (i == numBlocks - 1) ? Math.max(1, fileSize - (int) blockStartOffsets[i]) : blockSize;
             // Reserve 128 bytes headroom so multi-byte reads (readLong etc.) stay in-block.
             // For tiny last blocks, just use offset 0 within the block.
             int usable = Math.max(1, blockBytes - 128);
