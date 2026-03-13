@@ -241,30 +241,34 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
     @Override
     public final byte readByte() throws IOException {
         try {
-            // MemorySegment fast path: direct read from cached block.
-            // The block is pinned (refCount > 1) so memory cannot be freed,
-            // and Lucene's EOF contract guarantees callers won't read past file length.
-            // HotSpot should be able to prove 0 <= off < CACHE_BLOCK_SIZE and
-            // eliminate bounds checks — investigating why this doesn't happen vs Lucene's impl.
-            final int off = currentOffsetInBlock;
-            if (off < CACHE_BLOCK_SIZE && currentSegment != null) {
-                final byte v = currentSegment.get(LAYOUT_BYTE, off);
-                currentOffsetInBlock = off + 1;
-                curPosition++;
-                return v;
-            }
-            // Slow path: block exhausted or first access — load next block
-            final long currentPos = curPosition;
-            final MemorySegment seg = getCacheBlockWithOffset(currentPos);
-            final byte v = seg.get(LAYOUT_BYTE, lastOffsetInBlock);
-            currentOffsetInBlock = lastOffsetInBlock + 1;
-            curPosition = currentPos + 1;
+            // Lucene-style hot path: just read, let exceptions handle boundaries.
+            // On the happy path this is 1 memory load + 2 increments — no branches.
+            final byte v = currentSegment.get(LAYOUT_BYTE, currentOffsetInBlock);
+            currentOffsetInBlock++;
+            curPosition++;
             return v;
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw handlePositionalIOOBE(ioobe, "read", curPosition);
-        } catch (NullPointerException | IllegalStateException e) {
+        } catch (IndexOutOfBoundsException _) {
+            // Block exhausted — load next block and retry
+            return readByteSlow();
+        } catch (NullPointerException _) {
+            // First access or segment not yet loaded — load current block and retry
+            if (!isOpen) throw alreadyClosed(null);
+            return readByteSlow();
+        } catch (IllegalStateException e) {
             throw alreadyClosed(e);
         }
+    }
+
+    private byte readByteSlow() throws IOException {
+        final long currentPos = curPosition;
+        if (currentPos >= length) {
+            throw new EOFException("read past EOF: " + this);
+        }
+        final MemorySegment seg = getCacheBlockWithOffset(currentPos);
+        final byte v = seg.get(LAYOUT_BYTE, lastOffsetInBlock);
+        currentOffsetInBlock = lastOffsetInBlock + 1;
+        curPosition = currentPos + 1;
+        return v;
     }
 
     @Override
@@ -401,104 +405,112 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
     @Override
     public final short readShort() throws IOException {
         try {
-            // MemorySegment fast path
             final int off = currentOffsetInBlock;
-            if (off + Short.BYTES <= CACHE_BLOCK_SIZE && currentSegment != null) {
-                final short v = currentSegment.get(LAYOUT_LE_SHORT, off);
-                currentOffsetInBlock = off + Short.BYTES;
-                curPosition += Short.BYTES;
-                return v;
-            }
-            // Slow path: block miss or spans boundary
-            final long currentPos = curPosition;
-            final long fileOffset = absoluteBaseOffset + currentPos;
-            final long blockOffset = fileOffset & ~CACHE_BLOCK_MASK;
-            final int offInBlock = (int) (fileOffset - blockOffset);
-            if (offInBlock + Short.BYTES > CACHE_BLOCK_SIZE) {
-                return super.readShort();
-            }
-            final MemorySegment seg = getCacheBlockWithOffset(currentPos);
-            final int offsetInBlock = lastOffsetInBlock;
-            if (offsetInBlock + Short.BYTES > CACHE_BLOCK_SIZE) {
-                return super.readShort();
-            }
-            final short v = seg.get(LAYOUT_LE_SHORT, offsetInBlock);
-            currentOffsetInBlock = offsetInBlock + Short.BYTES;
-            curPosition = currentPos + Short.BYTES;
+            final short v = currentSegment.get(LAYOUT_LE_SHORT, off);
+            currentOffsetInBlock = off + Short.BYTES;
+            curPosition += Short.BYTES;
             return v;
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw handlePositionalIOOBE(ioobe, "read", curPosition);
-        } catch (NullPointerException | IllegalStateException e) {
+        } catch (IndexOutOfBoundsException _) {
+            return readShortSlow();
+        } catch (NullPointerException _) {
+            if (!isOpen) throw alreadyClosed(null);
+            return readShortSlow();
+        } catch (IllegalStateException e) {
             throw alreadyClosed(e);
         }
+    }
+
+    private short readShortSlow() throws IOException {
+        // Check if read spans a block boundary
+        final long fileOffset = absoluteBaseOffset + curPosition;
+        final long blockOffset = fileOffset & ~CACHE_BLOCK_MASK;
+        final int offInBlock = (int) (fileOffset - blockOffset);
+        if (offInBlock + Short.BYTES > CACHE_BLOCK_SIZE) {
+            return super.readShort();
+        }
+        final MemorySegment seg = getCacheBlockWithOffset(curPosition);
+        final int offsetInBlock = lastOffsetInBlock;
+        if (offsetInBlock + Short.BYTES > seg.byteSize()) {
+            return super.readShort();
+        }
+        final short v = seg.get(LAYOUT_LE_SHORT, offsetInBlock);
+        currentOffsetInBlock = offsetInBlock + Short.BYTES;
+        curPosition += Short.BYTES;
+        return v;
     }
 
     @Override
     public final int readInt() throws IOException {
         try {
             final int off = currentOffsetInBlock;
-            if (off + Integer.BYTES <= CACHE_BLOCK_SIZE && currentSegment != null) {
-                final int v = currentSegment.get(LAYOUT_LE_INT, off);
-                currentOffsetInBlock = off + Integer.BYTES;
-                curPosition += Integer.BYTES;
-                return v;
-            }
-            // Slow path
-            final long currentPos = curPosition;
-            final long fileOffset = absoluteBaseOffset + currentPos;
-            final long blockOffset = fileOffset & ~CACHE_BLOCK_MASK;
-            final int offInBlock = (int) (fileOffset - blockOffset);
-            if (offInBlock + Integer.BYTES > CACHE_BLOCK_SIZE) {
-                return super.readInt();
-            }
-            final MemorySegment seg = getCacheBlockWithOffset(currentPos);
-            final int offsetInBlock = lastOffsetInBlock;
-            if (offsetInBlock + Integer.BYTES > CACHE_BLOCK_SIZE) {
-                return super.readInt();
-            }
-            final int v = seg.get(LAYOUT_LE_INT, offsetInBlock);
-            currentOffsetInBlock = offsetInBlock + Integer.BYTES;
-            curPosition = currentPos + Integer.BYTES;
+            final int v = currentSegment.get(LAYOUT_LE_INT, off);
+            currentOffsetInBlock = off + Integer.BYTES;
+            curPosition += Integer.BYTES;
             return v;
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw handlePositionalIOOBE(ioobe, "read", curPosition);
-        } catch (NullPointerException | IllegalStateException e) {
+        } catch (IndexOutOfBoundsException _) {
+            return readIntSlow();
+        } catch (NullPointerException _) {
+            if (!isOpen) throw alreadyClosed(null);
+            return readIntSlow();
+        } catch (IllegalStateException e) {
             throw alreadyClosed(e);
         }
+    }
+
+    private int readIntSlow() throws IOException {
+        // Check if read spans a block boundary
+        final long fileOffset = absoluteBaseOffset + curPosition;
+        final long blockOffset = fileOffset & ~CACHE_BLOCK_MASK;
+        final int offInBlock = (int) (fileOffset - blockOffset);
+        if (offInBlock + Integer.BYTES > CACHE_BLOCK_SIZE) {
+            return super.readInt();
+        }
+        final MemorySegment seg = getCacheBlockWithOffset(curPosition);
+        final int offsetInBlock = lastOffsetInBlock;
+        if (offsetInBlock + Integer.BYTES > seg.byteSize()) {
+            return super.readInt();
+        }
+        final int v = seg.get(LAYOUT_LE_INT, offsetInBlock);
+        currentOffsetInBlock = offsetInBlock + Integer.BYTES;
+        curPosition += Integer.BYTES;
+        return v;
     }
 
     @Override
     public final long readLong() throws IOException {
         try {
             final int off = currentOffsetInBlock;
-            if (off + Long.BYTES <= CACHE_BLOCK_SIZE && currentSegment != null) {
-                final long v = currentSegment.get(LAYOUT_LE_LONG, off);
-                currentOffsetInBlock = off + Long.BYTES;
-                curPosition += Long.BYTES;
-                return v;
-            }
-            // Slow path
-            final long currentPos = curPosition;
-            final long fileOffset = absoluteBaseOffset + currentPos;
-            final long blockOffset = fileOffset & ~CACHE_BLOCK_MASK;
-            final int offInBlock = (int) (fileOffset - blockOffset);
-            if (offInBlock + Long.BYTES > CACHE_BLOCK_SIZE) {
-                return super.readLong();
-            }
-            final MemorySegment seg = getCacheBlockWithOffset(currentPos);
-            final int offsetInBlock = lastOffsetInBlock;
-            if (offsetInBlock + Long.BYTES > CACHE_BLOCK_SIZE) {
-                return super.readLong();
-            }
-            final long v = seg.get(LAYOUT_LE_LONG, offsetInBlock);
-            currentOffsetInBlock = offsetInBlock + Long.BYTES;
-            curPosition = currentPos + Long.BYTES;
+            final long v = currentSegment.get(LAYOUT_LE_LONG, off);
+            currentOffsetInBlock = off + Long.BYTES;
+            curPosition += Long.BYTES;
             return v;
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw handlePositionalIOOBE(ioobe, "read", curPosition);
-        } catch (NullPointerException | IllegalStateException e) {
+        } catch (IndexOutOfBoundsException _) {
+            return readLongSlow();
+        } catch (NullPointerException _) {
+            if (!isOpen) throw alreadyClosed(null);
+            return readLongSlow();
+        } catch (IllegalStateException e) {
             throw alreadyClosed(e);
         }
+    }
+
+    private long readLongSlow() throws IOException {
+        // Check if read spans a block boundary
+        final long fileOffset = absoluteBaseOffset + curPosition;
+        final long blockOffset = fileOffset & ~CACHE_BLOCK_MASK;
+        final int offInBlock = (int) (fileOffset - blockOffset);
+        if (offInBlock + Long.BYTES > CACHE_BLOCK_SIZE) {
+            return super.readLong();
+        }
+        final MemorySegment seg = getCacheBlockWithOffset(curPosition);
+        final int offsetInBlock = lastOffsetInBlock;
+        if (offsetInBlock + Long.BYTES > seg.byteSize()) {
+            return super.readLong();
+        }
+        final long v = seg.get(LAYOUT_LE_LONG, offsetInBlock);
+        currentOffsetInBlock = offsetInBlock + Long.BYTES;
+        curPosition += Long.BYTES;
+        return v;
     }
 
     @Override
