@@ -96,6 +96,8 @@ public class BlockSlotTinyCache {
 
     private final BlockCache<RefCountedMemorySegment> cache;
     private final Path path;
+    private final Path normalizedPath; // pre-computed absolute normalized path — avoids UnixPath.normalize() on hot path
+    private final String normalizedPathString; // cached toString() of normalizedPath
 
     // Parallel arrays for Tier-2 L1 slots (faster than object allocations)
     private final long[] slotBlockIdx; // published under stamp gate
@@ -128,6 +130,8 @@ public class BlockSlotTinyCache {
     public BlockSlotTinyCache(BlockCache<RefCountedMemorySegment> cache, Path path, long fileLength) {
         this.cache = cache;
         this.path = path;
+        this.normalizedPath = path.toAbsolutePath().normalize();
+        this.normalizedPathString = this.normalizedPath.toString();
 
         this.slotBlockIdx = new long[SLOT_COUNT];
         this.slotStamp = new long[SLOT_COUNT];
@@ -183,7 +187,7 @@ public class BlockSlotTinyCache {
 
         FileBlockCacheKey key = slotKeys[slotIdx];
         if (key == null || key.fileOffset() != blockOff) {
-            key = new FileBlockCacheKey(path, blockOff);
+            key = new FileBlockCacheKey(normalizedPath, normalizedPathString, blockOff);
             slotKeys[slotIdx] = key;
         }
 
