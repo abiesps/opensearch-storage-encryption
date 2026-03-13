@@ -160,11 +160,10 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                     for (long offset : blockStartOffsets) {
                         int dummyConsumer = 0;
                         fileInput.seek(offset);
-                        for (int byteLen = 0; byteLen < sequentialReadNumBytes; byteLen++) {
-                            if (fileInput.getFilePointer() < fileSize) {
-                                byte b = fileInput.readByte();
-                                dummyConsumer += b;
-                            }
+                        long remaining = Math.min(sequentialReadNumBytes, fileSize - offset);
+                        for (long i = 0; i < remaining; i++) {
+                            byte b = fileInput.readByte();
+                            dummyConsumer += b;
                         }
                         hole.consume(dummyConsumer);
                     }
