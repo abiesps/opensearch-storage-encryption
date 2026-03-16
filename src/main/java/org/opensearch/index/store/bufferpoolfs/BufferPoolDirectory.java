@@ -76,6 +76,7 @@ public class BufferPoolDirectory extends FSDirectory {
     private final Path dirPath;
     private final byte[] masterKeyBytes;
     private final EncryptionMetadataCache encryptionMetadataCache;
+    private SparseLongBlockTable blockTableOverride;
 
     /**
      * Creates a new CryptoDirectIODirectory with the specified components.
@@ -114,6 +115,15 @@ public class BufferPoolDirectory extends FSDirectory {
         // startCacheStatsTelemetry(); // uncomment for local testing
     }
 
+    /**
+     * Sets a SparseLongBlockTable override for all subsequent openInput calls.
+     * When set, all new IndexInputs will use this table instead of creating their own.
+     * Pass a {@link NoOpSparseLongBlockTable} to disable L1 caching for benchmarking.
+     */
+    public void setBlockTableOverride(SparseLongBlockTable blockTableOverride) {
+        this.blockTableOverride = blockTableOverride;
+    }
+
     @Override
     public IndexInput openInput(String name, IOContext context) throws IOException {
         try {
@@ -131,18 +141,36 @@ public class BufferPoolDirectory extends FSDirectory {
 
             ReadaheadManager readAheadManager = new ReadaheadManagerImpl(readAheadworker, blockCache);
             ReadaheadContext readAheadContext = readAheadManager.register(file, contentLength);
-            BlockSlotTinyCache pinRegistry = new BlockSlotTinyCache(blockCache, file, contentLength);
 
-            return CachedMemorySegmentIndexInput
-                .newInstance(
-                    "CachedMemorySegmentIndexInput(path=\"" + file + "\")",
+            if (blockTableOverride != null) {
+                return CachedMemorySegmentIndexInputV2.newInstance(
+                        "CachedMemorySegmentIndexInputV2(path=\"" + file + "\")",
+                        file,
+                        contentLength,
+                        blockCache,
+                        readAheadManager,
+                        readAheadContext,
+                        blockTableOverride
+                );
+            }
+            return CachedMemorySegmentIndexInputV2.newInstance(
+                    "CachedMemorySegmentIndexInputV2(path=\"" + file + "\")",
                     file,
                     contentLength,
                     blockCache,
                     readAheadManager,
-                    readAheadContext,
-                    pinRegistry
-                );
+                    readAheadContext
+            );
+//            return CachedMemorySegmentIndexInput
+//                .newInstance(
+//                    "CachedMemorySegmentIndexInput(path=\"" + file + "\")",
+//                    file,
+//                    contentLength,
+//                    blockCache,
+//                    readAheadManager,
+//                    readAheadContext,
+//                    pinRegistry
+//                );
         } catch (Exception e) {
             CryptoMetricsService.getInstance().recordError(ErrorType.INDEX_INPUT_ERROR);
             throw e;

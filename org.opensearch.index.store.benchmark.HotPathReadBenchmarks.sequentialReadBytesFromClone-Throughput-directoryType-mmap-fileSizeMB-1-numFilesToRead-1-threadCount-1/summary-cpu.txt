@@ -1,0 +1,1223 @@
+--- Execution profile ---
+Total samples       : 2569
+
+--- 8230000000 ns (32.04%), 823 samples
+  [ 0] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 7640000000 ns (29.74%), 764 samples
+  [ 0] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 3230000000 ns (12.57%), 323 samples
+  [ 0] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 1290000000 ns (5.02%), 129 samples
+  [ 0] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 1160000000 ns (4.52%), 116 samples
+  [ 0] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 530000000 ns (2.06%), 53 samples
+  [ 0] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 330000000 ns (1.28%), 33 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 300000000 ns (1.17%), 30 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 6] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 7] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 8] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 9] java.util.concurrent.LinkedBlockingQueue.take
+  [10] java.util.concurrent.ThreadPoolExecutor.getTask
+  [11] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [12] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [13] java.lang.Thread.runWith
+  [14] java.lang.Thread.run
+
+--- 290000000 ns (1.13%), 29 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 280000000 ns (1.09%), 28 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 6] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 7] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 8] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 9] java.util.concurrent.LinkedBlockingQueue.take
+  [10] java.util.concurrent.ThreadPoolExecutor.getTask
+  [11] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [12] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [13] java.lang.Thread.runWith
+  [14] java.lang.Thread.run
+
+--- 240000000 ns (0.93%), 24 samples
+  [ 0] jdk.internal.misc.ScopedMemoryAccess.getByteInternal
+  [ 1] jdk.internal.misc.ScopedMemoryAccess.getByte
+  [ 2] java.lang.invoke.VarHandleSegmentAsBytes.get
+  [ 3] java.lang.invoke.VarHandleGuards.guard_LJ_I
+  [ 4] java.lang.foreign.MemorySegment.get
+  [ 5] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 230000000 ns (0.90%), 23 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.FutureTask.awaitDone
+  [ 6] java.util.concurrent.FutureTask.get
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 9] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [10] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [11] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [12] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [13] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [14] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [15] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [16] java.lang.reflect.Method.invoke
+  [17] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [18] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [19] java.util.concurrent.FutureTask.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 190000000 ns (0.74%), 19 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 190000000 ns (0.74%), 19 samples
+  [ 0] jdk.internal.misc.ScopedMemoryAccess.getByteInternal
+  [ 1] jdk.internal.misc.ScopedMemoryAccess.getByte
+  [ 2] java.lang.invoke.VarHandleSegmentAsBytes.get
+  [ 3] java.lang.invoke.VarHandleGuards.guard_LJ_I
+  [ 4] java.lang.foreign.MemorySegment.get
+  [ 5] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 150000000 ns (0.58%), 15 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.FutureTask.awaitDone
+  [ 6] java.util.concurrent.FutureTask.get
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 9] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [10] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [11] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [12] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [13] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [14] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [15] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [16] java.lang.reflect.Method.invoke
+  [17] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [18] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [19] java.util.concurrent.FutureTask.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 140000000 ns (0.54%), 14 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 6] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 7] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 8] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 9] java.util.concurrent.LinkedBlockingQueue.take
+  [10] java.util.concurrent.ThreadPoolExecutor.getTask
+  [11] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [12] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [13] java.lang.Thread.runWith
+  [14] java.lang.Thread.run
+
+--- 130000000 ns (0.51%), 13 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.FutureTask.awaitDone
+  [ 6] java.util.concurrent.FutureTask.get
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 9] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [10] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [11] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [12] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [13] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [14] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [15] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [16] java.lang.reflect.Method.invoke
+  [17] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [18] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [19] java.util.concurrent.FutureTask.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 110000000 ns (0.43%), 11 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.FutureTask.awaitDone
+  [ 6] java.util.concurrent.FutureTask.get
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 9] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [10] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [11] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [12] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [13] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [14] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [15] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [16] java.lang.reflect.Method.invoke
+  [17] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [18] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [19] java.util.concurrent.FutureTask.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 90000000 ns (0.35%), 9 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 80000000 ns (0.31%), 8 samples
+  [ 0] jdk.internal.misc.ScopedMemoryAccess.getByteInternal
+  [ 1] jdk.internal.misc.ScopedMemoryAccess.getByte
+  [ 2] java.lang.invoke.VarHandleSegmentAsBytes.get
+  [ 3] java.lang.invoke.VarHandleGuards.guard_LJ_I
+  [ 4] java.lang.foreign.MemorySegment.get
+  [ 5] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 70000000 ns (0.27%), 7 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.FutureTask.awaitDone
+  [ 6] java.util.concurrent.FutureTask.get
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 9] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [10] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [11] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [12] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [13] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [14] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [15] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [16] java.lang.reflect.Method.invoke
+  [17] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [18] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [19] java.util.concurrent.FutureTask.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 70000000 ns (0.27%), 7 samples
+  [ 0] java.util.concurrent.FutureTask.run
+  [ 1] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 2] java.util.concurrent.FutureTask.run
+  [ 3] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 4] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 5] java.lang.Thread.runWith
+  [ 6] java.lang.Thread.run
+
+--- 50000000 ns (0.19%), 5 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 50000000 ns (0.19%), 5 samples
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.FutureTask.finishCompletion
+  [ 5] java.util.concurrent.FutureTask.set
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 40000000 ns (0.16%), 4 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 30000000 ns (0.12%), 3 samples
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.FutureTask.finishCompletion
+  [ 5] java.util.concurrent.FutureTask.set
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 30000000 ns (0.12%), 3 samples
+  [ 0] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 30000000 ns (0.12%), 3 samples
+  [ 0] zero_blocks
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 3] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 4] java.util.concurrent.FutureTask.run
+  [ 5] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 6] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 7] java.lang.Thread.runWith
+  [ 8] java.lang.Thread.run
+
+--- 30000000 ns (0.12%), 3 samples
+  [ 0] G1ParScanThreadState::do_copy_to_survivor_space
+  [ 1] G1ParScanThreadState::trim_queue_to_threshold
+  [ 2] G1ScanHRForRegionClosure::scan_memregion
+  [ 3] G1ScanHRForRegionClosure::scan_heap_roots
+  [ 4] G1ScanHRForRegionClosure::do_heap_region
+  [ 5] G1RemSet::scan_heap_roots
+  [ 6] G1EvacuateRegionsTask::scan_roots
+  [ 7] G1EvacuateRegionsBaseTask::work
+  [ 8] WorkerThread::run
+  [ 9] Thread::call_run
+  [10] thread_native_entry
+  [11] _pthread_start
+  [12] thread_start
+
+--- 20000000 ns (0.08%), 2 samples
+  [ 0] PerfLongVariant::sample
+  [ 1] PeriodicTask::real_time_tick
+  [ 2] WatcherThread::run
+  [ 3] Thread::call_run
+  [ 4] thread_native_entry
+  [ 5] _pthread_start
+  [ 6] thread_start
+
+--- 20000000 ns (0.08%), 2 samples
+  [ 0] java.util.concurrent.FutureTask.run
+  [ 1] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 2] java.util.concurrent.FutureTask.run
+  [ 3] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 4] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 5] java.lang.Thread.runWith
+  [ 6] java.lang.Thread.run
+
+--- 20000000 ns (0.08%), 2 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 20000000 ns (0.08%), 2 samples
+  [ 0] __psynch_cvwait
+  [ 1] PlatformMonitor::wait
+  [ 2] Monitor::wait_without_safepoint_check
+  [ 3] WatcherThread::sleep
+  [ 4] WatcherThread::run
+  [ 5] Thread::call_run
+  [ 6] thread_native_entry
+  [ 7] _pthread_start
+  [ 8] thread_start
+
+--- 20000000 ns (0.08%), 2 samples
+  [ 0] jdk.internal.foreign.MemorySessionImpl.checkValidStateRaw
+  [ 1] jdk.internal.misc.ScopedMemoryAccess.getByteInternal
+  [ 2] jdk.internal.misc.ScopedMemoryAccess.getByte
+  [ 3] java.lang.invoke.VarHandleSegmentAsBytes.get
+  [ 4] java.lang.invoke.VarHandleGuards.guard_LJ_I
+  [ 5] java.lang.foreign.MemorySegment.get
+  [ 6] org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [11] java.util.concurrent.Executors$RunnableAdapter.call
+  [12] java.util.concurrent.FutureTask.run
+  [13] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [14] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [15] java.lang.Thread.runWith
+  [16] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] PhaseCFG::partial_latency_of_defs
+  [ 1] PhaseCFG::global_code_motion
+  [ 2] PhaseCFG::do_global_code_motion
+  [ 3] Compile::Code_Gen
+  [ 4] Compile::Compile
+  [ 5] C2Compiler::compile_method
+  [ 6] CompileBroker::invoke_compiler_on_method
+  [ 7] CompileBroker::compiler_thread_loop
+  [ 8] JavaThread::thread_main_inner
+  [ 9] Thread::call_run
+  [10] thread_native_entry
+  [11] _pthread_start
+  [12] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] semaphore_wait_trap
+  [ 1] WorkerThreads::run_task
+  [ 2] G1YoungCollector::evacuate_initial_collection_set
+  [ 3] G1YoungCollector::collect
+  [ 4] G1CollectedHeap::do_collection_pause_at_safepoint_helper
+  [ 5] G1CollectedHeap::do_collection_pause_at_safepoint
+  [ 6] VM_G1CollectForAllocation::doit
+  [ 7] VM_Operation::evaluate
+  [ 8] VMThread::evaluate_operation
+  [ 9] VMThread::inner_execute
+  [10] VMThread::run
+  [11] Thread::call_run
+  [12] thread_native_entry
+  [13] _pthread_start
+  [14] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 1] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 2] java.lang.Thread.runWith
+  [ 3] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] FieldInfoReader::read_field_info
+  [ 1] InstanceKlass::field
+  [ 2] fieldDescriptor::reinitialize
+  [ 3] ciInstanceKlass::compute_nonstatic_fields_impl
+  [ 4] ciInstanceKlass::compute_nonstatic_fields
+  [ 5] ciInstanceKlass::compute_nonstatic_fields
+  [ 6] ciInstanceKlass::compute_nonstatic_fields
+  [ 7] ciInstanceKlass::get_field_by_offset
+  [ 8] TypeOopPtr::TypeOopPtr
+  [ 9] TypeInstPtr::make
+  [10] TypeInstPtr::add_offset
+  [11] PhaseGVN::transform_no_reclaim
+  [12] Parse::do_get_xxx
+  [13] Parse::do_field_access
+  [14] Parse::do_one_block
+  [15] Parse::do_all_blocks
+  [16] Parse::Parse
+  [17] ParseGenerator::generate
+  [18] Compile::Compile
+  [19] C2Compiler::compile_method
+  [20] CompileBroker::invoke_compiler_on_method
+  [21] CompileBroker::compiler_thread_loop
+  [22] JavaThread::thread_main_inner
+  [23] Thread::call_run
+  [24] thread_native_entry
+  [25] _pthread_start
+  [26] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.FutureTask.finishCompletion
+  [ 5] java.util.concurrent.FutureTask.set
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 1] java.util.concurrent.LinkedBlockingQueue.take
+  [ 2] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 3] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 4] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 5] java.lang.Thread.runWith
+  [ 6] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] _xzm_xzone_malloc_tiny
+  [ 1] AllocateHeap
+  [ 2] G1EvacuationRootClosures::create_root_closures
+  [ 3] G1ParScanThreadState::G1ParScanThreadState
+  [ 4] G1ParScanThreadStateSet::state_for_worker
+  [ 5] G1EvacuateRegionsBaseTask::work
+  [ 6] WorkerThread::run
+  [ 7] Thread::call_run
+  [ 8] thread_native_entry
+  [ 9] _pthread_start
+  [10] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] PhaseChaitin::Select
+  [ 1] PhaseChaitin::Register_Allocate
+  [ 2] Compile::Code_Gen
+  [ 3] Compile::Compile
+  [ 4] C2Compiler::compile_method
+  [ 5] CompileBroker::invoke_compiler_on_method
+  [ 6] CompileBroker::compiler_thread_loop
+  [ 7] JavaThread::thread_main_inner
+  [ 8] Thread::call_run
+  [ 9] thread_native_entry
+  [10] _pthread_start
+  [11] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.lang.Math.min
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.lang.Math.min
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] G1ParScanThreadState::do_copy_to_survivor_space
+  [ 1] G1ParScanThreadState::trim_queue_to_threshold
+  [ 2] void G1ParCopyClosure<(G1Barrier)1, false>::do_oop_work<oopDesc*>
+  [ 3] ClassLoaderData::oops_do
+  [ 4] G1CLDScanClosure::do_cld
+  [ 5] ClassLoaderDataGraph::roots_cld_do
+  [ 6] G1RootProcessor::process_java_roots
+  [ 7] G1RootProcessor::evacuate_roots
+  [ 8] G1EvacuateRegionsTask::scan_roots
+  [ 9] G1EvacuateRegionsBaseTask::work
+  [10] WorkerThread::run
+  [11] Thread::call_run
+  [12] thread_native_entry
+  [13] _pthread_start
+  [14] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.util.concurrent.atomic.AtomicInteger.getAndIncrement
+  [ 1] java.util.concurrent.LinkedBlockingQueue.offer
+  [ 2] java.util.concurrent.ThreadPoolExecutor.execute
+  [ 3] java.util.concurrent.AbstractExecutorService.submit
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 6] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [ 7] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [ 8] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [ 9] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [10] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [11] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [12] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [13] java.lang.reflect.Method.invoke
+  [14] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [15] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [16] java.util.concurrent.FutureTask.run
+  [17] java.util.concurrent.Executors$RunnableAdapter.call
+  [18] java.util.concurrent.FutureTask.run
+  [19] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [20] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [21] java.lang.Thread.runWith
+  [22] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.enableWait
+  [ 1] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 2] java.util.concurrent.LinkedBlockingQueue.take
+  [ 3] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 4] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 5] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 6] java.lang.Thread.runWith
+  [ 7] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] pthread_jit_write_protect_np
+  [ 1] jdk.internal.misc.Unsafe.unpark
+  [ 2] java.util.concurrent.locks.LockSupport.unpark
+  [ 3] java.util.concurrent.FutureTask.finishCompletion
+  [ 4] java.util.concurrent.FutureTask.set
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] zero_blocks
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 3] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 4] java.util.concurrent.FutureTask.run
+  [ 5] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 6] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 7] java.lang.Thread.runWith
+  [ 8] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] vframeArrayElement::unpack_on_stack
+  [ 1] vframeArray::unpack_to_stack
+  [ 2] Deoptimization::unpack_frames
+  [ 3] UncommonTrapBlob
+  [ 4] [break_deopt]
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] sun.nio.fs.UnixNativeDispatcher.readdir
+  [ 1] sun.nio.fs.UnixDirectoryStream$UnixDirectoryIterator.readNextEntry
+  [ 2] sun.nio.fs.UnixDirectoryStream$UnixDirectoryIterator.hasNext
+  [ 3] java.nio.file.FileTreeWalker.next
+  [ 4] java.nio.file.FileTreeIterator.fetchNextIfNeeded
+  [ 5] java.nio.file.FileTreeIterator.hasNext
+  [ 6] java.util.Iterator.forEachRemaining
+  [ 7] java.util.Spliterators$IteratorSpliterator.forEachRemaining
+  [ 8] java.util.stream.AbstractPipeline.copyInto
+  [ 9] java.util.stream.AbstractPipeline.wrapAndCopyInto
+  [10] java.util.stream.ForEachOps$ForEachOp.evaluateSequential
+  [11] java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential
+  [12] java.util.stream.AbstractPipeline.evaluate
+  [13] java.util.stream.ReferencePipeline.forEach
+  [14] org.opensearch.index.store.benchmark.BenchmarkConfig.deleteRecursively
+  [15] org.opensearch.index.store.benchmark.ReadBenchmarkBase.tearDownTrial
+  [16] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.tearDownHotPathTrial
+  [17] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [18] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [19] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [20] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [21] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [22] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [23] java.lang.reflect.Method.invoke
+  [24] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [25] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [26] java.util.concurrent.FutureTask.run
+  [27] java.util.concurrent.Executors$RunnableAdapter.call
+  [28] java.util.concurrent.FutureTask.run
+  [29] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [30] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [31] java.lang.Thread.runWith
+  [32] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] _platform_memset
+  [ 1] MemAllocator::allocate
+  [ 2] CollectedHeap::array_allocate
+  [ 3] OptoRuntime::new_array_C
+  [ 4] _new_array_Java
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] RegionNode::is_CFG
+  [ 1] PhaseIdealLoop::Dominators
+  [ 2] PhaseIdealLoop::build_and_optimize
+  [ 3] PhaseIdealLoop::PhaseIdealLoop
+  [ 4] PhaseIdealLoop::optimize
+  [ 5] Compile::optimize_loops
+  [ 6] Compile::Optimize
+  [ 7] Compile::Compile
+  [ 8] C2Compiler::compile_method
+  [ 9] CompileBroker::invoke_compiler_on_method
+  [10] CompileBroker::compiler_thread_loop
+  [11] JavaThread::thread_main_inner
+  [12] Thread::call_run
+  [13] thread_native_entry
+  [14] _pthread_start
+  [15] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] CompiledDirectStaticCall::set_to_interpreted
+  [ 1] SharedRuntime::resolve_sub_helper_internal
+  [ 2] SharedRuntime::resolve_sub_helper
+  [ 3] SharedRuntime::resolve_helper
+  [ 4] SharedRuntime::resolve_opt_virtual_call_C
+  [ 5] resolve_opt_virtual_call
+  [ 6] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 9] java.util.concurrent.FutureTask.run
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 6] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 7] java.util.concurrent.LinkedBlockingQueue.signalNotEmpty
+  [ 8] java.util.concurrent.LinkedBlockingQueue.offer
+  [ 9] java.util.concurrent.ThreadPoolExecutor.execute
+  [10] java.util.concurrent.AbstractExecutorService.submit
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [13] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [14] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [15] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [16] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [17] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [18] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [19] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [20] java.lang.reflect.Method.invoke
+  [21] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [22] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [23] java.util.concurrent.FutureTask.run
+  [24] java.util.concurrent.Executors$RunnableAdapter.call
+  [25] java.util.concurrent.FutureTask.run
+  [26] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [27] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [28] java.lang.Thread.runWith
+  [29] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] semaphore_wait_trap
+  [ 1] WorkerThread::run
+  [ 2] Thread::call_run
+  [ 3] thread_native_entry
+  [ 4] _pthread_start
+  [ 5] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] ciMethodBlocks::ciMethodBlocks
+  [ 1] ciMethod::get_method_blocks
+  [ 2] MethodLiveness::init_basic_blocks
+  [ 3] MethodLiveness::compute_liveness
+  [ 4] ciMethod::bci_block_start
+  [ 5] BlockListBuilder::set_leaders
+  [ 6] BlockListBuilder::BlockListBuilder
+  [ 7] GraphBuilder::GraphBuilder
+  [ 8] IRScope::IRScope
+  [ 9] IR::IR
+  [10] Compilation::build_hir
+  [11] Compilation::compile_java_method
+  [12] Compilation::compile_method
+  [13] Compilation::Compilation
+  [14] Compiler::compile_method
+  [15] CompileBroker::invoke_compiler_on_method
+  [16] CompileBroker::compiler_thread_loop
+  [17] JavaThread::thread_main_inner
+  [18] Thread::call_run
+  [19] thread_native_entry
+  [20] _pthread_start
+  [21] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] __psynch_cvwait
+  [ 1] PlatformMonitor::wait
+  [ 2] Monitor::wait_without_safepoint_check
+  [ 3] MonitorDeflationThread::monitor_deflation_thread_entry
+  [ 4] JavaThread::thread_main_inner
+  [ 5] Thread::call_run
+  [ 6] thread_native_entry
+  [ 7] _pthread_start
+  [ 8] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] Goto::Goto
+  [ 1] GraphBuilder::method_return
+  [ 2] GraphBuilder::iterate_bytecodes_for_block
+  [ 3] GraphBuilder::iterate_all_blocks
+  [ 4] GraphBuilder::try_inline_full
+  [ 5] GraphBuilder::try_inline
+  [ 6] GraphBuilder::invoke
+  [ 7] GraphBuilder::iterate_bytecodes_for_block
+  [ 8] GraphBuilder::iterate_all_blocks
+  [ 9] GraphBuilder::try_inline_full
+  [10] GraphBuilder::try_inline
+  [11] GraphBuilder::invoke
+  [12] GraphBuilder::iterate_bytecodes_for_block
+  [13] GraphBuilder::iterate_all_blocks
+  [14] GraphBuilder::try_inline_full
+  [15] GraphBuilder::try_inline
+  [16] GraphBuilder::invoke
+  [17] GraphBuilder::iterate_bytecodes_for_block
+  [18] GraphBuilder::iterate_all_blocks
+  [19] GraphBuilder::try_inline_full
+  [20] GraphBuilder::try_inline
+  [21] GraphBuilder::invoke
+  [22] GraphBuilder::iterate_bytecodes_for_block
+  [23] GraphBuilder::iterate_all_blocks
+  [24] GraphBuilder::GraphBuilder
+  [25] IRScope::IRScope
+  [26] IR::IR
+  [27] Compilation::build_hir
+  [28] Compilation::compile_java_method
+  [29] Compilation::compile_method
+  [30] Compilation::Compilation
+  [31] Compiler::compile_method
+  [32] CompileBroker::invoke_compiler_on_method
+  [33] CompileBroker::compiler_thread_loop
+  [34] JavaThread::thread_main_inner
+  [35] Thread::call_run
+  [36] thread_native_entry
+  [37] _pthread_start
+  [38] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.lang.Math.min
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.util.ArrayList.<init>
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 3] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [ 4] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [ 5] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [ 6] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [ 7] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [ 8] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [ 9] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [10] java.lang.reflect.Method.invoke
+  [11] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [12] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [13] java.util.concurrent.FutureTask.run
+  [14] java.util.concurrent.Executors$RunnableAdapter.call
+  [15] java.util.concurrent.FutureTask.run
+  [16] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [17] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [18] java.lang.Thread.runWith
+  [19] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] void G1ScanEvacuatedObjClosure::do_oop_work<narrowOop>
+  [ 1] G1ParScanThreadState::start_partial_objarray
+  [ 2] G1ParScanThreadState::do_copy_to_survivor_space
+  [ 3] G1ParScanThreadState::trim_queue_to_threshold
+  [ 4] G1ScanHRForRegionClosure::scan_memregion
+  [ 5] G1ScanHRForRegionClosure::scan_heap_roots
+  [ 6] G1ScanHRForRegionClosure::do_heap_region
+  [ 7] G1RemSet::scan_heap_roots
+  [ 8] G1EvacuateRegionsTask::scan_roots
+  [ 9] G1EvacuateRegionsBaseTask::work
+  [10] WorkerThread::run
+  [11] Thread::call_run
+  [12] thread_native_entry
+  [13] _pthread_start
+  [14] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] InstanceKlass::find_method_index
+  [ 1] InstanceKlass::uncached_lookup_method
+  [ 2] LinkResolver::resolve_method
+  [ 3] LinkResolver::linktime_resolve_special_method
+  [ 4] LinkResolver::resolve_special_call
+  [ 5] LinkResolver::resolve_special_call_or_null
+  [ 6] ciEnv::lookup_method
+  [ 7] ciEnv::get_method_by_index_impl
+  [ 8] ciBytecodeStream::get_method
+  [ 9] ciTypeFlow::StateVector::do_invoke
+  [10] ciTypeFlow::StateVector::apply_one_bytecode
+  [11] ciTypeFlow::flow_block
+  [12] ciTypeFlow::df_flow_types
+  [13] ciTypeFlow::flow_types
+  [14] ciTypeFlow::do_flow
+  [15] ciMethod::get_flow_analysis
+  [16] InlineTree::ok_to_inline
+  [17] Compile::call_generator
+  [18] Parse::do_call
+  [19] Parse::do_one_block
+  [20] Parse::do_all_blocks
+  [21] Parse::Parse
+  [22] ParseGenerator::generate
+  [23] Parse::do_call
+  [24] Parse::do_one_block
+  [25] Parse::do_all_blocks
+  [26] Parse::Parse
+  [27] ParseGenerator::generate
+  [28] Parse::do_call
+  [29] Parse::do_one_block
+  [30] Parse::do_all_blocks
+  [31] Parse::Parse
+  [32] ParseGenerator::generate
+  [33] PredictedCallGenerator::generate
+  [34] PredictedCallGenerator::generate
+  [35] Parse::do_call
+  [36] Parse::do_one_block
+  [37] Parse::do_all_blocks
+  [38] Parse::Parse
+  [39] ParseGenerator::generate
+  [40] PredictedCallGenerator::generate
+  [41] PredictedCallGenerator::generate
+  [42] Parse::do_call
+  [43] Parse::do_one_block
+  [44] Parse::do_all_blocks
+  [45] Parse::Parse
+  [46] ParseGenerator::generate
+  [47] PredictedCallGenerator::generate
+  [48] PredictedCallGenerator::generate
+  [49] PredictedCallGenerator::generate
+  [50] Parse::do_call
+  [51] Parse::do_one_block
+  [52] Parse::do_all_blocks
+  [53] Parse::Parse
+  [54] ParseGenerator::generate
+  [55] Compile::Compile
+  [56] C2Compiler::compile_method
+  [57] CompileBroker::invoke_compiler_on_method
+  [58] CompileBroker::compiler_thread_loop
+  [59] JavaThread::thread_main_inner
+  [60] Thread::call_run
+  [61] thread_native_entry
+  [62] _pthread_start
+  [63] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] java.util.Objects.checkIndex
+  [ 1] org.apache.lucene.store.MemorySegmentIndexInput$SingleSegmentImpl.seek
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] pthread_mutex_unlock
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.FutureTask.finishCompletion
+  [ 5] java.util.concurrent.FutureTask.set
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c408.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700121c630.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] PhaseIdealLoop::try_sink_out_of_loop
+  [ 1] PhaseIdealLoop::split_if_with_blocks
+  [ 2] PhaseIdealLoop::build_and_optimize
+  [ 3] PhaseIdealLoop::PhaseIdealLoop
+  [ 4] PhaseIdealLoop::optimize
+  [ 5] Compile::optimize_loops
+  [ 6] Compile::Optimize
+  [ 7] Compile::Compile
+  [ 8] C2Compiler::compile_method
+  [ 9] CompileBroker::invoke_compiler_on_method
+  [10] CompileBroker::compiler_thread_loop
+  [11] JavaThread::thread_main_inner
+  [12] Thread::call_run
+  [13] thread_native_entry
+  [14] _pthread_start
+  [15] thread_start
+
+--- 10000000 ns (0.04%), 1 sample
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 6] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 7] java.util.concurrent.LinkedBlockingQueue.signalNotEmpty
+  [ 8] java.util.concurrent.LinkedBlockingQueue.offer
+  [ 9] java.util.concurrent.ThreadPoolExecutor.execute
+  [10] java.util.concurrent.AbstractExecutorService.submit
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [13] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [14] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [15] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [16] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [17] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [18] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [19] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [20] java.lang.reflect.Method.invoke
+  [21] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [22] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [23] java.util.concurrent.FutureTask.run
+  [24] java.util.concurrent.Executors$RunnableAdapter.call
+  [25] java.util.concurrent.FutureTask.run
+  [26] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [27] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [28] java.lang.Thread.runWith
+  [29] java.lang.Thread.run
+
+          ns  percent  samples  top
+  ----------  -------  -------  ---
+ 22110000000   86.06%     2211  org.apache.lucene.store.MemorySegmentIndexInput.readByte
+  1440000000    5.61%      144  __psynch_cvwait
+  1040000000    4.05%      104  org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+   510000000    1.99%       51  jdk.internal.misc.ScopedMemoryAccess.getByteInternal
+   110000000    0.43%       11  __psynch_cvsignal
+    90000000    0.35%        9  java.util.concurrent.FutureTask.run
+    40000000    0.16%        4  G1ParScanThreadState::do_copy_to_survivor_space
+    40000000    0.16%        4  zero_blocks
+    30000000    0.12%        3  java.lang.Math.min
+    20000000    0.08%        2  semaphore_wait_trap
+    20000000    0.08%        2  PerfLongVariant::sample
+    20000000    0.08%        2  jdk.internal.foreign.MemorySessionImpl.checkValidStateRaw
+    10000000    0.04%        1  java.util.Objects.checkIndex
+    10000000    0.04%        1  _xzm_xzone_malloc_tiny
+    10000000    0.04%        1  ciMethodBlocks::ciMethodBlocks
+    10000000    0.04%        1  _platform_memset
+    10000000    0.04%        1  java.util.ArrayList.<init>
+    10000000    0.04%        1  RegionNode::is_CFG
+    10000000    0.04%        1  PhaseIdealLoop::try_sink_out_of_loop
+    10000000    0.04%        1  java.util.concurrent.ThreadPoolExecutor.runWorker
+    10000000    0.04%        1  java.util.concurrent.atomic.AtomicInteger.getAndIncrement
+    10000000    0.04%        1  java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+    10000000    0.04%        1  java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.enableWait
+    10000000    0.04%        1  PhaseChaitin::Select
+    10000000    0.04%        1  PhaseCFG::partial_latency_of_defs
+    10000000    0.04%        1  InstanceKlass::find_method_index
+    10000000    0.04%        1  Goto::Goto
+    10000000    0.04%        1  pthread_jit_write_protect_np
+    10000000    0.04%        1  pthread_mutex_unlock
+    10000000    0.04%        1  FieldInfoReader::read_field_info
+    10000000    0.04%        1  sun.nio.fs.UnixNativeDispatcher.readdir
+    10000000    0.04%        1  vframeArrayElement::unpack_on_stack
+    10000000    0.04%        1  void G1ScanEvacuatedObjClosure::do_oop_work<narrowOop>
+    10000000    0.04%        1  CompiledDirectStaticCall::set_to_interpreted

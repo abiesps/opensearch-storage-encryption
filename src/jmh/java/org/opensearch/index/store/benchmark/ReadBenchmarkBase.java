@@ -33,7 +33,13 @@ import org.opensearch.index.store.block_cache.BlockCache;
 import org.opensearch.index.store.block_cache.CaffeineBlockCache;
 import org.opensearch.index.store.block_loader.BlockLoader;
 import org.opensearch.index.store.block_loader.CryptoDirectIOBlockLoader;
+import org.opensearch.index.store.block_loader.DirectByteBufferBlockLoader;
+import org.opensearch.index.store.block_cache_v2.CaffeineBlockCacheV2;
+import org.opensearch.index.store.block_cache_v2.DirectBufferPoolDirectory;
+import org.opensearch.index.store.block_cache_v2.VirtualFileDescriptorRegistry;
 import org.opensearch.index.store.bufferpoolfs.BufferPoolDirectory;
+import org.opensearch.index.store.bufferpoolfs.BufferPoolDirectoryV0;
+import org.opensearch.index.store.bufferpoolfs.NoOpSparseLongBlockTable;
 import org.opensearch.index.store.bufferpoolfs.TestKeyResolver;
 import org.opensearch.index.store.cipher.EncryptionMetadataCache;
 import org.opensearch.index.store.cipher.EncryptionMetadataCacheRegistry;
@@ -57,17 +63,27 @@ import org.opensearch.telemetry.metrics.noop.NoopMetricsRegistry;
 @State(Scope.Benchmark)
 public class ReadBenchmarkBase {
 
-    @Param({ "bufferpool", "mmap" })
+    @Param({ "directbufferpool", "mmap" })
     public String directoryType;
 
-    @Param({ "32" })
+    @Param({ "1" })
     public int fileSizeMB;
 
     @Param({ "1" })
     public int numFilesToRead;
 
-    @Param({ "32", "128" })
+    //@Param({ "8", "32","128", "1024" })
+    @Param({ "8" })
     public int cacheBlockSizeKB;
+
+    /**
+     * When "true", disables the L1 block table (SparseLongBlockTable) for
+     * bufferpool and directbufferpool directory types. This forces every
+     * block read through the L2 Caffeine cache, allowing measurement of
+     * L1 cache overhead. Has no effect on mmap/mmap_single directory types.
+     */
+    @Param({ "false" })
+    public String disableL1Cache;
 
     public int sequentialReadNumBytes;
 
@@ -77,8 +93,13 @@ public class ReadBenchmarkBase {
     protected Path mmapPath;
 
     protected BufferPoolDirectory bufferPoolDirectory;
+    protected BufferPoolDirectoryV0 bufferPoolDirectoryV0;
     protected MMapDirectory mmapDirectory;
+    protected MMapDirectory mmapSingleDirectory;
+    protected DirectBufferPoolDirectory directBufferPoolDirectory;
+    protected CaffeineBlockCacheV2 caffeineBlockCacheV2;
     protected PoolBuilder.PoolResources poolResources;
+    protected PoolBuilder.PoolResources poolResourcesV0;
 
     protected static final String FILE_NAME_PREFIX = "bench_data";
     protected int fileSize;
@@ -131,16 +152,40 @@ public class ReadBenchmarkBase {
         tempDir = Files.createTempDirectory(Path.of(System.getProperty("java.io.tmpdir")), "jmh-read-bench");
         bufferPoolPath = tempDir.resolve("bufferpool");
         mmapPath = tempDir.resolve("mmap");
+        Path mmapSinglePath = tempDir.resolve("mmap_single");
+        Path directBufferPoolPath = tempDir.resolve("directbufferpool");
+        Path bufferPoolV0Path = tempDir.resolve("bufferpoolv0");
         Files.createDirectories(bufferPoolPath);
         Files.createDirectories(mmapPath);
+        Files.createDirectories(mmapSinglePath);
+        Files.createDirectories(directBufferPoolPath);
+        Files.createDirectories(bufferPoolV0Path);
 
         // Disable write-through cache so cold path tests are meaningful
-        CryptoDirectoryFactory.setNodeSettings(Settings.builder().put("node.store.crypto.write_cache_enabled", false).build());
+        // Only needed for encrypted directory types
+        if ("bufferpool".equals(directoryType) || "bufferpoolv0".equals(directoryType)) {
+            CryptoDirectoryFactory.setNodeSettings(Settings.builder().put("node.store.crypto.write_cache_enabled", false).build());
+        }
         setBlockStartOffset();
         setRandomReadByteOffsets();
         generateFileNamesToRead();
-        setupBufferPoolDirectory();
-        setupMMapDirectory();
+        // Only set up directories that are needed for the current directoryType
+        // to avoid native crypto failures when running from jmhJar
+        if ("bufferpool".equals(directoryType)) {
+            setupBufferPoolDirectory();
+        }
+        if ("bufferpoolv0".equals(directoryType)) {
+            setupBufferPoolV0Directory(bufferPoolV0Path);
+        }
+        if ("mmap".equals(directoryType)) {
+            setupMMapDirectory();
+        }
+        if ("mmap_single".equals(directoryType)) {
+            setupMMapSingleDirectory(mmapSinglePath);
+        }
+        if ("directbufferpool".equals(directoryType)) {
+            setupDirectBufferPoolDirectory(directBufferPoolPath);
+        }
 
         // Release file data after both directories are set up — no longer needed
         fileData = null;
@@ -170,7 +215,7 @@ public class ReadBenchmarkBase {
 
         EncryptionMetadataCache encMetaCache = EncryptionMetadataCacheRegistry.getOrCreateCache(indexUuid, shardId, indexName);
 
-        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(segmentPool, keyResolver, encMetaCache);
+        BlockLoader<RefCountedMemorySegment> loader = new DirectByteBufferBlockLoader(keyResolver, encMetaCache);
         Worker worker = poolResources.getSharedReadaheadWorker();
 
         @SuppressWarnings("unchecked")
@@ -205,14 +250,88 @@ public class ReadBenchmarkBase {
 
         // Only open inputs if this is the active directory type
         if ("bufferpool".equals(directoryType)) {
+            if ("true".equalsIgnoreCase(disableL1Cache)) {
+                bufferPoolDirectory.setBlockTableOverride(NoOpSparseLongBlockTable.INSTANCE);
+            }
             for (int i = 0; i < fileNames.length; i++) {
                 indexInputs[i] = bufferPoolDirectory.openInput(fileNames[i], IOContext.DEFAULT);
             }
         }
     }
 
+    private void setupBufferPoolV0Directory(Path v0Path) throws Exception {
+        Provider provider = Security.getProvider(DEFAULT_CRYPTO_PROVIDER);
+        MasterKeyProvider keyProvider = BenchmarkKeyProvider.create();
+
+        Settings nodeSettings = Settings
+            .builder()
+            .put("plugins.crypto.enabled", true)
+            .put("node.store.crypto.pool_size_percentage", 0.10)
+            .put("node.store.crypto.warmup_percentage", 0.0)
+            .put("node.store.crypto.cache_to_pool_ratio", 0.8)
+            .build();
+
+        this.poolResourcesV0 = PoolBuilder.build(nodeSettings);
+        Pool<RefCountedMemorySegment> segmentPoolV0 = poolResourcesV0.getSegmentPool();
+
+        String indexUuid = "bench-idx-v0-" + System.nanoTime();
+        String indexName = "bench-index-v0";
+        FSDirectory fsDir = FSDirectory.open(v0Path);
+        int shardId = 0;
+
+        KeyResolver keyResolver = new TestKeyResolver(indexUuid, indexName, fsDir, provider, keyProvider, shardId);
+        EncryptionMetadataCache encMetaCache = EncryptionMetadataCacheRegistry.getOrCreateCache(indexUuid, shardId, indexName);
+
+        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(segmentPoolV0, keyResolver, encMetaCache);
+        Worker worker = poolResourcesV0.getSharedReadaheadWorker();
+
+        @SuppressWarnings("unchecked")
+        CaffeineBlockCache<RefCountedMemorySegment, RefCountedMemorySegment> sharedCache =
+            (CaffeineBlockCache<RefCountedMemorySegment, RefCountedMemorySegment>) poolResourcesV0.getBlockCache();
+
+        BlockCache<RefCountedMemorySegment> directoryCache = new CaffeineBlockCache<>(
+            sharedCache.getCache(),
+            loader,
+            poolResourcesV0.getMaxCacheBlocks()
+        );
+
+        this.bufferPoolDirectoryV0 = new BufferPoolDirectoryV0(
+            v0Path,
+            FSLockFactory.getDefault(),
+            provider,
+            keyResolver,
+            segmentPoolV0,
+            directoryCache,
+            loader,
+            worker,
+            encMetaCache
+        );
+
+        // Write test files through V0 write path (same encryption as bufferpool)
+        for (String fileName : fileNames) {
+            try (IndexOutput out = bufferPoolDirectoryV0.createOutput(fileName, IOContext.DEFAULT)) {
+                out.writeBytes(fileData, fileData.length);
+            }
+        }
+
+        // Only open inputs if this is the active directory type
+        if ("bufferpoolv0".equals(directoryType)) {
+            if ("true".equalsIgnoreCase(disableL1Cache)) {
+                bufferPoolDirectoryV0.setDisableL1Cache(true);
+            }
+            for (int i = 0; i < fileNames.length; i++) {
+                indexInputs[i] = bufferPoolDirectoryV0.openInput(fileNames[i], IOContext.DEFAULT);
+            }
+        }
+    }
+
     private void setupMMapDirectory() throws Exception {
-        this.mmapDirectory = new MMapDirectory(mmapPath);
+        // Use the same chunk size as the block cache for apples-to-apples comparison.
+        // MMapDirectory constructor takes maxChunkSize in bytes; cacheBlockSizeKB is in KB.
+        this.mmapDirectory = new MMapDirectory(mmapPath, cacheBlockSizeKB * 1024);
+        // Disable shared arena grouping so each openInput gets its own arena.
+        // This prevents closing one IndexInput from invalidating another's MemorySegments.
+        mmapDirectory.setGroupingFunction(MMapDirectory.NO_GROUPING);
         // Write identical plaintext data for MMap (no encryption)
         for (String fileName : fileNames) {
             try (IndexOutput out = mmapDirectory.createOutput(fileName, IOContext.DEFAULT)) {
@@ -228,6 +347,49 @@ public class ReadBenchmarkBase {
         }
     }
 
+    private void setupMMapSingleDirectory(Path dirPath) throws Exception {
+        // Default MMapDirectory — uses Lucene's default chunk size (typically Integer.MAX_VALUE),
+        // producing a single MemorySegment per file (SingleSegmentImpl) instead of MultiSegmentImpl.
+        this.mmapSingleDirectory = new MMapDirectory(dirPath);
+        mmapSingleDirectory.setGroupingFunction(MMapDirectory.NO_GROUPING);
+        for (String fileName : fileNames) {
+            try (IndexOutput out = mmapSingleDirectory.createOutput(fileName, IOContext.DEFAULT)) {
+                out.writeBytes(fileData, fileData.length);
+            }
+        }
+
+        if ("mmap_single".equals(directoryType)) {
+            for (int i = 0; i < fileNames.length; i++) {
+                indexInputs[i] = mmapSingleDirectory.openInput(fileNames[i], IOContext.DEFAULT);
+            }
+        }
+    }
+
+    private void setupDirectBufferPoolDirectory(Path dirPath) throws Exception {
+        // Size cache to hold all blocks for the benchmark files with some headroom
+        long totalBlocks = ((long) fileSize * numFilesToRead + StaticConfigs.CACHE_BLOCK_SIZE - 1) / StaticConfigs.CACHE_BLOCK_SIZE;
+        long maxCacheBlocks = totalBlocks * 2; // 2x headroom
+        this.caffeineBlockCacheV2 = new CaffeineBlockCacheV2(maxCacheBlocks);
+        this.directBufferPoolDirectory = new DirectBufferPoolDirectory(dirPath, caffeineBlockCacheV2);
+
+        // Write plaintext data (no encryption — apples-to-apples with mmap)
+        for (String fileName : fileNames) {
+            try (IndexOutput out = directBufferPoolDirectory.createOutput(fileName, IOContext.DEFAULT)) {
+                out.writeBytes(fileData, fileData.length);
+            }
+        }
+
+        // Only open inputs if this is the active directory type
+        if ("directbufferpool".equals(directoryType)) {
+            if ("true".equalsIgnoreCase(disableL1Cache)) {
+                directBufferPoolDirectory.setBlockTableOverride(NoOpSparseLongBlockTable.INSTANCE);
+            }
+            for (int i = 0; i < fileNames.length; i++) {
+                indexInputs[i] = directBufferPoolDirectory.openInput(fileNames[i], IOContext.DEFAULT);
+            }
+        }
+    }
+
     private void generateFileNamesToRead() {
         for (int i = 0; i < numFilesToRead; i++) {
             String fileName = FILE_NAME_PREFIX + i;
@@ -238,10 +400,19 @@ public class ReadBenchmarkBase {
     public void tearDownTrial() throws Exception {
         if (bufferPoolDirectory != null)
             bufferPoolDirectory.close();
+        if (bufferPoolDirectoryV0 != null)
+            bufferPoolDirectoryV0.close();
         if (mmapDirectory != null)
             mmapDirectory.close();
+        if (mmapSingleDirectory != null)
+            mmapSingleDirectory.close();
+        if (directBufferPoolDirectory != null)
+            directBufferPoolDirectory.close();
         if (poolResources != null)
             poolResources.close();
+        if (poolResourcesV0 != null)
+            poolResourcesV0.close();
+        VirtualFileDescriptorRegistry.getInstance().clear();
         BenchmarkConfig.deleteRecursively(tempDir);
     }
 

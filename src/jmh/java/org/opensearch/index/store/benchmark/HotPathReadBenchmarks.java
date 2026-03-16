@@ -44,20 +44,30 @@ import org.openjdk.jmh.infra.Blackhole;
  */
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
-@Warmup(iterations = 3, time = 1)
-@Measurement(iterations = 10, time = 2)
-@Fork(value = 2, jvmArgsAppend = { "--enable-native-access=ALL-UNNAMED", "--enable-preview" })
+@Warmup(iterations = 2, time = 1)
+@Measurement(iterations = 5, time = 2)
+//@Fork(value = 2, jvmArgsAppend = { "--enable-native-access=ALL-UNNAMED", "--enable-preview" })
+@Fork(value = 1, jvmArgsAppend = { "--enable-native-access=ALL-UNNAMED", "--enable-preview" })
 @State(Scope.Benchmark)
 @Threads(1)
 public class HotPathReadBenchmarks extends ReadBenchmarkBase {
 
     // Expand to "1", "4", "8", "16", "32" for full sweep
-    @Param({ "8" })
+    @Param({ "1", "32" })
     public int threadCount;
 
     private ExecutorService executor;
 
-    /** Pre-warm caches by reading all files once. */
+    /**
+     * Pre-warm caches by reading all files once.
+     *
+     * For MMap: we read through the already-opened indexInputs[] and seek back to 0.
+     * Opening separate temporary IndexInputs and closing them can invalidate shared
+     * arenas in Lucene 10.x, which would corrupt the benchmark IndexInputs.
+     *
+     * For BufferPool/V0/DirectBufferPool: we open separate inputs to populate the
+     * block cache without affecting the benchmark inputs' cursor positions.
+     */
     @Setup(Level.Trial)
     public void setupHotPathTrial() throws Exception {
         super.setupTrial();
@@ -77,10 +87,38 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                 }
             }
         }
-        // MMap: read all files to populate page cache
-        if ("mmap".equals(directoryType)) {
+        // MMap: read through the already-opened indexInputs to populate page cache,
+        // then seek back to 0. Do NOT open separate inputs — closing them can
+        // invalidate shared arenas and corrupt the benchmark IndexInputs.
+        if ("mmap".equals(directoryType) || "mmap_single".equals(directoryType)) {
+            for (IndexInput in : indexInputs) {
+                in.seek(0);
+                long remaining = in.length();
+                while (remaining > 0) {
+                    int toRead = (int) Math.min(buf.length, remaining);
+                    in.readBytes(buf, 0, toRead);
+                    remaining -= toRead;
+                }
+                in.seek(0);
+            }
+        }
+        // BufferPoolV0: read all files to populate block cache (original V0 implementation)
+        if ("bufferpoolv0".equals(directoryType)) {
             for (String fileName : fileNames) {
-                try (IndexInput in = mmapDirectory.openInput(fileName, org.apache.lucene.store.IOContext.DEFAULT)) {
+                try (IndexInput in = bufferPoolDirectoryV0.openInput(fileName, org.apache.lucene.store.IOContext.DEFAULT)) {
+                    long remaining = in.length();
+                    while (remaining > 0) {
+                        int toRead = (int) Math.min(buf.length, remaining);
+                        in.readBytes(buf, 0, toRead);
+                        remaining -= toRead;
+                    }
+                }
+            }
+        }
+        // DirectBufferPool: read all files to populate Caffeine block cache
+        if ("directbufferpool".equals(directoryType)) {
+            for (String fileName : fileNames) {
+                try (IndexInput in = directBufferPoolDirectory.openInput(fileName, org.apache.lucene.store.IOContext.DEFAULT)) {
                     long remaining = in.length();
                     while (remaining > 0) {
                         int toRead = (int) Math.min(buf.length, remaining);
@@ -112,9 +150,8 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
             final int threadId = t;
             futures.add(executor.submit(() -> {
                 try {
-                    Random rng = new Random(BenchmarkConfig.RANGE_SEED + threadId);
                     byte[] buf = new byte[StaticConfigs.CACHE_BLOCK_SIZE * 2];
-                    task.run(rng, buf, bh);
+                    task.run(buf, bh);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -127,13 +164,13 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
 
     @FunctionalInterface
     interface ReaderTask {
-        void run(Random rng, byte[] buf, Blackhole bh) throws IOException;
+        void run(byte[] buf, Blackhole bh) throws IOException;
     }
 
     // ---- Random reads via clone (crossing block boundaries) ----
     @Benchmark
     public void randomReadByteFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             // Randomly read bytes from distinct blocks across all files
             long[] randomReadOffsets = randomReadByteOffsets();
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
@@ -145,23 +182,29 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         hole.consume(b);
                     }
                 } finally {
-                    fileInput.close();
+                    // MMap clones with MultiSegmentImpl share the parent's MemorySegment[] array.
+                    // Closing a clone nulls out segments, corrupting the parent and other clones.
+                    // Only close non-mmap clones; mmap clones are lightweight and GC'd naturally.
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // Sequentially read X bytes from each block (no block boundary crossing)
+
     @Benchmark
     public void sequentialReadBytesFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
                 try {
                     for (long offset : blockStartOffsets) {
                         int dummyConsumer = 0;
-                        fileInput.seek(offset);
-                        long remaining = Math.min(sequentialReadNumBytes, fileSize - offset);
+                        fileInput.seek(offset+1);
+                        long remaining = Math.min(sequentialReadNumBytes, fileSize - offset-1);
                         for (long i = 0; i < remaining; i++) {
                             byte b = fileInput.readByte();
                             dummyConsumer += b;
@@ -169,7 +212,41 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         hole.consume(dummyConsumer);
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
+                }
+            }
+        }, bh);
+    }
+
+    /**
+     * Reads bytes within a single block only — no block transitions.
+     * Seek to block 0 offset 1, read sequentialReadNumBytes, repeat.
+     * This isolates the pure in-block readByte() cost.
+     */
+    @Benchmark
+    public void singleBlockReadBytesFromClone(Blackhole bh) throws Exception {
+        runConcurrent(( buf, hole) -> {
+            for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
+                IndexInput fileInput = indexInputs[fileIdx].clone();
+                try {
+                    // Repeat the same number of iterations as sequentialReadBytesFromClone
+                    // but always within block 0 — no block transitions
+                    for (int iter = 0; iter < blockStartOffsets.length; iter++) {
+                        int dummyConsumer = 0;
+                        fileInput.seek(1); // always block 0, offset 1
+                        long remaining = Math.min(sequentialReadNumBytes, fileSize - 1);
+                        for (long i = 0; i < remaining; i++) {
+                            byte b = fileInput.readByte();
+                            dummyConsumer += b;
+                        }
+                        hole.consume(dummyConsumer);
+                    }
+                } finally {
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
@@ -178,9 +255,9 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     // ======================== RandomAccessInput API benchmarks ========================
 
     // RandomAccessInput.readShort(long pos) — random positions across blocks
-    @Benchmark
+    //@Benchmark
     public void randomReadShortFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             long[] offsets = randomReadByteOffsets();
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
@@ -192,16 +269,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // RandomAccessInput.readInt(long pos) — random positions across blocks
-    @Benchmark
+    //@Benchmark
     public void randomReadIntFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             long[] offsets = randomReadByteOffsets();
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
@@ -213,16 +292,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // RandomAccessInput.readLong(long pos) — random positions across blocks
-    @Benchmark
+    //@Benchmark
     public void randomReadLongFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             long[] offsets = randomReadByteOffsets();
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
@@ -234,7 +315,9 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
@@ -243,7 +326,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     // RandomAccessInput.readBytes(long pos, byte[], int offset, int length) — bulk random read
     @Benchmark
     public void randomReadBulkBytesFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             long[] offsets = randomReadByteOffsets();
             byte[] readBuf = new byte[StaticConfigs.CACHE_BLOCK_SIZE];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
@@ -258,7 +341,9 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
@@ -269,7 +354,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     // IndexInput.readBytes(byte[], int, int) — bulk sequential read from block starts
     @Benchmark
     public void sequentialReadBulkBytesFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             byte[] readBuf = new byte[StaticConfigs.CACHE_BLOCK_SIZE];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
@@ -283,16 +368,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // IndexInput.readShort() — sequential short reads from block starts
-    @Benchmark
+    //@Benchmark
     public void sequentialReadShortFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
                 try {
@@ -303,16 +390,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // IndexInput.readInt() — sequential int reads from block starts
-    @Benchmark
+    //@Benchmark
     public void sequentialReadIntFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
                 try {
@@ -323,16 +412,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // IndexInput.readLong() — sequential long reads from block starts
-    @Benchmark
+    //@Benchmark
     public void sequentialReadLongFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
                 try {
@@ -343,16 +434,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // IndexInput.readInts(int[], int, int) — bulk int array read from block starts
-    @Benchmark
+   // @Benchmark
     public void sequentialReadIntsFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             int numInts = StaticConfigs.CACHE_BLOCK_SIZE / Integer.BYTES;
             int[] intBuf = new int[numInts];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
@@ -368,16 +461,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // IndexInput.readLongs(long[], int, int) — bulk long array read from block starts
-    @Benchmark
+    //@Benchmark
     public void sequentialReadLongsFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             int numLongs = StaticConfigs.CACHE_BLOCK_SIZE / Long.BYTES;
             long[] longBuf = new long[numLongs];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
@@ -393,16 +488,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // IndexInput.readFloats(float[], int, int) — bulk float array read from block starts
-    @Benchmark
+    //@Benchmark
     public void sequentialReadFloatsFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             int numFloats = StaticConfigs.CACHE_BLOCK_SIZE / Float.BYTES;
             float[] floatBuf = new float[numFloats];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
@@ -418,16 +515,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // IndexInput.slice() + read — create a slice and read through it
-    @Benchmark
+    //@Benchmark
     public void sliceReadBytesFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             byte[] readBuf = new byte[StaticConfigs.CACHE_BLOCK_SIZE];
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
@@ -442,16 +541,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
     }
 
     // IndexInput.skipBytes(long) — seek + skip pattern
-    @Benchmark
+    //@Benchmark
     public void skipBytesFromClone(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent((buf, hole) -> {
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
                 IndexInput fileInput = indexInputs[fileIdx].clone();
                 try {
@@ -466,7 +567,9 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
@@ -474,9 +577,10 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
 
     // Mixed workload: randomly exercises all read APIs in a single benchmark
     // to simulate realistic Lucene read patterns where different APIs are interleaved.
-    @Benchmark
+    static Random random = new Random();
+   // @Benchmark
     public void mixedReadWorkload(Blackhole bh) throws Exception {
-        runConcurrent((rng, buf, hole) -> {
+        runConcurrent(( buf, hole) -> {
             long[] offsets = randomReadByteOffsets();
             byte[] readBuf = new byte[StaticConfigs.CACHE_BLOCK_SIZE];
             int numInts = StaticConfigs.CACHE_BLOCK_SIZE / Integer.BYTES;
@@ -492,7 +596,7 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                     RandomAccessInput rai = (RandomAccessInput) fileInput;
                     for (int i = 0; i < offsets.length; i++) {
                         long offset = offsets[i];
-                        int op = rng.nextInt(12);
+                        int op = random.nextInt(12);
                         switch (op) {
                             case 0 -> hole.consume(rai.readByte(offset));
                             case 1 -> {
@@ -573,7 +677,9 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
                         }
                     }
                 } finally {
-                    fileInput.close();
+                    if (!directoryType.startsWith("mmap")) {
+                        fileInput.close();
+                    }
                 }
             }
         }, bh);
@@ -582,10 +688,18 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
     @TearDown(Level.Iteration)
     public void tearDownIteration() throws IOException {
         if (executor != null) {
-            executor.shutdownNow();
+            // Use shutdown() instead of shutdownNow() to avoid sending interrupts.
+            // Lucene's MMapDirectory docs warn: "Accessing this class from a thread
+            // while it's interrupted can close the underlying channel immediately",
+            // which would invalidate all MemorySegments and break subsequent iterations.
+            executor.shutdown();
             try {
-                executor.awaitTermination(5, TimeUnit.SECONDS);
+                if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                    executor.shutdownNow();
+                    executor.awaitTermination(5, TimeUnit.SECONDS);
+                }
             } catch (InterruptedException e) {
+                executor.shutdownNow();
                 Thread.currentThread().interrupt();
             }
             executor = null;

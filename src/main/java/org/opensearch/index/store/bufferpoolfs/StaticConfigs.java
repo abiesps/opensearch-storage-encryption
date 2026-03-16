@@ -45,13 +45,13 @@ public class StaticConfigs {
     public static final int DIRECT_IO_WRITE_BUFFER_SIZE_POWER = 18;
 
     /** 
-     * Power of 2 for cache block size. Default 2^15 = 32KB blocks.
+     * Power of 2 for cache block size. Default 2^12 = 4KB blocks.
      * Non-final to allow benchmark override via {@link #overrideCacheBlockSize(int)}.
      */
-    public static int CACHE_BLOCK_SIZE_POWER = 15;
+    public static int CACHE_BLOCK_SIZE_POWER = 12;
 
     /** 
-     * Size of each cache block in bytes. Default 32KB.
+     * Size of each cache block in bytes. Default 4KB.
      */
     public static int CACHE_BLOCK_SIZE = 1 << CACHE_BLOCK_SIZE_POWER;
 

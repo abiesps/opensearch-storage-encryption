@@ -1,0 +1,3157 @@
+--- Execution profile ---
+Total samples       : 11087
+
+--- 20860000000 ns (18.81%), 2086 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 14600000000 ns (13.17%), 1460 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 12940000000 ns (11.67%), 1294 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 12610000000 ns (11.37%), 1261 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 9080000000 ns (8.19%), 908 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 8150000000 ns (7.35%), 815 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 4730000000 ns (4.27%), 473 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 3880000000 ns (3.50%), 388 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 5] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 6] java.util.concurrent.ForkJoinPool.runWorker
+  [ 7] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 2850000000 ns (2.57%), 285 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 2050000000 ns (1.85%), 205 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 1670000000 ns (1.51%), 167 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 6] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 7] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 8] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 9] java.util.concurrent.LinkedBlockingQueue.take
+  [10] java.util.concurrent.ThreadPoolExecutor.getTask
+  [11] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [12] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [13] java.lang.Thread.runWith
+  [14] java.lang.Thread.run
+
+--- 1350000000 ns (1.22%), 135 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 1200000000 ns (1.08%), 120 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 1190000000 ns (1.07%), 119 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 1080000000 ns (0.97%), 108 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 6] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 7] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 8] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 9] java.util.concurrent.LinkedBlockingQueue.take
+  [10] java.util.concurrent.ThreadPoolExecutor.getTask
+  [11] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [12] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [13] java.lang.Thread.runWith
+  [14] java.lang.Thread.run
+
+--- 620000000 ns (0.56%), 62 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 580000000 ns (0.52%), 58 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 480000000 ns (0.43%), 48 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 450000000 ns (0.41%), 45 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 410000000 ns (0.37%), 41 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 5] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 6] java.util.concurrent.ForkJoinPool.runWorker
+  [ 7] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 410000000 ns (0.37%), 41 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 350000000 ns (0.32%), 35 samples
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.ForkJoinPool.signalWork
+  [ 5] java.util.concurrent.ForkJoinPool$WorkQueue.push
+  [ 6] java.util.concurrent.ForkJoinPool.poolSubmit
+  [ 7] java.util.concurrent.ForkJoinPool.execute
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.scheduleDrainBuffers
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [11] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [12] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [13] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [14] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [15] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [16] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [17] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [18] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [19] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 330000000 ns (0.30%), 33 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 330000000 ns (0.30%), 33 samples
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.ForkJoinPool.signalWork
+  [ 5] java.util.concurrent.ForkJoinPool$WorkQueue.push
+  [ 6] java.util.concurrent.ForkJoinPool.poolSubmit
+  [ 7] java.util.concurrent.ForkJoinPool.execute
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.scheduleDrainBuffers
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [11] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [12] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [13] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [14] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [15] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [16] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [17] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [18] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [19] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 310000000 ns (0.28%), 31 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 270000000 ns (0.24%), 27 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 260000000 ns (0.23%), 26 samples
+  [ 0] __gettimeofday
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 5] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 6] java.util.concurrent.ForkJoinPool.runWorker
+  [ 7] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 240000000 ns (0.22%), 24 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.FutureTask.awaitDone
+  [ 6] java.util.concurrent.FutureTask.get
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 9] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [10] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [11] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [12] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [13] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [14] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [15] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [16] java.lang.reflect.Method.invoke
+  [17] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [18] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [19] java.util.concurrent.FutureTask.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 220000000 ns (0.20%), 22 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 210000000 ns (0.19%), 21 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.FutureTask.awaitDone
+  [ 6] java.util.concurrent.FutureTask.get
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 9] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [10] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [11] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [12] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [13] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [14] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [15] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [16] java.lang.reflect.Method.invoke
+  [17] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [18] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [19] java.util.concurrent.FutureTask.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 200000000 ns (0.18%), 20 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 190000000 ns (0.17%), 19 samples
+  [ 0] java.util.Random.<init>
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 3] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 4] java.util.concurrent.FutureTask.run
+  [ 5] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 6] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 7] java.lang.Thread.runWith
+  [ 8] java.lang.Thread.run
+
+--- 160000000 ns (0.14%), 16 samples
+  [ 0] com.github.benmanes.caffeine.cache.FrequencySketch.indexOf
+  [ 1] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 4] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [11] java.util.concurrent.ForkJoinTask.doExec
+  [12] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [13] java.util.concurrent.ForkJoinPool.scan
+  [14] java.util.concurrent.ForkJoinPool.runWorker
+  [15] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 150000000 ns (0.14%), 15 samples
+  [ 0] java.util.Random.<init>
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 3] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 4] java.util.concurrent.FutureTask.run
+  [ 5] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 6] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 7] java.lang.Thread.runWith
+  [ 8] java.lang.Thread.run
+
+--- 150000000 ns (0.14%), 15 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 150000000 ns (0.14%), 15 samples
+  [ 0] java.lang.String.equals
+  [ 1] org.opensearch.index.store.block_cache.FileBlockCacheKey.equals
+  [ 2] java.util.concurrent.ConcurrentHashMap.get
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 4] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 5] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 6] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 8] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [13] java.util.concurrent.Executors$RunnableAdapter.call
+  [14] java.util.concurrent.FutureTask.run
+  [15] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [16] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [17] java.lang.Thread.runWith
+  [18] java.lang.Thread.run
+
+--- 140000000 ns (0.13%), 14 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 130000000 ns (0.12%), 13 samples
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 120000000 ns (0.11%), 12 samples
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 110000000 ns (0.10%), 11 samples
+  [ 0] pthread_jit_write_protect_np
+  [ 1] jdk.internal.misc.Unsafe.unpark
+  [ 2] java.util.concurrent.locks.LockSupport.unpark
+  [ 3] java.util.concurrent.ForkJoinPool.signalWork
+  [ 4] java.util.concurrent.ForkJoinPool$WorkQueue.push
+  [ 5] java.util.concurrent.ForkJoinPool.poolSubmit
+  [ 6] java.util.concurrent.ForkJoinPool.execute
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.scheduleDrainBuffers
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [10] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [11] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [12] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [13] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [14] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [15] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [16] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [17] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [18] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [19] java.util.concurrent.Executors$RunnableAdapter.call
+  [20] java.util.concurrent.FutureTask.run
+  [21] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [22] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [23] java.lang.Thread.runWith
+  [24] java.lang.Thread.run
+
+--- 110000000 ns (0.10%), 11 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.FutureTask.awaitDone
+  [ 6] java.util.concurrent.FutureTask.get
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.runConcurrent
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.sequentialReadBytesFromClone
+  [ 9] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_thrpt_jmhStub
+  [10] org.opensearch.index.store.benchmark.jmh_generated.HotPathReadBenchmarks_sequentialReadBytesFromClone_jmhTest.sequentialReadBytesFromClone_Throughput
+  [11] java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial
+  [12] java.lang.invoke.LambdaForm$MH.0x000000700102d800.invoke
+  [13] java.lang.invoke.LambdaForm$MH.0x000000700102dc00.invokeExact_MT
+  [14] jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl
+  [15] jdk.internal.reflect.DirectMethodHandleAccessor.invoke
+  [16] java.lang.reflect.Method.invoke
+  [17] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [18] org.openjdk.jmh.runner.BenchmarkHandler$BenchmarkTask.call
+  [19] java.util.concurrent.FutureTask.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 100000000 ns (0.09%), 10 samples
+  [ 0] java.lang.invoke.VarHandleLongs$FieldInstanceReadWrite.compareAndSet
+  [ 1] java.lang.invoke.VarHandleGuards.guard_LJJ_Z
+  [ 2] org.opensearch.index.store.block.RefCountedMemorySegment.decRef
+  [ 3] org.opensearch.index.store.block.RefCountedMemorySegment.unpin
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 100000000 ns (0.09%), 10 samples
+  [ 0] org.opensearch.index.store.block.RefCountedMemorySegment.segment
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 100000000 ns (0.09%), 10 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 100000000 ns (0.09%), 10 samples
+  [ 0] java.lang.String.equals
+  [ 1] org.opensearch.index.store.block_cache.FileBlockCacheKey.equals
+  [ 2] java.util.concurrent.ConcurrentHashMap.get
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 4] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 5] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 6] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 8] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [13] java.util.concurrent.Executors$RunnableAdapter.call
+  [14] java.util.concurrent.FutureTask.run
+  [15] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [16] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [17] java.lang.Thread.runWith
+  [18] java.lang.Thread.run
+
+--- 90000000 ns (0.08%), 9 samples
+  [ 0] com.github.benmanes.caffeine.cache.AbstractLinkedDeque.unlink
+  [ 1] com.github.benmanes.caffeine.cache.AbstractLinkedDeque.moveToBack
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.reorder
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 4] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 5] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [11] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [12] java.util.concurrent.ForkJoinTask.doExec
+  [13] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [14] java.util.concurrent.ForkJoinPool.scan
+  [15] java.util.concurrent.ForkJoinPool.runWorker
+  [16] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 90000000 ns (0.08%), 9 samples
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 6] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 7] java.util.concurrent.LinkedBlockingQueue.take
+  [ 8] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 90000000 ns (0.08%), 9 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 80000000 ns (0.07%), 8 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 70000000 ns (0.06%), 7 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 6] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 7] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 8] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 9] java.util.concurrent.LinkedBlockingQueue.take
+  [10] java.util.concurrent.ThreadPoolExecutor.getTask
+  [11] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [12] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [13] java.lang.Thread.runWith
+  [14] java.lang.Thread.run
+
+--- 70000000 ns (0.06%), 7 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 70000000 ns (0.06%), 7 samples
+  [ 0] org.opensearch.index.store.block.RefCountedMemorySegment.segment
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 60000000 ns (0.05%), 6 samples
+  [ 0] org.openjdk.jmh.infra.Blackhole.consume
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 60000000 ns (0.05%), 6 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 60000000 ns (0.05%), 6 samples
+  [ 0] com.github.benmanes.caffeine.cache.FrequencySketch.isNotInitialized
+  [ 1] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 4] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [11] java.util.concurrent.ForkJoinTask.doExec
+  [12] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [13] java.util.concurrent.ForkJoinPool.scan
+  [14] java.util.concurrent.ForkJoinPool.runWorker
+  [15] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 60000000 ns (0.05%), 6 samples
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.FutureTask.finishCompletion
+  [ 5] java.util.concurrent.FutureTask.set
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 60000000 ns (0.05%), 6 samples
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 6] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 7] java.util.concurrent.LinkedBlockingQueue.take
+  [ 8] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 60000000 ns (0.05%), 6 samples
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 60000000 ns (0.05%), 6 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 50000000 ns (0.05%), 5 samples
+  [ 0] __psynch_cvwait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 5] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 6] java.util.concurrent.ForkJoinPool.runWorker
+  [ 7] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 50000000 ns (0.05%), 5 samples
+  [ 0] java.util.concurrent.ForkJoinPool.scan
+  [ 1] java.util.concurrent.ForkJoinPool.runWorker
+  [ 2] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 50000000 ns (0.05%), 5 samples
+  [ 0] jdk.internal.reflect.Reflection.ensureNativeAccess
+  [ 1] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpretInternal
+  [ 2] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpret
+  [ 3] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 9] java.util.concurrent.Executors$RunnableAdapter.call
+  [10] java.util.concurrent.FutureTask.run
+  [11] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [12] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [13] java.lang.Thread.runWith
+  [14] java.lang.Thread.run
+
+--- 50000000 ns (0.05%), 5 samples
+  [ 0] java.lang.invoke.VarHandleLongs$FieldInstanceReadWrite.compareAndSet
+  [ 1] java.lang.invoke.VarHandleGuards.guard_LJJ_Z
+  [ 2] org.opensearch.index.store.block.RefCountedMemorySegment.decRef
+  [ 3] org.opensearch.index.store.block.RefCountedMemorySegment.unpin
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 50000000 ns (0.05%), 5 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.close
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] java.lang.invoke.VarHandleLongs$FieldInstanceReadWrite.compareAndSet
+  [ 1] java.lang.invoke.VarHandleGuards.guard_LJJ_Z
+  [ 2] org.opensearch.index.store.block.RefCountedMemorySegment.tryPin
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 4] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [ 5] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [ 6] java.util.concurrent.ForkJoinTask.doExec
+  [ 7] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [ 8] java.util.concurrent.ForkJoinPool.scan
+  [ 9] java.util.concurrent.ForkJoinPool.runWorker
+  [10] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] java.util.concurrent.ForkJoinPool.scan
+  [ 1] java.util.concurrent.ForkJoinPool.runWorker
+  [ 2] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 2] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 3] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 4] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [11] java.util.concurrent.Executors$RunnableAdapter.call
+  [12] java.util.concurrent.FutureTask.run
+  [13] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [14] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [15] java.lang.Thread.runWith
+  [16] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] __psynch_cvwait
+  [ 1] PlatformMonitor::wait
+  [ 2] Monitor::wait_without_safepoint_check
+  [ 3] WatcherThread::sleep
+  [ 4] WatcherThread::run
+  [ 5] Thread::call_run
+  [ 6] thread_native_entry
+  [ 7] _pthread_start
+  [ 8] thread_start
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.openjdk.jmh.infra.Blackhole.consume
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.FutureTask.finishCompletion
+  [ 5] java.util.concurrent.FutureTask.set
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 2] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 3] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 4] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [11] java.util.concurrent.Executors$RunnableAdapter.call
+  [12] java.util.concurrent.FutureTask.run
+  [13] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [14] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [15] java.lang.Thread.runWith
+  [16] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.opensearch.index.store.block.RefCountedMemorySegment.tryPin
+  [ 1] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 3] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 8] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 9] java.util.concurrent.FutureTask.run
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] java.util.concurrent.atomic.LongAdder.add
+  [ 1] com.github.benmanes.caffeine.cache.stats.ConcurrentStatsCounter.recordHits
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 4] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 5] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 6] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 8] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [13] java.util.concurrent.Executors$RunnableAdapter.call
+  [14] java.util.concurrent.FutureTask.run
+  [15] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [16] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [17] java.lang.Thread.runWith
+  [18] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 40000000 ns (0.04%), 4 samples
+  [ 0] org.opensearch.index.store.block.RefCountedMemorySegment.tryPin
+  [ 1] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 3] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 8] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 9] java.util.concurrent.FutureTask.run
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 1] java.util.concurrent.ForkJoinPool.runWorker
+  [ 2] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] pthread_jit_write_protect_np
+  [ 1] jdk.internal.misc.Unsafe.park
+  [ 2] java.util.concurrent.locks.LockSupport.park
+  [ 3] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 4] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 5] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 6] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 7] java.util.concurrent.LinkedBlockingQueue.take
+  [ 8] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] com.github.benmanes.caffeine.cache.FrequencySketch.spread
+  [ 1] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 4] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [11] java.util.concurrent.ForkJoinTask.doExec
+  [12] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [13] java.util.concurrent.ForkJoinPool.scan
+  [14] java.util.concurrent.ForkJoinPool.runWorker
+  [15] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.block.RefCountedMemorySegment.decRef
+  [ 1] org.opensearch.index.store.block.RefCountedMemorySegment.unpin
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 3] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 8] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 9] java.util.concurrent.FutureTask.run
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] java.lang.invoke.VarHandleLongs$FieldInstanceReadWrite.compareAndSet
+  [ 1] java.lang.invoke.VarHandleGuards.guard_LJJ_Z
+  [ 2] org.opensearch.index.store.block.RefCountedMemorySegment.tryPin
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] com.github.benmanes.caffeine.cache.StripedBuffer.offer
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 3] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 4] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 5] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [12] java.util.concurrent.Executors$RunnableAdapter.call
+  [13] java.util.concurrent.FutureTask.run
+  [14] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [15] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [16] java.lang.Thread.runWith
+  [17] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] pthread_jit_write_protect_np
+  [ 1] jdk.internal.misc.Unsafe.unpark
+  [ 2] java.util.concurrent.locks.LockSupport.unpark
+  [ 3] java.util.concurrent.ForkJoinPool.signalWork
+  [ 4] java.util.concurrent.ForkJoinPool$WorkQueue.push
+  [ 5] java.util.concurrent.ForkJoinPool.poolSubmit
+  [ 6] java.util.concurrent.ForkJoinPool.execute
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.scheduleDrainBuffers
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [10] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [11] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [12] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [13] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [14] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [15] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [16] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [17] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [18] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [19] java.util.concurrent.Executors$RunnableAdapter.call
+  [20] java.util.concurrent.FutureTask.run
+  [21] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [22] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [23] java.lang.Thread.runWith
+  [24] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] com.github.benmanes.caffeine.cache.StripedBuffer.offer
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 3] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 4] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 5] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [12] java.util.concurrent.Executors$RunnableAdapter.call
+  [13] java.util.concurrent.FutureTask.run
+  [14] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [15] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [16] java.lang.Thread.runWith
+  [17] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.block_cache.FileBlockCacheKey.hashCode
+  [ 1] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 4] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [11] java.util.concurrent.ForkJoinTask.doExec
+  [12] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [13] java.util.concurrent.ForkJoinPool.scan
+  [14] java.util.concurrent.ForkJoinPool.runWorker
+  [15] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] com.github.benmanes.caffeine.cache.PSMS.setNextInAccessOrder
+  [ 1] com.github.benmanes.caffeine.cache.PSMS.setNextInAccessOrder
+  [ 2] com.github.benmanes.caffeine.cache.AccessOrderDeque.setNext
+  [ 3] com.github.benmanes.caffeine.cache.AccessOrderDeque.setNext
+  [ 4] com.github.benmanes.caffeine.cache.AbstractLinkedDeque.unlink
+  [ 5] com.github.benmanes.caffeine.cache.AbstractLinkedDeque.moveToBack
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.reorder
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 9] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [10] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [11] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [12] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [13] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [14] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [15] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [16] java.util.concurrent.ForkJoinTask.doExec
+  [17] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [18] java.util.concurrent.ForkJoinPool.scan
+  [19] java.util.concurrent.ForkJoinPool.runWorker
+  [20] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 30000000 ns (0.03%), 3 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] pthread_jit_write_protect_np
+  [ 1] jdk.internal.misc.Unsafe.park
+  [ 2] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 3] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 4] java.util.concurrent.ForkJoinPool.runWorker
+  [ 5] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 2] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 3] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 4] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 5] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [ 9] java.util.concurrent.ForkJoinTask.doExec
+  [10] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [11] java.util.concurrent.ForkJoinPool.scan
+  [12] java.util.concurrent.ForkJoinPool.runWorker
+  [13] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 1] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 2] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 4] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 5] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [ 8] java.util.concurrent.ForkJoinTask.doExec
+  [ 9] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [10] java.util.concurrent.ForkJoinPool.scan
+  [11] java.util.concurrent.ForkJoinPool.runWorker
+  [12] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 1] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 2] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 4] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 5] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [ 8] java.util.concurrent.ForkJoinTask.doExec
+  [ 9] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [10] java.util.concurrent.ForkJoinPool.scan
+  [11] java.util.concurrent.ForkJoinPool.runWorker
+  [12] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] java.util.concurrent.ForkJoinPool.scan
+  [ 1] java.util.concurrent.ForkJoinPool.runWorker
+  [ 2] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] java.util.concurrent.ForkJoinPool.scan
+  [ 1] java.util.concurrent.ForkJoinPool.runWorker
+  [ 2] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] pthread_mutex_unlock
+  [ 1] Parker::unpark
+  [ 2] Unsafe_Unpark
+  [ 3] jdk.internal.misc.Unsafe.unpark
+  [ 4] java.util.concurrent.locks.LockSupport.unpark
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 6] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 7] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 8] java.util.concurrent.LinkedBlockingQueue.take
+  [ 9] java.util.concurrent.ThreadPoolExecutor.getTask
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 3] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 4] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [10] java.util.concurrent.ForkJoinTask.doExec
+  [11] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [12] java.util.concurrent.ForkJoinPool.scan
+  [13] java.util.concurrent.ForkJoinPool.runWorker
+  [14] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] com.github.benmanes.caffeine.cache.AbstractLinkedDeque.unlink
+  [ 1] com.github.benmanes.caffeine.cache.AbstractLinkedDeque.moveToBack
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.reorder
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 4] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 5] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [11] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [12] java.util.concurrent.ForkJoinTask.doExec
+  [13] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [14] java.util.concurrent.ForkJoinPool.scan
+  [15] java.util.concurrent.ForkJoinPool.runWorker
+  [16] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.close
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] java.lang.invoke.VarHandleLongs$FieldInstanceReadOnly.getVolatile
+  [ 1] java.lang.invoke.VarHandleGuards.guard_L_J
+  [ 2] org.opensearch.index.store.block.RefCountedMemorySegment.decRef
+  [ 3] org.opensearch.index.store.block.RefCountedMemorySegment.unpin
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] __psynch_mutexwait
+  [ 1] _pthread_mutex_firstfit_lock_slow
+  [ 2] _pthread_cond_wait
+  [ 3] PlatformMonitor::wait
+  [ 4] Monitor::wait_without_safepoint_check
+  [ 5] TaskTerminator::offer_termination
+  [ 6] G1ParEvacuateFollowersClosure::do_void
+  [ 7] G1EvacuateRegionsTask::evacuate_live_objects
+  [ 8] G1EvacuateRegionsBaseTask::work
+  [ 9] WorkerThread::run
+  [10] Thread::call_run
+  [11] thread_native_entry
+  [12] _pthread_start
+  [13] thread_start
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] clock_gettime
+  [ 1] os::javaTimeMillis
+  [ 2] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 3] java.util.concurrent.ForkJoinPool.runWorker
+  [ 4] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.read_ahead.impl.WindowedReadAheadContext.onAccess
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] os::javaTimeMillis
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] Unsafe_Unpark
+  [ 1] jdk.internal.misc.Unsafe.unpark
+  [ 2] java.util.concurrent.locks.LockSupport.unpark
+  [ 3] java.util.concurrent.ForkJoinPool.signalWork
+  [ 4] java.util.concurrent.ForkJoinPool$WorkQueue.push
+  [ 5] java.util.concurrent.ForkJoinPool.poolSubmit
+  [ 6] java.util.concurrent.ForkJoinPool.execute
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.scheduleDrainBuffers
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [10] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [11] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [12] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [13] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [14] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [15] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [16] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [17] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [18] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [19] java.util.concurrent.Executors$RunnableAdapter.call
+  [20] java.util.concurrent.FutureTask.run
+  [21] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [22] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [23] java.lang.Thread.runWith
+  [24] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] java.util.concurrent.ForkJoinPool.hasTasks
+  [ 1] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 2] java.util.concurrent.ForkJoinPool.runWorker
+  [ 3] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] jdk.internal.access.SharedSecrets.getJavaLangAccess
+  [ 1] jdk.internal.reflect.Reflection.ensureNativeAccess
+  [ 2] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpretInternal
+  [ 3] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpret
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 1] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 4] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 5] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [ 7] java.util.concurrent.ForkJoinTask.doExec
+  [ 8] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [ 9] java.util.concurrent.ForkJoinPool.scan
+  [10] java.util.concurrent.ForkJoinPool.runWorker
+  [11] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] jdk.internal.access.SharedSecrets.getJavaLangAccess
+  [ 1] jdk.internal.reflect.Reflection.ensureNativeAccess
+  [ 2] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpretInternal
+  [ 3] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpret
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 1] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 3] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 8] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 9] java.util.concurrent.FutureTask.run
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] jdk.internal.foreign.MemorySessionImpl.checkValidStateRaw
+  [ 1] jdk.internal.foreign.MemorySessionImpl.checkValidState
+  [ 2] jdk.internal.foreign.NativeMemorySegmentImpl.makeNativeSegmentUnchecked
+  [ 3] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpretInternal
+  [ 4] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpret
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [11] java.util.concurrent.Executors$RunnableAdapter.call
+  [12] java.util.concurrent.FutureTask.run
+  [13] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [14] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [15] java.lang.Thread.runWith
+  [16] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] com.github.benmanes.caffeine.cache.FrequencySketch.indexOf
+  [ 1] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 4] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [11] java.util.concurrent.ForkJoinTask.doExec
+  [12] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [13] java.util.concurrent.ForkJoinPool.scan
+  [14] java.util.concurrent.ForkJoinPool.runWorker
+  [15] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 20000000 ns (0.02%), 2 samples
+  [ 0] Parker::park
+  [ 1] Unsafe_Park
+  [ 2] jdk.internal.misc.Unsafe.park
+  [ 3] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 4] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 5] java.util.concurrent.ForkJoinPool.runWorker
+  [ 6] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] _pthread_cond_wait
+  [ 1] Parker::park
+  [ 2] Unsafe_Park
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.park
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 6] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 7] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 8] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 9] java.util.concurrent.LinkedBlockingQueue.take
+  [10] java.util.concurrent.ThreadPoolExecutor.getTask
+  [11] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [12] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [13] java.lang.Thread.runWith
+  [14] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] _platform_memset
+  [ 1] MemAllocator::allocate
+  [ 2] CollectedHeap::array_allocate
+  [ 3] OptoRuntime::new_array_C
+  [ 4] _new_array_Java
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] com.github.benmanes.caffeine.cache.FrequencySketch.indexOf
+  [ 1] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 4] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [11] java.util.concurrent.ForkJoinTask.doExec
+  [12] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [13] java.util.concurrent.ForkJoinPool.scan
+  [14] java.util.concurrent.ForkJoinPool.runWorker
+  [15] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.ForkJoinPool.signalWork
+  [ 5] java.util.concurrent.ForkJoinPool$WorkQueue.push
+  [ 6] java.util.concurrent.ForkJoinPool.poolSubmit
+  [ 7] java.util.concurrent.ForkJoinPool.execute
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.scheduleDrainBuffers
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [11] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [12] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [13] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [14] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [15] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [16] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [17] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [18] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [19] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.locks.AbstractQueuedSynchronizer.compareAndSetState
+  [ 1] java.util.concurrent.locks.ReentrantLock$NonfairSync.tryAcquire
+  [ 2] java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire
+  [ 3] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 4] java.util.concurrent.LinkedBlockingQueue.take
+  [ 5] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.lang.invoke.VarHandleReferences$Array.runtimeTypeCheck
+  [ 1] java.lang.invoke.VarHandleReferences$Array.setRelease
+  [ 2] java.lang.invoke.VarHandleGuards.guard_LIL_V
+  [ 3] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 4] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [10] java.util.concurrent.ForkJoinTask.doExec
+  [11] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [12] java.util.concurrent.ForkJoinPool.scan
+  [13] java.util.concurrent.ForkJoinPool.runWorker
+  [14] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.lang.invoke.VarHandleReferences$FieldInstanceReadOnly.get
+  [ 1] java.lang.invoke.VarHandleGuards.guard_L_L
+  [ 2] com.github.benmanes.caffeine.cache.PS.getValue
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 4] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 5] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 6] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 8] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [13] java.util.concurrent.Executors$RunnableAdapter.call
+  [14] java.util.concurrent.FutureTask.run
+  [15] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [16] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [17] java.lang.Thread.runWith
+  [18] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] oopDesc::address_field_acquire
+  [ 1] jdk.internal.misc.Unsafe.unpark
+  [ 2] java.util.concurrent.locks.LockSupport.unpark
+  [ 3] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 5] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 6] java.util.concurrent.LinkedBlockingQueue.take
+  [ 7] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.ConcurrentHashMap.get
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 2] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 3] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 4] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [11] java.util.concurrent.Executors$RunnableAdapter.call
+  [12] java.util.concurrent.FutureTask.run
+  [13] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [14] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [15] java.lang.Thread.runWith
+  [16] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] stub:pthread_jit_write_protect_np
+  [ 1] Unsafe_Park
+  [ 2] jdk.internal.misc.Unsafe.park
+  [ 3] java.util.concurrent.locks.LockSupport.park
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 5] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 6] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 7] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 8] java.util.concurrent.LinkedBlockingQueue.take
+  [ 9] java.util.concurrent.ThreadPoolExecutor.getTask
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] com.github.benmanes.caffeine.cache.PSMS.setNextInAccessOrder
+  [ 1] com.github.benmanes.caffeine.cache.PSMS.setNextInAccessOrder
+  [ 2] com.github.benmanes.caffeine.cache.AccessOrderDeque.setNext
+  [ 3] com.github.benmanes.caffeine.cache.AccessOrderDeque.setNext
+  [ 4] com.github.benmanes.caffeine.cache.AbstractLinkedDeque.unlink
+  [ 5] com.github.benmanes.caffeine.cache.AbstractLinkedDeque.moveToBack
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.reorder
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 9] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [10] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [11] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [12] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [13] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [14] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [15] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [16] java.util.concurrent.ForkJoinTask.doExec
+  [17] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [18] java.util.concurrent.ForkJoinPool.scan
+  [19] java.util.concurrent.ForkJoinPool.runWorker
+  [20] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] stub:clock_gettime
+  [ 1] os::javaTimeMillis
+  [ 2] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 3] java.util.concurrent.ForkJoinPool.runWorker
+  [ 4] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] G1ParScanThreadState::trim_queue_to_threshold
+  [ 1] G1ParScanThreadState::steal_and_trim_queue
+  [ 2] G1ParEvacuateFollowersClosure::do_void
+  [ 3] G1EvacuateRegionsTask::evacuate_live_objects
+  [ 4] G1EvacuateRegionsBaseTask::work
+  [ 5] WorkerThread::run
+  [ 6] Thread::call_run
+  [ 7] thread_native_entry
+  [ 8] _pthread_start
+  [ 9] thread_start
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.ForkJoinTask.doExec
+  [ 1] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [ 2] java.util.concurrent.ForkJoinPool.scan
+  [ 3] java.util.concurrent.ForkJoinPool.runWorker
+  [ 4] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] PhaseChaitin::post_allocate_copy_removal
+  [ 1] PhaseChaitin::Register_Allocate
+  [ 2] Compile::Code_Gen
+  [ 3] Compile::Compile
+  [ 4] C2Compiler::compile_method
+  [ 5] CompileBroker::invoke_compiler_on_method
+  [ 6] CompileBroker::compiler_thread_loop
+  [ 7] JavaThread::thread_main_inner
+  [ 8] Thread::call_run
+  [ 9] thread_native_entry
+  [10] _pthread_start
+  [11] thread_start
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] jdk.internal.misc.Unsafe.park
+  [ 1] java.util.concurrent.locks.LockSupport.park
+  [ 2] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 3] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 4] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 6] java.util.concurrent.LinkedBlockingQueue.take
+  [ 7] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] com.github.benmanes.caffeine.cache.StripedBuffer.offer
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 3] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 4] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 5] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [12] java.util.concurrent.Executors$RunnableAdapter.call
+  [13] java.util.concurrent.FutureTask.run
+  [14] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [15] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [16] java.lang.Thread.runWith
+  [17] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] PhaseIdealLoop::split_if_with_blocks
+  [ 1] PhaseIdealLoop::build_and_optimize
+  [ 2] PhaseIdealLoop::PhaseIdealLoop
+  [ 3] PhaseIdealLoop::optimize
+  [ 4] Compile::optimize_loops
+  [ 5] Compile::Optimize
+  [ 6] Compile::Compile
+  [ 7] C2Compiler::compile_method
+  [ 8] CompileBroker::invoke_compiler_on_method
+  [ 9] CompileBroker::compiler_thread_loop
+  [10] JavaThread::thread_main_inner
+  [11] Thread::call_run
+  [12] thread_native_entry
+  [13] _pthread_start
+  [14] thread_start
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.block.RefCountedMemorySegment.segment
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.lang.invoke.VarHandleLongs$FieldInstanceReadWrite.compareAndSet
+  [ 1] java.lang.invoke.VarHandleGuards.guard_LJJ_Z
+  [ 2] org.opensearch.index.store.block.RefCountedMemorySegment.tryPin
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.Random.<init>
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 3] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 4] java.util.concurrent.FutureTask.run
+  [ 5] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 6] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 7] java.lang.Thread.runWith
+  [ 8] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] pthread_jit_write_protect_np
+  [ 1] jdk.internal.misc.Unsafe.unpark
+  [ 2] java.util.concurrent.locks.LockSupport.unpark
+  [ 3] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 5] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 6] java.util.concurrent.LinkedBlockingQueue.take
+  [ 7] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] semaphore_signal_trap
+  [ 1] GenericWaitBarrier::Cell::disarm
+  [ 2] GenericWaitBarrier::disarm
+  [ 3] SafepointSynchronize::disarm_safepoint
+  [ 4] SafepointSynchronize::end
+  [ 5] VMThread::inner_execute
+  [ 6] VMThread::run
+  [ 7] Thread::call_run
+  [ 8] thread_native_entry
+  [ 9] _pthread_start
+  [10] thread_start
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.lang.String.equals
+  [ 1] org.opensearch.index.store.block_cache.FileBlockCacheKey.equals
+  [ 2] java.util.concurrent.ConcurrentHashMap.get
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 4] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 5] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 6] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 8] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [13] java.util.concurrent.Executors$RunnableAdapter.call
+  [14] java.util.concurrent.FutureTask.run
+  [15] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [16] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [17] java.lang.Thread.runWith
+  [18] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.publishToL1
+  [ 1] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 3] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 8] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 9] java.util.concurrent.FutureTask.run
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.lang.invoke.VarHandleLongs$FieldInstanceReadOnly.getVolatile
+  [ 1] java.lang.invoke.VarHandleGuards.guard_L_J
+  [ 2] org.opensearch.index.store.block.RefCountedMemorySegment.tryPin
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] __commpage_gettimeofday_internal
+  [ 1] gettimeofday
+  [ 2] clock_gettime
+  [ 3] Parker::park
+  [ 4] Unsafe_Park
+  [ 5] jdk.internal.misc.Unsafe.park
+  [ 6] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 7] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 8] java.util.concurrent.ForkJoinPool.runWorker
+  [ 9] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.lang.invoke.VarHandleReferences$FieldInstanceReadOnly.get
+  [ 1] java.lang.invoke.VarHandleGuards.guard_L_L
+  [ 2] com.github.benmanes.caffeine.cache.PS.getValue
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 4] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 5] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 6] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 8] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [13] java.util.concurrent.Executors$RunnableAdapter.call
+  [14] java.util.concurrent.FutureTask.run
+  [15] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [16] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [17] java.lang.Thread.runWith
+  [18] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.ForkJoinPool.scan
+  [ 1] java.util.concurrent.ForkJoinPool.runWorker
+  [ 2] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] stub:pthread_jit_write_protect_np
+  [ 1] Unsafe_Park
+  [ 2] jdk.internal.misc.Unsafe.park
+  [ 3] java.util.concurrent.locks.LockSupport.park
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 5] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 6] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 7] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 8] java.util.concurrent.LinkedBlockingQueue.take
+  [ 9] java.util.concurrent.ThreadPoolExecutor.getTask
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.LinkedBlockingQueue.take
+  [ 1] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 2] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 3] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 4] java.lang.Thread.runWith
+  [ 5] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] com.github.benmanes.caffeine.cache.FrequencySketch.incrementAt
+  [ 1] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 4] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [11] java.util.concurrent.ForkJoinTask.doExec
+  [12] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [13] java.util.concurrent.ForkJoinPool.scan
+  [14] java.util.concurrent.ForkJoinPool.runWorker
+  [15] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 1] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 3] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 8] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 9] java.util.concurrent.FutureTask.run
+  [10] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [11] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [12] java.lang.Thread.runWith
+  [13] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.read_ahead.impl.WindowedReadAheadContext.onAccess
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.Random.<init>
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 3] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 4] java.util.concurrent.FutureTask.run
+  [ 5] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 6] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 7] java.lang.Thread.runWith
+  [ 8] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] Unsafe_Park
+  [ 1] jdk.internal.misc.Unsafe.park
+  [ 2] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 3] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 4] java.util.concurrent.ForkJoinPool.runWorker
+  [ 5] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] pthread_mutex_lock
+  [ 1] _pthread_cond_wait
+  [ 2] Parker::park
+  [ 3] Unsafe_Park
+  [ 4] jdk.internal.misc.Unsafe.park
+  [ 5] java.util.concurrent.locks.LockSupport.park
+  [ 6] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block
+  [ 7] java.util.concurrent.ForkJoinPool.unmanagedBlock
+  [ 8] java.util.concurrent.ForkJoinPool.managedBlock
+  [ 9] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [10] java.util.concurrent.LinkedBlockingQueue.take
+  [11] java.util.concurrent.ThreadPoolExecutor.getTask
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.ForkJoinPool.scan
+  [ 1] java.util.concurrent.ForkJoinPool.runWorker
+  [ 2] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] GenericTaskQueueSet<OverflowTaskQueue<ScannerTask, (MEMFLAGS)5, 131072u>, (MEMFLAGS)5>::steal_best_of_2
+  [ 1] G1ParScanThreadState::steal_and_trim_queue
+  [ 2] G1ParEvacuateFollowersClosure::do_void
+  [ 3] G1EvacuateRegionsTask::evacuate_live_objects
+  [ 4] G1EvacuateRegionsBaseTask::work
+  [ 5] WorkerThread::run
+  [ 6] Thread::call_run
+  [ 7] thread_native_entry
+  [ 8] _pthread_start
+  [ 9] thread_start
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] com.github.benmanes.caffeine.cache.SSLSMS.frequencySketch
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.skipReadBuffer
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 4] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 5] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 6] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 8] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [13] java.util.concurrent.Executors$RunnableAdapter.call
+  [14] java.util.concurrent.FutureTask.run
+  [15] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [16] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [17] java.lang.Thread.runWith
+  [18] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.lang.Module.moduleForNativeAccess
+  [ 1] java.lang.Module.ensureNativeAccess
+  [ 2] java.lang.System$2.ensureNativeAccess
+  [ 3] jdk.internal.reflect.Reflection.ensureNativeAccess
+  [ 4] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpretInternal
+  [ 5] jdk.internal.foreign.AbstractMemorySegmentImpl.reinterpret
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [12] java.util.concurrent.Executors$RunnableAdapter.call
+  [13] java.util.concurrent.FutureTask.run
+  [14] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [15] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [16] java.lang.Thread.runWith
+  [17] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] __psynch_cvsignal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 6] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 7] java.util.concurrent.LinkedBlockingQueue.signalNotEmpty
+  [ 8] java.util.concurrent.LinkedBlockingQueue.offer
+  [ 9] java.util.concurrent.ThreadPoolExecutor.execute
+  [10] java.util.concurrent.ExecutorCompletionService.submit
+  [11] org.openjdk.jmh.runner.BenchmarkHandler.runIteration
+  [12] org.openjdk.jmh.runner.BaseRunner.runBenchmark
+  [13] org.openjdk.jmh.runner.BaseRunner.runBenchmark
+  [14] org.openjdk.jmh.runner.BaseRunner.doSingle
+  [15] org.openjdk.jmh.runner.BaseRunner.runBenchmarksForked
+  [16] org.openjdk.jmh.runner.ForkedRunner.run
+  [17] org.openjdk.jmh.runner.ForkedMain.main
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire
+  [ 1] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 2] java.util.concurrent.LinkedBlockingQueue.take
+  [ 3] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 4] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 5] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 6] java.lang.Thread.runWith
+  [ 7] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] pthread_cond_signal
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.ForkJoinPool.signalWork
+  [ 5] java.util.concurrent.ForkJoinPool$WorkQueue.push
+  [ 6] java.util.concurrent.ForkJoinPool.poolSubmit
+  [ 7] java.util.concurrent.ForkJoinPool.execute
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.scheduleDrainBuffers
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [11] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [12] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [13] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [14] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [15] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [16] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [17] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [18] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [19] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [20] java.util.concurrent.Executors$RunnableAdapter.call
+  [21] java.util.concurrent.FutureTask.run
+  [22] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [23] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [24] java.lang.Thread.runWith
+  [25] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] sun.nio.fs.UnixPath.normalize
+  [ 1] sun.nio.fs.UnixPath.normalize
+  [ 2] org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] com.github.benmanes.caffeine.cache.FrequencySketch.isNotInitialized
+  [ 1] com.github.benmanes.caffeine.cache.FrequencySketch.increment
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 4] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 5] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 8] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 9] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [10] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [11] java.util.concurrent.ForkJoinTask.doExec
+  [12] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [13] java.util.concurrent.ForkJoinPool.scan
+  [14] java.util.concurrent.ForkJoinPool.runWorker
+  [15] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+  [ 1] com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+  [ 2] com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.drainReadBuffer
+  [ 4] com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+  [ 5] com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+  [ 6] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.run
+  [ 7] com.github.benmanes.caffeine.cache.BoundedLocalCache$PerformCleanupTask.exec
+  [ 8] java.util.concurrent.ForkJoinTask.doExec
+  [ 9] java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec
+  [10] java.util.concurrent.ForkJoinPool.scan
+  [11] java.util.concurrent.ForkJoinPool.runWorker
+  [12] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.ConcurrentHashMap.get
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 2] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 3] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 4] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [11] java.util.concurrent.Executors$RunnableAdapter.call
+  [12] java.util.concurrent.FutureTask.run
+  [13] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [14] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [15] java.lang.Thread.runWith
+  [16] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.locks.LockSupport.parkUntil
+  [ 1] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 2] java.util.concurrent.ForkJoinPool.runWorker
+  [ 3] java.util.concurrent.ForkJoinWorkerThread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 6] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 7] java.util.concurrent.FutureTask.run
+  [ 8] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 9] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [10] java.lang.Thread.runWith
+  [11] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] ThreadsListHandle::~ThreadsListHandle
+  [ 1] Unsafe_Unpark
+  [ 2] jdk.internal.misc.Unsafe.unpark
+  [ 3] java.util.concurrent.locks.LockSupport.unpark
+  [ 4] java.util.concurrent.locks.AbstractQueuedSynchronizer.signalNext
+  [ 5] java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+  [ 6] java.util.concurrent.locks.ReentrantLock.unlock
+  [ 7] java.util.concurrent.LinkedBlockingQueue.take
+  [ 8] java.util.concurrent.ThreadPoolExecutor.getTask
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] com.github.benmanes.caffeine.cache.BLCHeader$DrainStatusRef.shouldDrainBuffers
+  [ 1] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 3] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 4] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 5] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 6] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [12] java.util.concurrent.Executors$RunnableAdapter.call
+  [13] java.util.concurrent.FutureTask.run
+  [14] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [15] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [16] java.lang.Thread.runWith
+  [17] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.lang.invoke.VarHandleLongs$FieldInstanceReadWrite.compareAndSet
+  [ 1] java.lang.invoke.VarHandleGuards.guard_LJJ_Z
+  [ 2] org.opensearch.index.store.block.RefCountedMemorySegment.tryPin
+  [ 3] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 4] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 5] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 7] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 8] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [10] java.util.concurrent.Executors$RunnableAdapter.call
+  [11] java.util.concurrent.FutureTask.run
+  [12] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [13] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [14] java.lang.Thread.runWith
+  [15] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.atomic.LongAdder.add
+  [ 1] com.github.benmanes.caffeine.cache.stats.ConcurrentStatsCounter.recordHits
+  [ 2] com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+  [ 3] com.github.benmanes.caffeine.cache.BoundedLocalCache.getIfPresent
+  [ 4] com.github.benmanes.caffeine.cache.LocalManualCache.getIfPresent
+  [ 5] org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+  [ 6] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 7] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 8] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 9] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [10] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [11] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [12] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [13] java.util.concurrent.Executors$RunnableAdapter.call
+  [14] java.util.concurrent.FutureTask.run
+  [15] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [16] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [17] java.lang.Thread.runWith
+  [18] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 4] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 5] java.util.concurrent.FutureTask.run
+  [ 6] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 7] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 8] java.lang.Thread.runWith
+  [ 9] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+  [ 1] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+  [ 2] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 5] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 6] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 7] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 8] java.util.concurrent.FutureTask.run
+  [ 9] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [10] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [11] java.lang.Thread.runWith
+  [12] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.seek
+  [ 1] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  [ 2] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c208.run
+  [ 3] org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$runConcurrent$1
+  [ 4] org.opensearch.index.store.benchmark.HotPathReadBenchmarks$$Lambda.0x000000700122c430.run
+  [ 5] java.util.concurrent.Executors$RunnableAdapter.call
+  [ 6] java.util.concurrent.FutureTask.run
+  [ 7] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [ 8] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [ 9] java.lang.Thread.runWith
+  [10] java.lang.Thread.run
+
+--- 10000000 ns (0.01%), 1 sample
+  [ 0] java.util.concurrent.ForkJoinPool.hasTasks
+  [ 1] java.util.concurrent.ForkJoinPool.awaitWork
+  [ 2] java.util.concurrent.ForkJoinPool.runWorker
+  [ 3] java.util.concurrent.ForkJoinWorkerThread.run
+
+          ns  percent  samples  top
+  ----------  -------  -------  ---
+ 59540000000   53.70%     5954  org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.readByte
+ 36910000000   33.29%     3691  org.opensearch.index.store.benchmark.HotPathReadBenchmarks.lambda$sequentialReadBytesFromClone$3
+  7790000000    7.03%      779  __psynch_cvwait
+   950000000    0.86%       95  __psynch_cvsignal
+   580000000    0.52%       58  sun.nio.fs.UnixPath.normalize
+   370000000    0.33%       37  org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.getCacheBlockWithOffset
+   360000000    0.32%       36  java.util.Random.<init>
+   310000000    0.28%       31  org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.acquireRefCountedValue
+   270000000    0.24%       27  __gettimeofday
+   260000000    0.23%       26  java.lang.invoke.VarHandleLongs$FieldInstanceReadWrite.compareAndSet
+   260000000    0.23%       26  java.lang.String.equals
+   230000000    0.21%       23  pthread_jit_write_protect_np
+   200000000    0.18%       20  com.github.benmanes.caffeine.cache.FrequencySketch.indexOf
+   180000000    0.16%       18  org.opensearch.index.store.block.RefCountedMemorySegment.segment
+   150000000    0.14%       15  java.util.concurrent.ForkJoinPool.scan
+   110000000    0.10%       11  org.openjdk.jmh.infra.Blackhole.consume
+   110000000    0.10%       11  com.github.benmanes.caffeine.cache.AbstractLinkedDeque.unlink
+    90000000    0.08%        9  com.github.benmanes.caffeine.cache.BoundedLocalCache.afterRead
+    90000000    0.08%        9  com.github.benmanes.caffeine.cache.StripedBuffer.offer
+    80000000    0.07%        8  org.opensearch.index.store.block.RefCountedMemorySegment.tryPin
+    70000000    0.06%        7  com.github.benmanes.caffeine.cache.FrequencySketch.isNotInitialized
+    60000000    0.05%        6  java.util.concurrent.ForkJoinPool.awaitWork
+    60000000    0.05%        6  org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.close
+    60000000    0.05%        6  java.lang.invoke.VarHandleLongs$FieldInstanceReadOnly.getVolatile
+    50000000    0.05%        5  java.util.concurrent.ForkJoinPool.hasTasks
+    50000000    0.05%        5  com.github.benmanes.caffeine.cache.BoundedLocalCache$$Lambda.0x000000700119c9e0.accept
+    50000000    0.05%        5  java.util.concurrent.atomic.LongAdder.add
+    50000000    0.05%        5  jdk.internal.access.SharedSecrets.getJavaLangAccess
+    50000000    0.05%        5  org.opensearch.index.store.block.RefCountedMemorySegment.decRef
+    50000000    0.05%        5  com.github.benmanes.caffeine.cache.StripedBuffer.drainTo
+    50000000    0.05%        5  jdk.internal.reflect.Reflection.ensureNativeAccess
+    40000000    0.04%        4  _pthread_cond_wait
+    40000000    0.04%        4  com.github.benmanes.caffeine.cache.FrequencySketch.spread
+    40000000    0.04%        4  com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.drainTo
+    40000000    0.04%        4  java.util.concurrent.ConcurrentHashMap.get
+    40000000    0.04%        4  org.opensearch.index.store.block_cache.FileBlockCacheKey.hashCode
+    40000000    0.04%        4  com.github.benmanes.caffeine.cache.PSMS.setNextInAccessOrder
+    30000000    0.03%        3  org.opensearch.index.store.read_ahead.impl.WindowedReadAheadContext.onAccess
+    30000000    0.03%        3  jdk.internal.foreign.MemorySessionImpl.checkValidStateRaw
+    30000000    0.03%        3  com.github.benmanes.caffeine.cache.BoundedLocalCache.onAccess
+    30000000    0.03%        3  org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.seek
+    30000000    0.03%        3  com.github.benmanes.caffeine.cache.FrequencySketch.increment
+    30000000    0.03%        3  com.github.benmanes.caffeine.cache.FrequencySketch.incrementAt
+    30000000    0.03%        3  Parker::park
+    20000000    0.02%        2  Unsafe_Unpark
+    20000000    0.02%        2  clock_gettime
+    20000000    0.02%        2  org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.ensureOpen
+    20000000    0.02%        2  jdk.internal.misc.Unsafe.park
+    20000000    0.02%        2  jdk.internal.misc.Unsafe.getByte
+    20000000    0.02%        2  __psynch_mutexwait
+    20000000    0.02%        2  mach_absolute_time
+    20000000    0.02%        2  ThreadsListHandle::~ThreadsListHandle
+    20000000    0.02%        2  Unsafe_Park
+    20000000    0.02%        2  java.util.concurrent.locks.AbstractQueuedSynchronizer.getState
+    20000000    0.02%        2  org.opensearch.index.store.bufferpoolfs.CachedMemorySegmentIndexInput.clone
+    20000000    0.02%        2  os::javaTimeMillis
+    20000000    0.02%        2  pthread_mutex_unlock
+    20000000    0.02%        2  org.opensearch.index.store.block_cache.CaffeineBlockCache.get
+    20000000    0.02%        2  java.util.concurrent.LinkedBlockingQueue.take
+    20000000    0.02%        2  stub:pthread_jit_write_protect_np
+    20000000    0.02%        2  java.lang.invoke.VarHandleReferences$FieldInstanceReadOnly.get
+    20000000    0.02%        2  void G1ScanEvacuatedObjClosure::do_oop_work<narrowOop>
+    20000000    0.02%        2  com.github.benmanes.caffeine.cache.BoundedBuffer$RingBuffer.offer
+    20000000    0.02%        2  com.github.benmanes.caffeine.cache.BLCHeader$DrainStatusRef.shouldDrainBuffers
+    10000000    0.01%        1  AccessInternal::PostRuntimeDispatch<G1BarrierSet::AccessBarrier<548964ull, G1BarrierSet>, (AccessInternal::BarrierType)2, 548964ull>::oop_access_barrier
+    10000000    0.01%        1  zero_blocks
+    10000000    0.01%        1  java.util.concurrent.ConcurrentHashMap.tabAt
+    10000000    0.01%        1  java.lang.invoke.VarHandleReferences$Array.setRelease
+    10000000    0.01%        1  java.util.concurrent.ForkJoinTask.doExec
+    10000000    0.01%        1  java.util.concurrent.LinkedBlockingQueue.offer
+    10000000    0.01%        1  java.lang.invoke.VarHandleReferences$Array.runtimeTypeCheck
+    10000000    0.01%        1  java.lang.invoke.VarHandleReferences$Array.getVolatile
+    10000000    0.01%        1  java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+    10000000    0.01%        1  java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.enableWait
+    10000000    0.01%        1  java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire
+    10000000    0.01%        1  java.util.concurrent.locks.AbstractQueuedSynchronizer.compareAndSetState
+    10000000    0.01%        1  java.lang.Module.moduleForNativeAccess
+    10000000    0.01%        1  java.util.concurrent.locks.LockSupport.parkUntil
+    10000000    0.01%        1  java.util.concurrent.locks.ReentrantLock$NonfairSync.initialTryLock
+    10000000    0.01%        1  java_lang_Thread::get_thread_status
+    10000000    0.01%        1  java.lang.Class.getModule
+    10000000    0.01%        1  gettimeofday
+    10000000    0.01%        1  jdk.internal.foreign.NativeMemorySegmentImpl.makeNativeSegmentUnchecked
+    10000000    0.01%        1  com.github.benmanes.caffeine.cache.SSLSMS.frequencySketch
+    10000000    0.01%        1  com.github.benmanes.caffeine.cache.SSLS.statsCounter
+    10000000    0.01%        1  com.github.benmanes.caffeine.cache.Node.inMainProbation
+    10000000    0.01%        1  jdk.internal.vm.ThreadContainers.deregisterContainer
+    10000000    0.01%        1  com.github.benmanes.caffeine.cache.BoundedLocalCache.performCleanUp
+    10000000    0.01%        1  oopDesc::address_field_acquire
+    10000000    0.01%        1  com.github.benmanes.caffeine.cache.BoundedLocalCache.maintenance
+    10000000    0.01%        1  ciTypeFlow::StateVector::do_getstatic
+    10000000    0.01%        1  _tlv_get_addr
+    10000000    0.01%        1  _pthread_mutex_firstfit_lock_wait
+    10000000    0.01%        1  _pthread_mutex_droplock
+    10000000    0.01%        1  org.opensearch.index.store.block.RefCountedMemorySegment.unpackGeneration
+    10000000    0.01%        1  _pthread_cond_updateval
+    10000000    0.01%        1  org.opensearch.index.store.block_cache.FileBlockCacheKey.<init>
+    10000000    0.01%        1  _platform_memset
+    10000000    0.01%        1  __psynch_mutexdrop
+    10000000    0.01%        1  org.opensearch.index.store.bufferpoolfs.BlockSlotTinyCache.publishToL1
+    10000000    0.01%        1  __commpage_gettimeofday_internal
+    10000000    0.01%        1  PhaseLive::add_liveout
+    10000000    0.01%        1  PhaseIdealLoop::split_if_with_blocks
+    10000000    0.01%        1  PhaseChaitin::post_allocate_copy_removal
+    10000000    0.01%        1  MemAllocator::Allocation::notify_allocation
+    10000000    0.01%        1  Klass::check_array_allocation_length
+    10000000    0.01%        1  JavaFrameAnchor::make_walkable
+    10000000    0.01%        1  IndexSetIterator::advance_and_next
+    10000000    0.01%        1  pthread_cond_signal
+    10000000    0.01%        1  IndexSet::IndexSet
+    10000000    0.01%        1  pthread_mutex_lock
+    10000000    0.01%        1  GenericTaskQueueSet<OverflowTaskQueue<ScannerTask, (MEMFLAGS)5, 131072u>, (MEMFLAGS)5>::steal_best_of_2
+    10000000    0.01%        1  semaphore_signal_trap
+    10000000    0.01%        1  stub:clock_gettime
+    10000000    0.01%        1  G1ParScanThreadState::trim_queue_to_threshold
+    10000000    0.01%        1  stub:pthread_mutex_unlock
+    10000000    0.01%        1  sun.nio.fs.UnixPath.getNameCount
+    10000000    0.01%        1  sun.nio.fs.UnixPath.isAbsolute
+    10000000    0.01%        1  FastThreadsListHandle::FastThreadsListHandle
+    10000000    0.01%        1  unsigned char* StackValue::stack_value_address<RegisterMap>
+    10000000    0.01%        1  CollectedHeap::array_allocate
+    10000000    0.01%        1  java.util.concurrent.ForkJoinPool$WorkQueue.casSlotToNull
