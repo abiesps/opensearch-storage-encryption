@@ -33,7 +33,7 @@ import org.opensearch.test.OpenSearchTestCase;
 @SuppressWarnings("unchecked")
 public class CachedMemorySegmentIndexInputTests extends OpenSearchTestCase {
 
-    private static final int BLOCK_SIZE = 8192; // DirectIoConfigs.CACHE_BLOCK_SIZE
+    private static final int BLOCK_SIZE = StaticConfigs.CACHE_BLOCK_SIZE;
     private static final ValueLayout.OfByte LAYOUT_BYTE = ValueLayout.JAVA_BYTE;
     private static final ValueLayout.OfShort LAYOUT_LE_SHORT = ValueLayout.JAVA_SHORT_UNALIGNED.withOrder(ByteOrder.LITTLE_ENDIAN);
     private static final ValueLayout.OfInt LAYOUT_LE_INT = ValueLayout.JAVA_INT_UNALIGNED.withOrder(ByteOrder.LITTLE_ENDIAN);
