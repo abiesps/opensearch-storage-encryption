@@ -44,8 +44,8 @@ import org.openjdk.jmh.infra.Blackhole;
  */
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
-@Warmup(iterations = 2, time = 1)
-@Measurement(iterations = 5, time = 2)
+@Warmup(iterations = 1, time = 1)
+@Measurement(iterations = 3, time = 1)
 //@Fork(value = 2, jvmArgsAppend = { "--enable-native-access=ALL-UNNAMED", "--enable-preview" })
 @Fork(value = 1, jvmArgsAppend = { "--enable-native-access=ALL-UNNAMED", "--enable-preview" })
 @State(Scope.Benchmark)
@@ -53,7 +53,7 @@ import org.openjdk.jmh.infra.Blackhole;
 public class HotPathReadBenchmarks extends ReadBenchmarkBase {
 
     // Expand to "1", "4", "8", "16", "32" for full sweep
-    @Param({ "1", "32" })
+    @Param({ "1" })
     public int threadCount;
 
     private ExecutorService executor;
@@ -130,8 +130,25 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
         }
     }
 
+    /**
+     * Pre-cloned IndexInputs for benchmarks that want to measure pure read
+     * throughput without clone()/close() overhead per iteration.
+     * Created once at trial setup, reset via seek(0) each iteration.
+     */
+    protected IndexInput[] clonedInputs;
+
     @Setup(Level.Iteration)
     public void setupIteration() throws IOException {
+        // Create or reset pre-cloned inputs
+        if (clonedInputs == null) {
+            clonedInputs = new IndexInput[indexInputs.length];
+            for (int i = 0; i < indexInputs.length; i++) {
+                clonedInputs[i] = indexInputs[i].clone();
+            }
+        }
+        for (IndexInput ci : clonedInputs) {
+            ci.seek(0);
+        }
         AtomicInteger counter = new AtomicInteger();
         executor = Executors.newFixedThreadPool(threadCount, r -> {
             Thread t = new Thread(r, "jmh-reader-" + counter.getAndIncrement());
@@ -575,10 +592,139 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
         }, bh);
     }
 
+    // ======================== Block-boundary readLong benchmarks ========================
+    // These benchmarks deliberately position every readLong() so that it straddles a
+    // block boundary (last 4 bytes of block N, first 4 bytes of block N+1).
+    // This isolates the block-crossing slow path cost without clone/close noise.
+
+    /**
+     * Random block-boundary readLong: for each block (in random order), seek to
+     * blockEnd - 4 and readLong(). Every single read crosses a block boundary.
+     * Uses pre-cloned inputs — no clone/close overhead.
+     */
+    @Benchmark
+    public void randomReadLongBlockBoundary(Blackhole bh) throws Exception {
+        runConcurrent((buf, hole) -> {
+            final int blockSize = StaticConfigs.CACHE_BLOCK_SIZE;
+            // Shuffle block indices for random access pattern
+            int numBoundaries = blockStartOffsets.length - 1; // last block has no next block
+            if (numBoundaries <= 0) return;
+            // Use a fixed-seed shuffle per invocation for reproducibility
+            int[] indices = new int[numBoundaries];
+            for (int i = 0; i < numBoundaries; i++) indices[i] = i;
+            // Fisher-Yates shuffle with thread-local random
+            java.util.concurrent.ThreadLocalRandom tlr = java.util.concurrent.ThreadLocalRandom.current();
+            for (int i = numBoundaries - 1; i > 0; i--) {
+                int j = tlr.nextInt(i + 1);
+                int tmp = indices[i]; indices[i] = indices[j]; indices[j] = tmp;
+            }
+            for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
+                IndexInput fileInput = clonedInputs[fileIdx];
+                for (int idx : indices) {
+                    // Position at blockEnd - 4: the readLong will read 4 bytes from this block
+                    // and 4 bytes from the next block
+                    long seekPos = blockStartOffsets[idx] + blockSize - 4;
+                    if (seekPos + Long.BYTES <= fileSize) {
+                        fileInput.seek(seekPos);
+                        hole.consume(fileInput.readLong());
+                    }
+                }
+            }
+        }, bh);
+    }
+
+    /**
+     * Sequential block-boundary readLong: walks every block boundary in order,
+     * seeking to blockEnd - 4 and reading a long that straddles the boundary.
+     * Uses pre-cloned inputs — no clone/close overhead.
+     */
+    @Benchmark
+    public void sequentialReadLongBlockBoundary(Blackhole bh) throws Exception {
+        runConcurrent((buf, hole) -> {
+            final int blockSize = StaticConfigs.CACHE_BLOCK_SIZE;
+            int numBoundaries = blockStartOffsets.length - 1;
+            if (numBoundaries <= 0) return;
+            for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
+                IndexInput fileInput = clonedInputs[fileIdx];
+                for (int i = 0; i < numBoundaries; i++) {
+                    long seekPos = blockStartOffsets[i] + blockSize - 4;
+                    if (seekPos + Long.BYTES <= fileSize) {
+                        fileInput.seek(seekPos);
+                        hole.consume(fileInput.readLong());
+                    }
+                }
+            }
+        }, bh);
+    }
+
+    // ---- Isolation benchmarks: seek, clone, slice overhead ----
+
+    /**
+     * Pure seek overhead: seeks to random offsets across blocks (no reads).
+     * Measures the cost of seek() itself — block resolution, guard checks.
+     * Uses pre-cloned inputs.
+     */
+    @Benchmark
+    public void seekOverhead(Blackhole bh) throws Exception {
+        runConcurrent((buf, hole) -> {
+            long[] offsets = randomReadByteOffsets();
+            for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
+                IndexInput fileInput = clonedInputs[fileIdx];
+                for (long offset : offsets) {
+                    fileInput.seek(offset);
+                }
+                // Consume final position to prevent dead-code elimination
+                hole.consume(fileInput.getFilePointer());
+            }
+        }, bh);
+    }
+
+    /**
+     * Clone + close overhead: clones an IndexInput, seeks to a random position,
+     * reads one byte, then closes. Measures the full clone lifecycle cost.
+     */
+    @Benchmark
+    public void cloneOverhead(Blackhole bh) throws Exception {
+        runConcurrent((buf, hole) -> {
+            long[] offsets = randomReadByteOffsets();
+            for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
+                IndexInput base = indexInputs[fileIdx];
+                for (long offset : offsets) {
+                    IndexInput clone = base.clone();
+                    clone.seek(offset);
+                    hole.consume(clone.readByte());
+                    clone.close();
+                }
+            }
+        }, bh);
+    }
+
+    /**
+     * Slice creation + close overhead: creates a slice at a random offset,
+     * reads one byte, then closes. Measures slice lifecycle cost.
+     */
+    @Benchmark
+    public void sliceOverhead(Blackhole bh) throws Exception {
+        runConcurrent((buf, hole) -> {
+            long[] offsets = randomReadByteOffsets();
+            for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
+                IndexInput base = indexInputs[fileIdx];
+                for (long offset : offsets) {
+                    long sliceLen = Math.min(StaticConfigs.CACHE_BLOCK_SIZE, fileSize - offset);
+                    if (sliceLen > 0) {
+                        IndexInput slice = base.slice("bench-slice", offset, sliceLen);
+                        hole.consume(slice.readByte());
+                        slice.close();
+                    }
+                }
+            }
+        }, bh);
+    }
+
     // Mixed workload: randomly exercises all read APIs in a single benchmark
     // to simulate realistic Lucene read patterns where different APIs are interleaved.
     static Random random = new Random();
-   // @Benchmark
+    @Benchmark
     public void mixedReadWorkload(Blackhole bh) throws Exception {
         runConcurrent(( buf, hole) -> {
             long[] offsets = randomReadByteOffsets();
@@ -591,94 +737,89 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
             float[] floatBuf = new float[numFloats];
 
             for (int fileIdx = 0; fileIdx < numFilesToRead; fileIdx++) {
-                IndexInput fileInput = indexInputs[fileIdx].clone();
-                try {
-                    RandomAccessInput rai = (RandomAccessInput) fileInput;
-                    for (int i = 0; i < offsets.length; i++) {
-                        long offset = offsets[i];
-                        int op = random.nextInt(12);
-                        switch (op) {
-                            case 0 -> hole.consume(rai.readByte(offset));
-                            case 1 -> {
-                                if (offset + Short.BYTES <= fileSize)
-                                    hole.consume(rai.readShort(offset));
+                IndexInput fileInput = clonedInputs[fileIdx];
+                fileInput.seek(0);
+                RandomAccessInput rai = (RandomAccessInput) fileInput;
+                for (int i = 0; i < offsets.length; i++) {
+                    long offset = offsets[i];
+                    int op = random.nextInt(12);
+                    switch (op) {
+                        case 0 -> hole.consume(rai.readByte(offset));
+                        case 1 -> {
+                            if (offset + Short.BYTES <= fileSize)
+                                hole.consume(rai.readShort(offset));
+                        }
+                        case 2 -> {
+                            if (offset + Integer.BYTES <= fileSize)
+                                hole.consume(rai.readInt(offset));
+                        }
+                        case 3 -> {
+                            if (offset + Long.BYTES <= fileSize)
+                                hole.consume(rai.readLong(offset));
+                        }
+                        case 4 -> {
+                            int readable = (int) Math.min(readBuf.length, fileSize - offset);
+                            if (readable > 0) {
+                                rai.readBytes(offset, readBuf, 0, readable);
+                                hole.consume(readBuf[0]);
                             }
-                            case 2 -> {
-                                if (offset + Integer.BYTES <= fileSize)
-                                    hole.consume(rai.readInt(offset));
+                        }
+                        case 5 -> {
+                            fileInput.seek(offset);
+                            hole.consume(fileInput.readByte());
+                        }
+                        case 6 -> {
+                            fileInput.seek(offset);
+                            int readable = (int) Math.min(readBuf.length, fileSize - offset);
+                            if (readable > 0) {
+                                fileInput.readBytes(readBuf, 0, readable);
+                                hole.consume(readBuf[0]);
                             }
-                            case 3 -> {
-                                if (offset + Long.BYTES <= fileSize)
-                                    hole.consume(rai.readLong(offset));
+                        }
+                        case 7 -> {
+                            fileInput.seek(offset);
+                            long remaining = fileSize - offset;
+                            int readable = (int) Math.min(numInts, remaining / Integer.BYTES);
+                            if (readable > 0) {
+                                fileInput.readInts(intBuf, 0, readable);
+                                hole.consume(intBuf[0]);
                             }
-                            case 4 -> {
-                                int readable = (int) Math.min(readBuf.length, fileSize - offset);
-                                if (readable > 0) {
-                                    rai.readBytes(offset, readBuf, 0, readable);
+                        }
+                        case 8 -> {
+                            fileInput.seek(offset);
+                            long remaining = fileSize - offset;
+                            int readable = (int) Math.min(numLongs, remaining / Long.BYTES);
+                            if (readable > 0) {
+                                fileInput.readLongs(longBuf, 0, readable);
+                                hole.consume(longBuf[0]);
+                            }
+                        }
+                        case 9 -> {
+                            fileInput.seek(offset);
+                            long remaining = fileSize - offset;
+                            int readable = (int) Math.min(numFloats, remaining / Float.BYTES);
+                            if (readable > 0) {
+                                fileInput.readFloats(floatBuf, 0, readable);
+                                hole.consume(floatBuf[0]);
+                            }
+                        }
+                        case 10 -> {
+                            long sliceLen = Math.min(StaticConfigs.CACHE_BLOCK_SIZE, fileSize - offset);
+                            if (sliceLen > 0) {
+                                try (IndexInput slice = fileInput.slice("bench-slice", offset, sliceLen)) {
+                                    slice.readBytes(readBuf, 0, (int) sliceLen);
                                     hole.consume(readBuf[0]);
-                                }
-                            }
-                            case 5 -> {
-                                fileInput.seek(offset);
-                                hole.consume(fileInput.readByte());
-                            }
-                            case 6 -> {
-                                fileInput.seek(offset);
-                                int readable = (int) Math.min(readBuf.length, fileSize - offset);
-                                if (readable > 0) {
-                                    fileInput.readBytes(readBuf, 0, readable);
-                                    hole.consume(readBuf[0]);
-                                }
-                            }
-                            case 7 -> {
-                                fileInput.seek(offset);
-                                long remaining = fileSize - offset;
-                                int readable = (int) Math.min(numInts, remaining / Integer.BYTES);
-                                if (readable > 0) {
-                                    fileInput.readInts(intBuf, 0, readable);
-                                    hole.consume(intBuf[0]);
-                                }
-                            }
-                            case 8 -> {
-                                fileInput.seek(offset);
-                                long remaining = fileSize - offset;
-                                int readable = (int) Math.min(numLongs, remaining / Long.BYTES);
-                                if (readable > 0) {
-                                    fileInput.readLongs(longBuf, 0, readable);
-                                    hole.consume(longBuf[0]);
-                                }
-                            }
-                            case 9 -> {
-                                fileInput.seek(offset);
-                                long remaining = fileSize - offset;
-                                int readable = (int) Math.min(numFloats, remaining / Float.BYTES);
-                                if (readable > 0) {
-                                    fileInput.readFloats(floatBuf, 0, readable);
-                                    hole.consume(floatBuf[0]);
-                                }
-                            }
-                            case 10 -> {
-                                long sliceLen = Math.min(StaticConfigs.CACHE_BLOCK_SIZE, fileSize - offset);
-                                if (sliceLen > 0) {
-                                    try (IndexInput slice = fileInput.slice("bench-slice", offset, sliceLen)) {
-                                        slice.readBytes(readBuf, 0, (int) sliceLen);
-                                        hole.consume(readBuf[0]);
-                                    }
-                                }
-                            }
-                            case 11 -> {
-                                fileInput.seek(offset);
-                                long skip = Math.min(StaticConfigs.CACHE_BLOCK_SIZE, fileSize - offset);
-                                if (skip > 0) {
-                                    fileInput.skipBytes(skip);
-                                    hole.consume(fileInput.getFilePointer());
                                 }
                             }
                         }
-                    }
-                } finally {
-                    if (!directoryType.startsWith("mmap")) {
-                        fileInput.close();
+                        case 11 -> {
+                            fileInput.seek(offset);
+                            long skip = Math.min(StaticConfigs.CACHE_BLOCK_SIZE, fileSize - offset);
+                            if (skip > 0) {
+                                fileInput.skipBytes(skip);
+                                hole.consume(fileInput.getFilePointer());
+                            }
+                        }
                     }
                 }
             }
@@ -708,6 +849,14 @@ public class HotPathReadBenchmarks extends ReadBenchmarkBase {
 
     @TearDown(Level.Trial)
     public void tearDownHotPathTrial() throws Exception {
+        if (clonedInputs != null) {
+            for (IndexInput ci : clonedInputs) {
+                if (ci != null) {
+                    try { ci.close(); } catch (Exception ignored) {}
+                }
+            }
+            clonedInputs = null;
+        }
         super.closeInputs();
         super.tearDownTrial();
     }

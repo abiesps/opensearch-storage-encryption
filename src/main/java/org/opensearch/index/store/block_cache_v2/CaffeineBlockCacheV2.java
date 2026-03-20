@@ -7,6 +7,7 @@ package org.opensearch.index.store.block_cache_v2;
 import static org.opensearch.index.store.bufferpoolfs.StaticConfigs.CACHE_BLOCK_SIZE;
 
 import java.io.IOException;
+import java.lang.foreign.MemorySegment;
 import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -14,7 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.opensearch.index.store.bufferpoolfs.SparseLongBlockTable;
+import org.opensearch.index.store.bufferpoolfs.RadixBlockTable;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -31,7 +32,7 @@ import com.github.benmanes.caffeine.cache.RemovalCause;
 public final class CaffeineBlockCacheV2 {
 
     private final Cache<BlockCacheKeyV2, ByteBuffer> cache;
-    private final ConcurrentHashMap<Integer, WeakReference<SparseLongBlockTable>> vfdToTable =
+    private final ConcurrentHashMap<Integer, WeakReference<RadixBlockTable<MemorySegment>>> vfdToTable =
             new ConcurrentHashMap<>();
     private final VirtualFileDescriptorRegistry vfdRegistry;
     private final DirectMemoryAdmissionController admissionController;
@@ -76,9 +77,9 @@ public final class CaffeineBlockCacheV2 {
     }
 
     /**
-     * Registers a SparseLongBlockTable for eviction-driven cleanup.
+     * Registers a RadixBlockTable for eviction-driven cleanup.
      */
-    public void registerTable(int vfd, SparseLongBlockTable table) {
+    public void registerTable(int vfd, RadixBlockTable<MemorySegment> table) {
         vfdToTable.put(vfd, new WeakReference<>(table));
     }
 
@@ -155,9 +156,9 @@ public final class CaffeineBlockCacheV2 {
         if (key == null) return;
         admissionController.release(CACHE_BLOCK_SIZE);
 
-        WeakReference<SparseLongBlockTable> ref = vfdToTable.get(key.vfd());
+        WeakReference<RadixBlockTable<MemorySegment>> ref = vfdToTable.get(key.vfd());
         if (ref == null) return;
-        SparseLongBlockTable table = ref.get();
+        RadixBlockTable<MemorySegment> table = ref.get();
         if (table == null) {
             vfdToTable.remove(key.vfd()); // opportunistic cleanup
             return;

@@ -22,7 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Random;
 
-import org.opensearch.index.store.bufferpoolfs.SparseLongBlockTable;
+import org.opensearch.index.store.bufferpoolfs.RadixBlockTable;
 
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
@@ -156,7 +156,7 @@ class CaffeineBlockCacheV2PropertyTests {
 
     /**
      * Property 15: Eviction nulls table entry and triggers fallback.
-     * After eviction, SparseLongBlockTable.get(blockId) returns null;
+     * After eviction, RadixBlockTable.get(blockId) returns null;
      * next access reloads from Caffeine.
      *
      * We test this by loading blocks, populating the table, then invalidating
@@ -176,7 +176,7 @@ class CaffeineBlockCacheV2PropertyTests {
             Path tempFile = createTempFile(numBlocks);
             int vfd = vfdRegistry.register(tempFile.toAbsolutePath());
 
-            SparseLongBlockTable table = new SparseLongBlockTable(4);
+            RadixBlockTable<MemorySegment> table = new RadixBlockTable<>();
             cache.registerTable(vfd, table);
 
             // Load all blocks and populate table
@@ -246,7 +246,7 @@ class CaffeineBlockCacheV2PropertyTests {
             int vfd = vfdRegistry.register(tempFile.toAbsolutePath());
 
             // Register a table, then clear the WeakReference to simulate GC
-            SparseLongBlockTable table = new SparseLongBlockTable(4);
+            RadixBlockTable<MemorySegment> table = new RadixBlockTable<>();
             cache.registerTable(vfd, table);
 
             // Load a block so there's something to evict
@@ -296,7 +296,7 @@ class CaffeineBlockCacheV2PropertyTests {
             Path tempFile = createTempFile(numBlocks);
             int vfd = vfdRegistry.register(tempFile.toAbsolutePath());
 
-            SparseLongBlockTable table = new SparseLongBlockTable(4);
+            RadixBlockTable<MemorySegment> table = new RadixBlockTable<>();
             cache.registerTable(vfd, table);
 
             // Load block 0 and get a MemorySegment reference

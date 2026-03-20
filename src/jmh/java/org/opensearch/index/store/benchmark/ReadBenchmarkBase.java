@@ -39,6 +39,7 @@ import org.opensearch.index.store.block_cache_v2.DirectBufferPoolDirectory;
 import org.opensearch.index.store.block_cache_v2.VirtualFileDescriptorRegistry;
 import org.opensearch.index.store.bufferpoolfs.BufferPoolDirectory;
 import org.opensearch.index.store.bufferpoolfs.BufferPoolDirectoryV0;
+import org.opensearch.index.store.bufferpoolfs.NoOpRadixBlockTable;
 import org.opensearch.index.store.bufferpoolfs.NoOpSparseLongBlockTable;
 import org.opensearch.index.store.bufferpoolfs.TestKeyResolver;
 import org.opensearch.index.store.cipher.EncryptionMetadataCache;
@@ -63,7 +64,7 @@ import org.opensearch.telemetry.metrics.noop.NoopMetricsRegistry;
 @State(Scope.Benchmark)
 public class ReadBenchmarkBase {
 
-    @Param({ "directbufferpool", "mmap" })
+    @Param({ "directbufferpool", "mmap_single" })
     public String directoryType;
 
     @Param({ "1" })
@@ -382,7 +383,7 @@ public class ReadBenchmarkBase {
         // Only open inputs if this is the active directory type
         if ("directbufferpool".equals(directoryType)) {
             if ("true".equalsIgnoreCase(disableL1Cache)) {
-                directBufferPoolDirectory.setBlockTableOverride(NoOpSparseLongBlockTable.INSTANCE);
+                directBufferPoolDirectory.setBlockTableOverride(NoOpRadixBlockTable.instance());
             }
             for (int i = 0; i < fileNames.length; i++) {
                 indexInputs[i] = directBufferPoolDirectory.openInput(fileNames[i], IOContext.DEFAULT);

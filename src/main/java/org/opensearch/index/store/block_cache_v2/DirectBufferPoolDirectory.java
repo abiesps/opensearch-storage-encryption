@@ -5,6 +5,7 @@
 package org.opensearch.index.store.block_cache_v2;
 
 import java.io.IOException;
+import java.lang.foreign.MemorySegment;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -13,7 +14,7 @@ import org.apache.lucene.store.FSLockFactory;
 import org.apache.lucene.store.IOContext;
 import org.apache.lucene.store.IndexInput;
 import org.apache.lucene.store.IndexOutput;
-import org.opensearch.index.store.bufferpoolfs.SparseLongBlockTable;
+import org.opensearch.index.store.bufferpoolfs.RadixBlockTable;
 
 /**
  * POC directory that uses DirectByteBufferIndexInput for reads
@@ -25,7 +26,7 @@ public class DirectBufferPoolDirectory extends FSDirectory {
     private final CaffeineBlockCacheV2 blockCache;
     private final VirtualFileDescriptorRegistry vfdRegistry;
     private final FSDirectory writeDelegate;
-    private SparseLongBlockTable blockTableOverride;
+    private RadixBlockTable<MemorySegment> blockTableOverride;
 
     public DirectBufferPoolDirectory(Path path, CaffeineBlockCacheV2 blockCache) throws IOException {
         super(path, FSLockFactory.getDefault());
@@ -36,12 +37,10 @@ public class DirectBufferPoolDirectory extends FSDirectory {
     }
 
     /**
-     * Sets a SparseLongBlockTable override for all subsequent openInput calls.
+     * Sets a RadixBlockTable override for all subsequent openInput calls.
      * When set, all new IndexInputs will use this table instead of creating their own.
-     * Pass a {@link org.opensearch.index.store.bufferpoolfs.NoOpSparseLongBlockTable}
-     * to disable L1 caching for benchmarking.
      */
-    public void setBlockTableOverride(SparseLongBlockTable blockTableOverride) {
+    public void setBlockTableOverride(RadixBlockTable<MemorySegment> blockTableOverride) {
         this.blockTableOverride = blockTableOverride;
     }
 

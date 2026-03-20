@@ -19,10 +19,10 @@ import java.nio.file.Path;
 import org.apache.lucene.store.AlreadyClosedException;
 import org.apache.lucene.store.IndexInput;
 import org.apache.lucene.store.RandomAccessInput;
-import org.opensearch.index.store.bufferpoolfs.SparseLongBlockTable;
+import org.opensearch.index.store.bufferpoolfs.RadixBlockTable;
 
 /**
- * POC IndexInput backed by direct ByteBuffers + Caffeine + SparseLongBlockTable.
+ * POC IndexInput backed by direct ByteBuffers + Caffeine + RadixBlockTable.
  *
  * No encryption, no MemorySegmentPool, no RefCountedMemorySegment, no pin/unpin.
  * ByteBuffer.allocateDirect + GC reclamation. MemorySegment.ofBuffer() for hot-path reads.
@@ -51,7 +51,7 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
     final CaffeineBlockCacheV2 blockCache;
     final long absoluteBaseOffset;
     final boolean isClone;
-    final SparseLongBlockTable blockTable;
+    final RadixBlockTable<MemorySegment> blockTable;
 
     long curPosition = 0L;
     boolean isOpen = true;
@@ -70,20 +70,18 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
     public static DirectByteBufferIndexInput newInstance(
             String resourceDescription, Path path, long length,
             int vfd, CaffeineBlockCacheV2 blockCache) {
-        long totalBlocks = (length + CACHE_BLOCK_SIZE - 1) >>> CACHE_BLOCK_SIZE_POWER;
-        int initialChunks = (int)((totalBlocks >>> 8) + 1);
-        SparseLongBlockTable table = new SparseLongBlockTable(initialChunks);
+        RadixBlockTable<MemorySegment> table = new RadixBlockTable<>();
         return newInstance(resourceDescription, path, length, vfd, blockCache, table);
     }
 
     /**
-     * Creates a new instance with a caller-supplied SparseLongBlockTable.
+     * Creates a new instance with a caller-supplied RadixBlockTable.
      * Useful for benchmarking with a no-op table to measure L1 cache overhead.
      */
     public static DirectByteBufferIndexInput newInstance(
             String resourceDescription, Path path, long length,
             int vfd, CaffeineBlockCacheV2 blockCache,
-            SparseLongBlockTable blockTable) {
+            RadixBlockTable<MemorySegment> blockTable) {
         blockCache.registerTable(vfd, blockTable);
 
         DirectByteBufferIndexInput input = new DirectByteBufferIndexInput(
@@ -95,7 +93,7 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
     private DirectByteBufferIndexInput(
             String resourceDescription, long absoluteBaseOffset, long length,
             int vfd, CaffeineBlockCacheV2 blockCache, boolean isClone,
-            SparseLongBlockTable blockTable) {
+            RadixBlockTable<MemorySegment> blockTable) {
         super(resourceDescription);
         this.absoluteBaseOffset = absoluteBaseOffset;
         this.length = length;
@@ -120,7 +118,7 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
         final long blockOffset = fileOffset & ~CACHE_BLOCK_MASK;
         final long blockId = fileOffset >>> CACHE_BLOCK_SIZE_POWER;
 
-        // Check SparseLongBlockTable (L1)
+        // Check RadixBlockTable (L1)
         MemorySegment seg = blockTable.get(blockId);
         if (seg != null) {
             currentSegment = seg;
@@ -305,21 +303,30 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
     @Override
     public void readInts(int[] dst, int offset, int length) throws IOException {
         if (length == 0) return;
-        final long totalBytes = Integer.BYTES * (long) length;
+        int remaining = length;
+        int dstOff = offset;
         try {
-            if (currentSegment == null) {
-                switchToBlock(curPosition);
-            }
-            long off = absoluteBaseOffset + curPosition - currentSegmentOffset;
-            if (off < 0 || off + totalBytes > currentSegment.byteSize()) {
-                switchToBlock(curPosition);
-                off = absoluteBaseOffset + curPosition - currentSegmentOffset;
-            }
-            if (off + totalBytes <= currentSegment.byteSize()) {
-                MemorySegment.copy(currentSegment, LAYOUT_LE_INT, off, dst, offset, length);
-                curPosition += totalBytes;
-            } else {
-                super.readInts(dst, offset, length);
+            while (remaining > 0) {
+                if (curPosition >= currentBlockEnd || currentSegment == null) {
+                    if (curPosition >= this.length) throw new EOFException("read past EOF: " + this);
+                    switchToBlock(curPosition);
+                }
+                // How many whole ints fit in the current block from curPosition?
+                long availBytes = currentBlockEnd - curPosition;
+                int availInts = (int) (availBytes / Integer.BYTES);
+                if (availInts > 0) {
+                    int toRead = Math.min(remaining, availInts);
+                    long off = absoluteBaseOffset + curPosition - currentSegmentOffset;
+                    MemorySegment.copy(currentSegment, LAYOUT_LE_INT, off, dst, dstOff, toRead);
+                    long bytesRead = Integer.BYTES * (long) toRead;
+                    curPosition += bytesRead;
+                    dstOff += toRead;
+                    remaining -= toRead;
+                } else {
+                    // Less than 4 bytes left in block — straddles boundary, use scalar
+                    dst[dstOff++] = readInt();
+                    remaining--;
+                }
             }
         } catch (IndexOutOfBoundsException e) {
             throw new EOFException("read past EOF: " + this);
@@ -332,21 +339,28 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
     @Override
     public void readLongs(long[] dst, int offset, int length) throws IOException {
         if (length == 0) return;
-        final long totalBytes = Long.BYTES * (long) length;
+        int remaining = length;
+        int dstOff = offset;
         try {
-            if (currentSegment == null) {
-                switchToBlock(curPosition);
-            }
-            long off = absoluteBaseOffset + curPosition - currentSegmentOffset;
-            if (off < 0 || off + totalBytes > currentSegment.byteSize()) {
-                switchToBlock(curPosition);
-                off = absoluteBaseOffset + curPosition - currentSegmentOffset;
-            }
-            if (off + totalBytes <= currentSegment.byteSize()) {
-                MemorySegment.copy(currentSegment, LAYOUT_LE_LONG, off, dst, offset, length);
-                curPosition += totalBytes;
-            } else {
-                super.readLongs(dst, offset, length);
+            while (remaining > 0) {
+                if (curPosition >= currentBlockEnd || currentSegment == null) {
+                    if (curPosition >= this.length) throw new EOFException("read past EOF: " + this);
+                    switchToBlock(curPosition);
+                }
+                long availBytes = currentBlockEnd - curPosition;
+                int availLongs = (int) (availBytes / Long.BYTES);
+                if (availLongs > 0) {
+                    int toRead = Math.min(remaining, availLongs);
+                    long off = absoluteBaseOffset + curPosition - currentSegmentOffset;
+                    MemorySegment.copy(currentSegment, LAYOUT_LE_LONG, off, dst, dstOff, toRead);
+                    long bytesRead = Long.BYTES * (long) toRead;
+                    curPosition += bytesRead;
+                    dstOff += toRead;
+                    remaining -= toRead;
+                } else {
+                    dst[dstOff++] = readLong();
+                    remaining--;
+                }
             }
         } catch (IndexOutOfBoundsException e) {
             throw new EOFException("read past EOF: " + this);
@@ -359,21 +373,28 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
     @Override
     public void readFloats(float[] dst, int offset, int length) throws IOException {
         if (length == 0) return;
-        final long totalBytes = Float.BYTES * (long) length;
+        int remaining = length;
+        int dstOff = offset;
         try {
-            if (currentSegment == null) {
-                switchToBlock(curPosition);
-            }
-            long off = absoluteBaseOffset + curPosition - currentSegmentOffset;
-            if (off < 0 || off + totalBytes > currentSegment.byteSize()) {
-                switchToBlock(curPosition);
-                off = absoluteBaseOffset + curPosition - currentSegmentOffset;
-            }
-            if (off + totalBytes <= currentSegment.byteSize()) {
-                MemorySegment.copy(currentSegment, LAYOUT_LE_FLOAT, off, dst, offset, length);
-                curPosition += totalBytes;
-            } else {
-                super.readFloats(dst, offset, length);
+            while (remaining > 0) {
+                if (curPosition >= currentBlockEnd || currentSegment == null) {
+                    if (curPosition >= this.length) throw new EOFException("read past EOF: " + this);
+                    switchToBlock(curPosition);
+                }
+                long availBytes = currentBlockEnd - curPosition;
+                int availFloats = (int) (availBytes / Float.BYTES);
+                if (availFloats > 0) {
+                    int toRead = Math.min(remaining, availFloats);
+                    long off = absoluteBaseOffset + curPosition - currentSegmentOffset;
+                    MemorySegment.copy(currentSegment, LAYOUT_LE_FLOAT, off, dst, dstOff, toRead);
+                    long bytesRead = Float.BYTES * (long) toRead;
+                    curPosition += bytesRead;
+                    dstOff += toRead;
+                    remaining -= toRead;
+                } else {
+                    dst[dstOff++] = Float.intBitsToFloat(readInt());
+                    remaining--;
+                }
             }
         } catch (IndexOutOfBoundsException e) {
             throw new EOFException("read past EOF: " + this);
@@ -534,7 +555,8 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
         }
         this.curPosition = pos;
         // Eagerly resolve block if outside current block bounds
-        if (pos < length && (pos >= currentBlockEnd || currentSegment == null)) {
+        if (pos < length && (pos >= currentBlockEnd || currentSegment == null
+                || (absoluteBaseOffset + pos) < currentSegmentOffset)) {
             switchToBlock(pos);
         }
     }
@@ -543,8 +565,14 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
 
     @Override
     public final DirectByteBufferIndexInput clone() {
-        final DirectByteBufferIndexInput clone = buildSlice(null, 0L, this.length);
-        try { clone.seek(getFilePointer()); } catch (IOException e) { throw new AssertionError(e); }
+        ensureOpen();
+        DirectByteBufferIndexInput clone = new DirectByteBufferIndexInput(
+                toString(), absoluteBaseOffset, length, vfd, blockCache, true, blockTable);
+        // Copy hot-path state directly — avoids 2x seek + 2x switchToBlock
+        clone.curPosition = this.curPosition;
+        clone.currentSegment = this.currentSegment;
+        clone.currentSegmentOffset = this.currentSegmentOffset;
+        clone.currentBlockEnd = this.currentBlockEnd;
         return clone;
     }
 
@@ -556,9 +584,7 @@ public class DirectByteBufferIndexInput extends IndexInput implements RandomAcce
                     + " out of bounds: offset=" + offset + ",length=" + length
                     + ",fileLength=" + this.length + ": " + this);
         }
-        var slice = buildSlice(sliceDescription, offset, length);
-        slice.seek(0L);
-        return slice;
+        return buildSlice(sliceDescription, offset, length);
     }
 
     DirectByteBufferIndexInput buildSlice(String sliceDescription, long sliceOffset, long length) {
