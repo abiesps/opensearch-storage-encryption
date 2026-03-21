@@ -187,6 +187,15 @@ jcstress {
     verbose = true
 }
 
+// The jcstress source set needs the main source set on its compile classpath
+// so that stress tests can reference production classes like RadixBlockTable.
+configurations {
+    jcstressImplementation.extendsFrom implementation
+}
+dependencies {
+    jcstressImplementation sourceSets.main.output
+}
+
 // JCStress / test compile fixups: the opensearch build-tools plugin adds
 // -proc:none to ALL JavaCompile tasks. JCStress needs annotation processing
 // to generate META-INF/TestList, and JMH needs it for benchmark generation.
