@@ -498,7 +498,8 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(
             resources.getSegmentPool(),
             keyResolver,
-            encryptionMetadataCache
+            encryptionMetadataCache,
+            resources.getFileChannelCache()
         );
 
         // Cache architecture: One shared Caffeine cache storage, multiple wrapper instances

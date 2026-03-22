@@ -96,7 +96,12 @@ public class BlockLoaderCopyMismatchTests extends OpenSearchTestCase {
         EncryptionMetadataCache encryptionMetadataCache = EncryptionMetadataCacheRegistry.getOrCreateCache(indexUuid, shardId, indexName);
         this.encryptionMetadataCache = encryptionMetadataCache;
 
-        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(segmentPool, keyResolver, encryptionMetadataCache);
+        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(
+            segmentPool,
+            keyResolver,
+            encryptionMetadataCache,
+            poolResources.getFileChannelCache()
+        );
 
         Worker worker = poolResources.getSharedReadaheadWorker();
 
@@ -361,7 +366,12 @@ public class BlockLoaderCopyMismatchTests extends OpenSearchTestCase {
         try {
             Pool<RefCountedMemorySegment> pool = poolResources.getSegmentPool();
 
-            BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(pool, keyResolver, encryptionMetadataCache);
+            BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(
+                pool,
+                keyResolver,
+                encryptionMetadataCache,
+                poolResources.getFileChannelCache()
+            );
 
             RefCountedMemorySegment[] blocks = loader.load(filePath, 0, blockCount, 5000);
 
@@ -417,7 +427,12 @@ public class BlockLoaderCopyMismatchTests extends OpenSearchTestCase {
 
         Path filePath = bufferPoolDirectory.getDirectory().resolve(fileName);
         Pool<RefCountedMemorySegment> pool = poolResources.getSegmentPool();
-        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(pool, keyResolver, encryptionMetadataCache);
+        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(
+            pool,
+            keyResolver,
+            encryptionMetadataCache,
+            poolResources.getFileChannelCache()
+        );
 
         RefCountedMemorySegment[] blocks = loader.load(filePath, 0, 1, 5000);
         try {
@@ -452,7 +467,12 @@ public class BlockLoaderCopyMismatchTests extends OpenSearchTestCase {
 
         Path filePath = bufferPoolDirectory.getDirectory().resolve(fileName);
         Pool<RefCountedMemorySegment> pool = poolResources.getSegmentPool();
-        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(pool, keyResolver, encryptionMetadataCache);
+        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(
+            pool,
+            keyResolver,
+            encryptionMetadataCache,
+            poolResources.getFileChannelCache()
+        );
 
         RefCountedMemorySegment[] blocks = loader.load(filePath, 0, blockCount, 5000);
         try {
@@ -497,7 +517,12 @@ public class BlockLoaderCopyMismatchTests extends OpenSearchTestCase {
 
         Path filePath = bufferPoolDirectory.getDirectory().resolve(fileName);
         Pool<RefCountedMemorySegment> pool = poolResources.getSegmentPool();
-        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(pool, keyResolver, encryptionMetadataCache);
+        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(
+            pool,
+            keyResolver,
+            encryptionMetadataCache,
+            poolResources.getFileChannelCache()
+        );
 
         RefCountedMemorySegment[] blocks = loader.load(filePath, 0, 1, 5000);
         try {
@@ -533,7 +558,12 @@ public class BlockLoaderCopyMismatchTests extends OpenSearchTestCase {
 
         Path filePath = bufferPoolDirectory.getDirectory().resolve(fileName);
         Pool<RefCountedMemorySegment> pool = poolResources.getSegmentPool();
-        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(pool, keyResolver, encryptionMetadataCache);
+        BlockLoader<RefCountedMemorySegment> loader = new CryptoDirectIOBlockLoader(
+            pool,
+            keyResolver,
+            encryptionMetadataCache,
+            poolResources.getFileChannelCache()
+        );
 
         RefCountedMemorySegment[] blocks = loader.load(filePath, 0, blockCount, 5000);
         try {

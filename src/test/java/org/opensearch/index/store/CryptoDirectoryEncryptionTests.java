@@ -89,6 +89,7 @@ public class CryptoDirectoryEncryptionTests extends OpenSearchTestCase {
     private Pool<RefCountedMemorySegment> memorySegmentPool;
     private CaffeineBlockCache<RefCountedMemorySegment, RefCountedMemorySegment> blockCache;
     private Worker readAheadWorker;
+    private org.opensearch.index.store.block_loader.FileChannelCache fileChannelCache;
 
     /**
      * Helper method to register the resolver in the ShardKeyResolverRegistry
@@ -153,6 +154,9 @@ public class CryptoDirectoryEncryptionTests extends OpenSearchTestCase {
             131072, // total memory in bytes (16 * 8192)
             8192    // segment size (block size)
         );
+
+        // Create a FileChannelCache for tests (no O_DIRECT in test env)
+        fileChannelCache = new org.opensearch.index.store.block_loader.FileChannelCache(256, null);
 
         // Create first key provider (Key A) with specific key bytes
         keyProviderA = new MasterKeyProvider() {
@@ -243,6 +247,9 @@ public class CryptoDirectoryEncryptionTests extends OpenSearchTestCase {
     @Override
     public void tearDown() throws Exception {
         // Clean up DirectIO resources
+        if (fileChannelCache != null) {
+            fileChannelCache.close();
+        }
         if (readAheadWorker != null) {
             readAheadWorker.close();
         }
@@ -454,7 +461,8 @@ public class CryptoDirectoryEncryptionTests extends OpenSearchTestCase {
         BlockLoader<RefCountedMemorySegment> blockLoaderA = new CryptoDirectIOBlockLoader(
             memorySegmentPool,
             keyResolverA,
-            encryptionMetadataCache
+            encryptionMetadataCache,
+            fileChannelCache
         );
 
         // Create per-directory cache and worker
@@ -532,7 +540,8 @@ public class CryptoDirectoryEncryptionTests extends OpenSearchTestCase {
         BlockLoader<RefCountedMemorySegment> blockLoaderA = new CryptoDirectIOBlockLoader(
             memorySegmentPool,
             keyResolverA,
-            encryptionMetadataCache
+            encryptionMetadataCache,
+            fileChannelCache
         );
 
         // Create per-directory cache and worker
@@ -609,7 +618,8 @@ public class CryptoDirectoryEncryptionTests extends OpenSearchTestCase {
         BlockLoader<RefCountedMemorySegment> blockLoaderA = new CryptoDirectIOBlockLoader(
             memorySegmentPool,
             keyResolverA,
-            encryptionMetadataCache
+            encryptionMetadataCache,
+            fileChannelCache
         );
 
         // Create per-directory cache and worker
@@ -687,7 +697,8 @@ public class CryptoDirectoryEncryptionTests extends OpenSearchTestCase {
         BlockLoader<RefCountedMemorySegment> blockLoaderA = new CryptoDirectIOBlockLoader(
             memorySegmentPool,
             keyResolverA,
-            encryptionMetadataCache
+            encryptionMetadataCache,
+            fileChannelCache
         );
 
         // Create per-directory cache and worker
