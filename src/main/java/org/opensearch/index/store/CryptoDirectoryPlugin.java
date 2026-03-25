@@ -5,6 +5,7 @@
 package org.opensearch.index.store;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,6 +39,8 @@ import org.opensearch.index.store.block_cache.BlockCache;
 import org.opensearch.index.store.key.MasterKeyHealthMonitor;
 import org.opensearch.index.store.key.NodeLevelKeyCache;
 import org.opensearch.index.store.key.ShardKeyResolverRegistry;
+import org.opensearch.index.store.memory.AllocatorSettings;
+import org.opensearch.index.store.memory.DirectMemoryAllocatorMetricsService;
 import org.opensearch.index.store.metrics.CryptoMetricsService;
 import org.opensearch.index.store.pool.PoolSizeCalculator;
 import org.opensearch.index.store.rest.RestGetIndexCountForKeyAction;
@@ -134,7 +137,7 @@ public class CryptoDirectoryPlugin extends Plugin implements IndexStorePlugin, E
      */
     @Override
     public List<Setting<?>> getSettings() {
-        List<Setting<?>> settings = Arrays
+        List<Setting<?>> settings = new ArrayList<>(Arrays
             .asList(
                 CRYPTO_PLUGIN_ENABLED_SETTING,
                 CryptoDirectoryFactory.INDEX_KEY_PROVIDER_SETTING,
@@ -145,7 +148,8 @@ public class CryptoDirectoryPlugin extends Plugin implements IndexStorePlugin, E
                 PoolSizeCalculator.NODE_POOL_SIZE_PERCENTAGE_SETTING,
                 PoolSizeCalculator.NODE_CACHE_TO_POOL_RATIO_SETTING,
                 PoolSizeCalculator.NODE_WARMUP_PERCENTAGE_SETTING
-            );
+            ));
+        settings.addAll(AllocatorSettings.ALL);
         return settings;
     }
 
@@ -222,6 +226,10 @@ public class CryptoDirectoryPlugin extends Plugin implements IndexStorePlugin, E
         // This prevents allocation on dedicated master nodes which never create shards
         CryptoDirectoryFactory.setNodeSettings(environment.settings());
         CryptoMetricsService.initialize(metricsRegistry);
+        DirectMemoryAllocatorMetricsService.initialize(metricsRegistry);
+
+        // Store ClusterSettings for lazy allocator listener registration (on first shard creation)
+        CryptoDirectoryFactory.setClusterSettings(clusterService.getClusterSettings());
 
         return Collections.emptyList();
     }

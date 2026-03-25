@@ -63,6 +63,7 @@ public final class DirectMemoryAllocator {
         long tier1Count, long tier2Count, long tier3Count,
         long lastNativeUsedBytes, long lastExternalUsage, double externalUsageEma,
         int consecutiveStallWindows, long lyapunovViolationCount,
+        long backpressureCount,
         LastAction lastAction
     ) {}
 
@@ -104,6 +105,19 @@ public final class DirectMemoryAllocator {
     private final BufferPoolMXBean directPool;
     private final Cleaner cleaner;
 
+    // ======================== Volatile config (written by settings listeners, read by diagnoseAndRespond/allocate) ========================
+
+    private volatile int vSampleInterval;
+    private volatile int vSampleMask;
+    private volatile double vEmaAlpha;
+    private volatile double vSafetyMultiplier;
+    private volatile double vMinCacheFraction;
+    private volatile long vGcHintCooldownNanos;
+    private volatile long vShrinkCooldownNanos;
+    private volatile long vMaxSampleIntervalNanos;
+    private volatile double vMinHeadroomFraction;
+    private volatile double vStallRatioThreshold;
+
     // ======================== CacheController (volatile, nullable) ========================
 
     private volatile CacheController cacheController;
@@ -136,6 +150,7 @@ public final class DirectMemoryAllocator {
     private final LongAdder driftDetectedCount = new LongAdder();
     private final LongAdder cacheShrinkBlocksTotal = new LongAdder();
     private final LongAdder cacheRestoreBlocksTotal = new LongAdder();
+    private final LongAdder backpressureCount = new LongAdder();
 
     // ======================== Diagnostic lock ========================
 
@@ -279,6 +294,18 @@ public final class DirectMemoryAllocator {
         this.directPool = findDirectPool();
         this.cleaner = Cleaner.create();
 
+        // Initialize volatile config fields from constructor args
+        this.vSampleInterval = sampleInterval;
+        this.vSampleMask = sampleInterval - 1;
+        this.vEmaAlpha = emaAlpha;
+        this.vSafetyMultiplier = safetyMultiplier;
+        this.vMinCacheFraction = minCacheFraction;
+        this.vGcHintCooldownNanos = gcHintCooldownMs * 1_000_000L;
+        this.vShrinkCooldownNanos = shrinkCooldownMs * 1_000_000L;
+        this.vMaxSampleIntervalNanos = maxSampleIntervalMs * 1_000_000L;
+        this.vMinHeadroomFraction = minHeadroomFraction;
+        this.vStallRatioThreshold = stallRatioThreshold;
+
         // Initialize lastHeadroomBytes to maxDirect (no allocations yet)
         this.lastHeadroomBytes = maxDirectMemoryBytes;
 
@@ -343,6 +370,106 @@ public final class DirectMemoryAllocator {
         this.cacheController = null;
     }
 
+    // ======================== Dynamic config setters ========================
+
+    /**
+     * Updates the sample interval (must be a positive power of two).
+     * Also updates the derived sample mask used by {@code allocate()}.
+     *
+     * @param value new sample interval (power of 2)
+     */
+    public void setSampleInterval(int value) {
+        this.vSampleInterval = value;
+        this.vSampleMask = value - 1;
+    }
+
+    /** Updates the EMA smoothing factor. */
+    public void setEmaAlpha(double value) {
+        this.vEmaAlpha = value;
+    }
+
+    /** Updates the safety multiplier for target headroom. */
+    public void setSafetyMultiplier(double value) {
+        this.vSafetyMultiplier = value;
+    }
+
+    /** Updates the minimum cache capacity fraction. */
+    public void setMinCacheFraction(double value) {
+        this.vMinCacheFraction = value;
+    }
+
+    /** Updates the GC hint cooldown (milliseconds → stored as nanos). */
+    public void setGcHintCooldownMs(long value) {
+        this.vGcHintCooldownNanos = value * 1_000_000L;
+    }
+
+    /** Updates the shrink cooldown (milliseconds → stored as nanos). */
+    public void setShrinkCooldownMs(long value) {
+        this.vShrinkCooldownNanos = value * 1_000_000L;
+    }
+
+    /** Updates the max sample interval (milliseconds → stored as nanos). */
+    public void setMaxSampleIntervalMs(long value) {
+        this.vMaxSampleIntervalNanos = value * 1_000_000L;
+    }
+
+    /** Updates the minimum headroom fraction. */
+    public void setMinHeadroomFraction(double value) {
+        this.vMinHeadroomFraction = value;
+    }
+
+    /** Updates the stall ratio threshold. */
+    public void setStallRatioThreshold(double value) {
+        this.vStallRatioThreshold = value;
+    }
+
+    // ======================== Volatile config getters (for testing) ========================
+
+    /** Returns the current volatile sample interval. */
+    int getVSampleInterval() {
+        return vSampleInterval;
+    }
+
+    /** Returns the current volatile EMA alpha. */
+    double getVEmaAlpha() {
+        return vEmaAlpha;
+    }
+
+    /** Returns the current volatile safety multiplier. */
+    double getVSafetyMultiplier() {
+        return vSafetyMultiplier;
+    }
+
+    /** Returns the current volatile min cache fraction. */
+    double getVMinCacheFraction() {
+        return vMinCacheFraction;
+    }
+
+    /** Returns the current volatile GC hint cooldown in nanos. */
+    long getVGcHintCooldownNanos() {
+        return vGcHintCooldownNanos;
+    }
+
+    /** Returns the current volatile shrink cooldown in nanos. */
+    long getVShrinkCooldownNanos() {
+        return vShrinkCooldownNanos;
+    }
+
+    /** Returns the current volatile max sample interval in nanos. */
+    long getVMaxSampleIntervalNanos() {
+        return vMaxSampleIntervalNanos;
+    }
+
+    /** Returns the current volatile min headroom fraction. */
+    double getVMinHeadroomFraction() {
+        return vMinHeadroomFraction;
+    }
+
+    /** Returns the current volatile stall ratio threshold. */
+    double getVStallRatioThreshold() {
+        return vStallRatioThreshold;
+    }
+
     // ======================== Core API ========================
 
     /**
@@ -377,9 +504,10 @@ public final class DirectMemoryAllocator {
         long windowedAllocs = windowedAllocations.sum();
         long hardFloorMargin = Math.min(
                 Math.max((long) blockSize * 32,
-                        windowedAllocs * blockSize / Math.max(sampleInterval / 16, 1)),
+                        windowedAllocs * blockSize / Math.max(vSampleInterval / 16, 1)),
                 (long) (maxDirectMemoryBytes * 0.05));
         if (lastDiagnosticNanos > 0 && lastHeadroomBytes < size + hardFloorMargin) {
+            backpressureCount.increment();
             throw new MemoryBackPressureException(
                     "Hard floor: headroom " + lastHeadroomBytes
                             + " < requested " + size + " + margin " + hardFloorMargin,
@@ -389,8 +517,8 @@ public final class DirectMemoryAllocator {
 
         // --- Periodic diagnostic (count-based or time-based) ---
         // Both paths use tryLock — never bypass concurrency guard (Req 3.3, 9.2)
-        boolean timeBased = timeSinceLastDiagnosticNanos() > maxSampleIntervalNanos;
-        if ((count & sampleMask) == 0 || timeBased) {
+        boolean timeBased = timeSinceLastDiagnosticNanos() > vMaxSampleIntervalNanos;
+        if ((count & vSampleMask) == 0 || timeBased) {
             diagnoseAndRespondWithTryLock();
         }
 
@@ -405,7 +533,8 @@ public final class DirectMemoryAllocator {
             if (headroomNotImproved(size) && gcDebtGrowthRate >= 0
                     && !(externalUsageGrowthRate / maxDirectMemoryBytes > 0.01)) {
                 preCheckFailCount++;
-                if (preCheckFailCount >= sampleInterval / 4) {
+                if (preCheckFailCount >= vSampleInterval / 4) {
+                    backpressureCount.increment();
                     throw new MemoryBackPressureException(
                             "Pre-check: cache at floor, no headroom improvement, GC not catching up"
                                     + " (preCheckFailCount=" + preCheckFailCount + ")",
@@ -426,6 +555,7 @@ public final class DirectMemoryAllocator {
         try {
             buf = ByteBuffer.allocateDirect(size);
         } catch (OutOfMemoryError oome) {
+            backpressureCount.increment();
             throw new MemoryBackPressureException(
                     "OOM from allocateDirect(" + size + ")", oome,
                     lastPressureLevel, gcDebtEma, lastHeadroomBytes,
@@ -496,7 +626,7 @@ public final class DirectMemoryAllocator {
         }
         long currentMax = cc.currentMaxBlocks();
         long originalMax = cc.originalMaxBlocks();
-        return originalMax > 0 && currentMax <= (long) (originalMax * minCacheFraction);
+        return originalMax > 0 && currentMax <= (long) (originalMax * vMinCacheFraction);
     }
 
     /**
@@ -562,7 +692,7 @@ public final class DirectMemoryAllocator {
         }
 
         // 3. Update EMAs
-        double alpha = emaAlpha;
+        double alpha = vEmaAlpha;
         gcDebtEma = alpha * gcDebt + (1 - alpha) * gcDebtEma;
         externalUsageEma = alpha * externalUsage + (1 - alpha) * externalUsageEma;
         gcDebtGrowthRate = alpha * (gcDebt - prevGcDebt) + (1 - alpha) * gcDebtGrowthRate;
@@ -573,8 +703,8 @@ public final class DirectMemoryAllocator {
         // 4. Compute adaptive headroom target
         long safetyMargin = Math.max((long) blockSize * 32, (long) (nativeUsed * 0.02));
         long targetHeadroom = Math.max(
-                (long) (gcDebtEma * safetyMultiplier) + safetyMargin,
-                (long) (maxDirectMemoryBytes * minHeadroomFraction));
+                (long) (gcDebtEma * vSafetyMultiplier) + safetyMargin,
+                (long) (maxDirectMemoryBytes * vMinHeadroomFraction));
         long headroom = maxDirectMemoryBytes - nativeUsed;
 
         // 5. Compute deficit EMA
@@ -587,7 +717,7 @@ public final class DirectMemoryAllocator {
 
         // 6b. Compute stall ratio and update stall window tracking (Req 10.1, 10.2)
         double windowedStallRatio = (double) wStalls / Math.max(wAllocs, 1);
-        if (windowedStallRatio > stallRatioThreshold) {
+        if (windowedStallRatio > vStallRatioThreshold) {
             consecutiveStallWindows++;
         } else {
             consecutiveStallWindows = 0;
@@ -718,7 +848,7 @@ public final class DirectMemoryAllocator {
                     }
                     double shrinkFactor = Math.min(0.3, 0.5 * (deficitEma / Math.max(targetHeadroom, 1)));
                     long currentMax = cc.currentMaxBlocks();
-                    long floor = (long) (cc.originalMaxBlocks() * minCacheFraction);
+                    long floor = (long) (cc.originalMaxBlocks() * vMinCacheFraction);
                     long newMax = Math.max((long) (currentMax * (1 - shrinkFactor)), floor);
                     if (newMax < currentMax) {
                         totalBlocksEvicted.add(currentMax - newMax);
@@ -767,7 +897,7 @@ public final class DirectMemoryAllocator {
         }
         // Req 16.1, 16.2: Enforce cooldown between GC hints
         long now = System.nanoTime();
-        if (now - lastGcHintNanos < gcHintCooldownNanos) {
+        if (now - lastGcHintNanos < vGcHintCooldownNanos) {
             gcHintSkippedCooldown.increment();
             return false;
         }
@@ -807,7 +937,7 @@ public final class DirectMemoryAllocator {
         }
 
         // Cooldown check
-        if (now - lastShrinkNanos < shrinkCooldownNanos) {
+        if (now - lastShrinkNanos < vShrinkCooldownNanos) {
             return false;
         }
 
@@ -1033,6 +1163,10 @@ public final class DirectMemoryAllocator {
         return cacheRestoreBlocksTotal.sum();
     }
 
+    public long getBackpressureCount() {
+        return backpressureCount.sum();
+    }
+
     // ======================== Snapshot ========================
 
     /** Captures a point-in-time snapshot of all diagnostic and metric state. */
@@ -1050,6 +1184,7 @@ public final class DirectMemoryAllocator {
             getTier1NoActionCount(), getTier2ModeratePressureCount(), getTier3LastResortCount(),
             getLastNativeUsedBytes(), getLastExternalUsage(), getExternalUsageEma(),
             getConsecutiveStallWindows(), getLyapunovViolationCount(),
+            getBackpressureCount(),
             getLastAction()
         );
     }
@@ -1125,6 +1260,7 @@ public final class DirectMemoryAllocator {
         driftDetectedCount.reset();
         cacheShrinkBlocksTotal.reset();
         cacheRestoreBlocksTotal.reset();
+        backpressureCount.reset();
     }
 
     // ======================== Internal helpers ========================

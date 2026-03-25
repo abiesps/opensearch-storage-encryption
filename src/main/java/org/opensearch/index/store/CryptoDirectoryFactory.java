@@ -22,6 +22,7 @@ import org.opensearch.cluster.metadata.CryptoMetadata;
 import org.opensearch.cluster.service.ClusterService;
 import org.opensearch.common.SuppressForbidden;
 import org.opensearch.common.crypto.MasterKeyProvider;
+import org.opensearch.common.settings.ClusterSettings;
 import org.opensearch.common.settings.Setting;
 import org.opensearch.common.settings.Setting.Property;
 import org.opensearch.common.settings.Settings;
@@ -44,6 +45,8 @@ import org.opensearch.index.store.key.KeyResolver;
 import org.opensearch.index.store.key.ShardKeyResolverRegistry;
 import org.opensearch.index.store.kms_encryption_context.EncryptionContextResolver;
 import org.opensearch.index.store.kms_encryption_context.EncryptionContextResolverFactory;
+import org.opensearch.index.store.memory.AllocatorSettings;
+import org.opensearch.index.store.memory.DirectMemoryAllocator;
 import org.opensearch.index.store.metrics.CryptoMetricsService;
 import org.opensearch.index.store.metrics.ErrorType;
 import org.opensearch.index.store.niofs.CryptoNIOFSDirectory;
@@ -82,6 +85,12 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
      * Node settings used for lazy pool initialization.
      */
     private static volatile Settings nodeSettings;
+
+    /**
+     * Cluster settings used for lazy allocator listener registration.
+     * Stored at createComponents() time, used when the allocator is created on first shard.
+     */
+    private static volatile ClusterSettings clusterSettings;
 
     /**
      * Lock for thread-safe initialization of shared resources.
@@ -539,6 +548,49 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
     public static void setClusterService(ClusterService service) {
         // Initialize encryption context resolver
         encryptionContextResolver = EncryptionContextResolverFactory.create(service);
+    }
+
+    /**
+     * Set cluster settings for lazy allocator listener registration.
+     * Called from CryptoDirectoryPlugin.createComponents() during node startup.
+     *
+     * @param settings the cluster settings
+     */
+    public static void setClusterSettings(ClusterSettings settings) {
+        clusterSettings = settings;
+    }
+
+    /**
+     * Registers ClusterSettings update listeners that write new values to the
+     * corresponding volatile config fields on the given allocator instance.
+     *
+     * <p>Called lazily when the allocator is first created (on first shard creation),
+     * not at plugin init time. This avoids NPE on settings updates before the
+     * allocator exists.
+     *
+     * @param allocator the allocator instance to wire settings listeners to
+     * @param cs        the cluster settings to register listeners on
+     */
+    public static void registerAllocatorSettingsListeners(DirectMemoryAllocator allocator, ClusterSettings cs) {
+        cs.addSettingsUpdateConsumer(AllocatorSettings.SAMPLE_INTERVAL, allocator::setSampleInterval);
+        cs.addSettingsUpdateConsumer(AllocatorSettings.EMA_ALPHA, allocator::setEmaAlpha);
+        cs.addSettingsUpdateConsumer(AllocatorSettings.SAFETY_MULTIPLIER, allocator::setSafetyMultiplier);
+        cs.addSettingsUpdateConsumer(AllocatorSettings.MIN_CACHE_FRACTION, allocator::setMinCacheFraction);
+        cs.addSettingsUpdateConsumer(AllocatorSettings.GC_HINT_COOLDOWN_MS, allocator::setGcHintCooldownMs);
+        cs.addSettingsUpdateConsumer(AllocatorSettings.SHRINK_COOLDOWN_MS, allocator::setShrinkCooldownMs);
+        cs.addSettingsUpdateConsumer(AllocatorSettings.MAX_SAMPLE_INTERVAL_MS, allocator::setMaxSampleIntervalMs);
+        cs.addSettingsUpdateConsumer(AllocatorSettings.MIN_HEADROOM_FRACTION, allocator::setMinHeadroomFraction);
+        cs.addSettingsUpdateConsumer(AllocatorSettings.STALL_RATIO_THRESHOLD, allocator::setStallRatioThreshold);
+        LOGGER.info("Registered 9 allocator settings update listeners");
+    }
+
+    /**
+     * Returns the stored ClusterSettings, or null if not yet initialized.
+     *
+     * @return the cluster settings, or null
+     */
+    public static ClusterSettings getClusterSettings() {
+        return clusterSettings;
     }
 
     /**
