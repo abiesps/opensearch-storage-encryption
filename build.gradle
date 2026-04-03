@@ -130,6 +130,12 @@ compileJava {
     targetCompatibility = JavaVersion.VERSION_25
     options.encoding = 'UTF-8'
     options.compilerArgs << '-Xlint:unchecked' << '-Xlint:-deprecation'
+    // Exclude translog classes that depend on APIs not available in OpenSearch 3.3.x
+    exclude '**/translog/Decrypting*.java'
+    exclude '**/translog/CryptoRemoteFsTranslog.java'
+    exclude '**/translog/CryptoTranslogFactory.java'
+    exclude '**/translog/CryptoTranslog.java'
+    exclude '**/translog/CryptoRemoteFsTimestampAwareTranslog.java'
 }
 
 compileTestJava {

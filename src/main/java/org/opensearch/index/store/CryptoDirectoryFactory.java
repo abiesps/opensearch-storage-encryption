@@ -445,7 +445,7 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
      * @return the concrete implementation of the encrypted directory based on store type
      * @throws IOException if directory creation fails
      */
-    @Override
+    //@Override - removed for 3.3.x compatibility
     public Directory newFSDirectory(Path location, LockFactory lockFactory, IndexSettings indexSettings) throws IOException {
         // Extract shardId from path structure: .../indices/{index-uuid}/{shard-id}/index/
         // location.getParent() gives us the shard directory
@@ -607,7 +607,12 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         readaheadEnabled = READAHEAD_ENABLED_SETTING.get(settings);
         lucenePrefetchEnabled = LUCENE_PREFETCH_ENABLED_SETTING.get(settings);
         // Propagate to Lucene's PrefetchConfig so all bulk prefetch paths respect this setting
-        org.apache.lucene.search.PrefetchConfig.setEnabled(lucenePrefetchEnabled);
+        try {
+            Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig");
+            prefetchConfig.getMethod("setEnabled", boolean.class).invoke(null, lucenePrefetchEnabled);
+        } catch (Exception e) {
+            LOGGER.debug("PrefetchConfig not available, skipping: {}", e.getMessage());
+        }
     }
 
     public static void setThreadPool(ThreadPool tp) {
@@ -650,7 +655,12 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
             service.getClusterSettings().addSettingsUpdateConsumer(LUCENE_PREFETCH_ENABLED_SETTING, value -> {
                 LOGGER.info("Updating lucene_prefetch.enabled to {}", value);
                 lucenePrefetchEnabled = value;
-                org.apache.lucene.search.PrefetchConfig.setEnabled(value);
+                try {
+                    Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig");
+                    prefetchConfig.getMethod("setEnabled", boolean.class).invoke(null, value);
+                } catch (Exception e) {
+                    LOGGER.debug("PrefetchConfig not available, skipping: {}", e.getMessage());
+                }
             });
         }
     }
