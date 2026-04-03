@@ -5,46 +5,35 @@
 package org.opensearch.index.store.bufferpoolfs;
 
 import java.security.Key;
-import java.security.Provider;
 
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.lucene.store.Directory;
-import org.opensearch.common.crypto.MasterKeyProvider;
-import org.opensearch.index.store.key.DefaultKeyResolver;
-import org.opensearch.index.store.key.KeyCacheException;
+import org.opensearch.index.store.key.KeyResolver;
 
-public class TestKeyResolver extends DefaultKeyResolver {
+/**
+ * A test-only {@link KeyResolver} that returns a deterministic AES key
+ * without requiring {@code NodeLevelKeyCache} or a real {@code MasterKeyProvider}.
+ *
+ * <p>This avoids the full node initialization that {@code DefaultKeyResolver} requires,
+ * making it suitable for unit tests that need a real {@code BufferPoolDirectory}.
+ */
+public class TestKeyResolver implements KeyResolver {
+
+    private final Key dataKey;
+
     /**
-     * Constructs a new {@link DefaultKeyResolver} and ensures the key is initialized.
-     *
-     * @param indexUuid   the unique identifier for the index
-     * @param indexName   the index name
-     * @param directory   the Lucene directory to read/write metadata files
-     * @param provider    the JCE provider used for cipher operations
-     * @param keyProvider the master key provider used to encrypt/decrypt data keys
-     * @param shardId     the shard ID
-     * @throws KeyCacheException if an I/O error occurs while reading or writing key metadata
+     * Creates a TestKeyResolver with a deterministic 32-byte AES key derived from a fixed seed.
      */
-    public TestKeyResolver(
-        String indexUuid,
-        String indexName,
-        Directory directory,
-        Provider provider,
-        MasterKeyProvider keyProvider,
-        int shardId
-    )
-        throws KeyCacheException {
-        super(indexUuid, indexName, directory, provider, keyProvider, shardId);
+    public TestKeyResolver() {
+        // Deterministic weak key for testing only — NOT for production use
+        java.util.Random rng = new java.util.Random(0xDEADBEEFL);
+        byte[] keyBytes = new byte[32];
+        rng.nextBytes(keyBytes);
+        this.dataKey = new SecretKeySpec(keyBytes, "AES");
     }
 
     @Override
     public Key getDataKey() {
-        // Deterministic weak key for benchmarks only — not for production use
-        byte[] masterKey = new byte[32];
-        for (int i = 0; i < 32; i++) {
-            masterKey[i] = (byte) (i % 2);
-        }
-        return new SecretKeySpec(masterKey, "AES");
+        return dataKey;
     }
 }
