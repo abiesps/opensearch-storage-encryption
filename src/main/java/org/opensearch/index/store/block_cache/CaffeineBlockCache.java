@@ -19,6 +19,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.opensearch.common.SuppressForbidden;
 import org.opensearch.index.store.block_loader.BlockLoader;
+import org.opensearch.index.store.bufferpoolfs.PrefetchEffectivenessTracker;
+import org.opensearch.index.store.CryptoDirectoryFactory;
 import org.opensearch.index.store.metrics.CryptoMetricsService;
 
 import com.github.benmanes.caffeine.cache.Cache;
@@ -394,6 +396,20 @@ public final class CaffeineBlockCache<T, V> implements BlockCache<T> {
             );
         LOGGER.info("{}", stats);
         LOGGER.info("{}", prefetchTracker.stats());
+
+        // Log prefetch effectiveness tracking if enabled
+        if (CryptoDirectoryFactory.isPrefetchTrackingEnabled()) {
+            PrefetchEffectivenessTracker effectivenessTracker = PrefetchEffectivenessTracker.getInstance();
+            LOGGER.info("{}", effectivenessTracker.stats());
+            CryptoMetricsService
+                .getInstance()
+                .recordPrefetchEffectivenessStats(
+                    effectivenessTracker.getEffectivePrefetches(),
+                    effectivenessTracker.getWastedPrefetches(),
+                    effectivenessTracker.getColdReads(),
+                    effectivenessTracker.getAvgLatencyMicros()
+                );
+        }
     }
 
     @Override

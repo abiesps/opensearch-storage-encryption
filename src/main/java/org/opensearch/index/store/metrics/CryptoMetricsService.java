@@ -146,6 +146,19 @@ public class CryptoMetricsService {
     }
 
     /**
+     * Records prefetch effectiveness tracking stats.
+     */
+    public void recordPrefetchEffectivenessStats(long effective, long wasted, long coldReads, long avgLatencyUs) {
+        if (prefetchStatsHistogram == null)
+            return;
+
+        prefetchStatsHistogram.record(effective, Tags.create().addTag(STAT_TYPE_TAG, "effective_prefetch"));
+        prefetchStatsHistogram.record(wasted, Tags.create().addTag(STAT_TYPE_TAG, "wasted_prefetch"));
+        prefetchStatsHistogram.record(coldReads, Tags.create().addTag(STAT_TYPE_TAG, "cold_reads"));
+        prefetchStatsHistogram.record(avgLatencyUs, Tags.create().addTag(STAT_TYPE_TAG, "avg_prefetch_to_read_latency_us"));
+    }
+
+    /**
      * Records error count by error type.
      * @param errorType the type of error
      */
