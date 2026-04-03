@@ -55,7 +55,7 @@ public class RestBufferPoolStatsAction extends BaseRestHandler {
             builder.startObject("cache");
             builder.field("size", cache.getCacheSize());
             builder.field("stats", cache.cacheStats());
-            if (cache instanceof CaffeineBlockCache<?> caffeineCache) {
+            if (cache instanceof CaffeineBlockCache<?, ?> caffeineCache) {
                 builder.field("prefetch_stats", caffeineCache.prefetchStats());
                 builder.field("hit_rate", caffeineCache.getHitRate());
             }
