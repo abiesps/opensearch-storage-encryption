@@ -101,6 +101,23 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         .boolSetting("node.store.crypto.encryption.enabled", false, Property.NodeScope, Property.Dynamic);
 
     /**
+     * Controls whether readahead is enabled for bufferpool directories.
+     * When false, the readahead system will not trigger background prefetch operations.
+     * Default is true (readahead enabled).
+     */
+    public static final Setting<Boolean> READAHEAD_ENABLED_SETTING = Setting
+        .boolSetting("node.store.crypto.readahead.enabled", true, Property.NodeScope, Property.Dynamic);
+
+    /**
+     * Controls whether Lucene-level prefetch calls (via IndexInput.prefetch()) are executed.
+     * When false, prefetch() calls in CachedMemorySegmentIndexInput become no-ops.
+     * This controls all the bulk prefetch logic added in Lucene (doc values, norms, postings, sorted values).
+     * Default is false (prefetch disabled until explicitly enabled for benchmarking).
+     */
+    public static final Setting<Boolean> LUCENE_PREFETCH_ENABLED_SETTING = Setting
+        .boolSetting("node.store.crypto.lucene_prefetch.enabled", false, Property.NodeScope, Property.Dynamic);
+
+    /**
      * Current value of the prefetch enabled setting, updated dynamically via cluster settings.
      */
     private static volatile boolean prefetchEnabled = true;
@@ -109,6 +126,16 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
      * Current value of the encryption enabled setting, updated dynamically via cluster settings.
      */
     private static volatile boolean encryptionEnabled = false;
+
+    /**
+     * Current value of the readahead enabled setting, updated dynamically via cluster settings.
+     */
+    private static volatile boolean readaheadEnabled = true;
+
+    /**
+     * Current value of the Lucene prefetch enabled setting, updated dynamically via cluster settings.
+     */
+    private static volatile boolean lucenePrefetchEnabled = false;
 
     /**
      * Shared pool resources including pool, cache, and telemetry.
@@ -577,10 +604,19 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         writeCacheEnabled = WRITE_CACHE_ENABLED_SETTING.get(settings);
         prefetchEnabled = PREFETCH_ENABLED_SETTING.get(settings);
         encryptionEnabled = ENCRYPTION_ENABLED_SETTING.get(settings);
+        readaheadEnabled = READAHEAD_ENABLED_SETTING.get(settings);
+        lucenePrefetchEnabled = LUCENE_PREFETCH_ENABLED_SETTING.get(settings);
+        // Propagate to Lucene's PrefetchConfig so all bulk prefetch paths respect this setting
+        org.apache.lucene.search.PrefetchConfig.setEnabled(lucenePrefetchEnabled);
     }
 
     public static void setThreadPool(ThreadPool tp) {
         threadPool = tp;
+    }
+
+    /** Returns whether readahead is currently enabled. */
+    public static boolean isReadaheadEnabled() {
+        return readaheadEnabled;
     }
 
     /**
@@ -606,6 +642,15 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
             service.getClusterSettings().addSettingsUpdateConsumer(ENCRYPTION_ENABLED_SETTING, value -> {
                 LOGGER.info("Updating encryption.enabled to {}", value);
                 encryptionEnabled = value;
+            });
+            service.getClusterSettings().addSettingsUpdateConsumer(READAHEAD_ENABLED_SETTING, value -> {
+                LOGGER.info("Updating readahead.enabled to {}", value);
+                readaheadEnabled = value;
+            });
+            service.getClusterSettings().addSettingsUpdateConsumer(LUCENE_PREFETCH_ENABLED_SETTING, value -> {
+                LOGGER.info("Updating lucene_prefetch.enabled to {}", value);
+                lucenePrefetchEnabled = value;
+                org.apache.lucene.search.PrefetchConfig.setEnabled(value);
             });
         }
     }
