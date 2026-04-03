@@ -41,6 +41,7 @@ import org.opensearch.index.store.key.ShardKeyResolverRegistry;
 import org.opensearch.index.store.metrics.CryptoMetricsService;
 import org.opensearch.index.store.pool.PoolSizeCalculator;
 import org.opensearch.index.store.rest.RestClearBufferPoolCacheAction;
+import org.opensearch.index.store.rest.RestBufferPoolStatsAction;
 import org.opensearch.index.store.rest.RestGetIndexCountForKeyAction;
 import org.opensearch.index.store.rest.RestRegisterCryptoAction;
 import org.opensearch.index.store.rest.RestUnregisterCryptoAction;
@@ -283,7 +284,8 @@ public class CryptoDirectoryPlugin extends Plugin implements IndexStorePlugin, E
                 new RestRegisterCryptoAction(),
                 new RestUnregisterCryptoAction(),
                 new RestGetIndexCountForKeyAction(),
-                new RestClearBufferPoolCacheAction()
+                new RestClearBufferPoolCacheAction(),
+                new RestBufferPoolStatsAction()
             );
     }
 
