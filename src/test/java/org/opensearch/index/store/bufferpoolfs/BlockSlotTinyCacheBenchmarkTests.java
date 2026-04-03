@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -101,20 +102,25 @@ public class BlockSlotTinyCacheBenchmarkTests {
         }
 
         @Override
-        public void loadMissingBlocks(Path filePath, long startOffset, long blockCount) throws IOException {
-            loadAllBlocks(filePath, startOffset, blockCount);
+        public void clearSafely() {
+            cache.clear();
         }
 
         @Override
-        public long loadAllBlocks(Path filePath, long startOffset, long blockCount) throws IOException {
-            long loaded = 0;
+        public Map<org.opensearch.index.store.block_cache.BlockCacheKey, BlockCacheValue<RefCountedMemorySegment>> loadForPrefetch(
+            Path filePath,
+            long startOffset,
+            long blockCount
+        ) throws IOException {
+            Map<org.opensearch.index.store.block_cache.BlockCacheKey, BlockCacheValue<RefCountedMemorySegment>> result =
+                new ConcurrentHashMap<>();
             for (long i = 0; i < blockCount; i++) {
                 long offset = startOffset + (i * BLOCK_SIZE);
                 FileBlockCacheKey key = new FileBlockCacheKey(filePath, offset);
-                getOrLoad(key);
-                loaded++;
+                BlockCacheValue<RefCountedMemorySegment> value = getOrLoad(key);
+                result.put(key, value);
             }
-            return loaded;
+            return result;
         }
 
         @Override
@@ -195,6 +201,11 @@ public class BlockSlotTinyCacheBenchmarkTests {
         @Override
         public int getGeneration() {
             return segment.getGeneration();
+        }
+
+        @Override
+        public int getRefCount() {
+            return segment.getRefCount();
         }
     }
 

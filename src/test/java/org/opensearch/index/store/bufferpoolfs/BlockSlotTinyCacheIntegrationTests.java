@@ -151,8 +151,6 @@ public class BlockSlotTinyCacheIntegrationTests extends OpenSearchTestCase {
     /**
      * Test concurrent access to different block offsets.
      * Multiple threads accessing different blocks should not interfere.
-     *
-     * TODO: fix this flaky test
      */
     @Test
     public void testConcurrentAccessDifferentBlocks() throws Exception {
@@ -414,20 +412,31 @@ public class BlockSlotTinyCacheIntegrationTests extends OpenSearchTestCase {
         }
 
         @Override
-        public void loadMissingBlocks(Path filePath, long startOffset, long blockCount) throws IOException {
-            loadAllBlocks(filePath, startOffset, blockCount);
+        public void clearSafely() {
+            cache.entrySet().removeIf(e -> {
+                if (e.getValue().value().getRefCount() == 1) {
+                    e.getValue().close();
+                    return true;
+                }
+                return false;
+            });
         }
 
         @Override
-        public long loadAllBlocks(Path filePath, long startOffset, long blockCount) throws IOException {
-            long loaded = 0;
+        public Map<BlockCacheKey, BlockCacheValue<RefCountedMemorySegment>> loadForPrefetch(
+            Path filePath,
+            long startOffset,
+            long blockCount
+        ) throws IOException {
+            // Simple implementation for test
+            Map<BlockCacheKey, BlockCacheValue<RefCountedMemorySegment>> result = new ConcurrentHashMap<>();
             for (long i = 0; i < blockCount; i++) {
                 long offset = startOffset + (i * BLOCK_SIZE);
                 FileBlockCacheKey key = new FileBlockCacheKey(filePath, offset);
-                getOrLoad(key);
-                loaded++;
+                BlockCacheValue<RefCountedMemorySegment> val = getOrLoad(key);
+                result.put(key, val);
             }
-            return loaded;
+            return result;
         }
 
         @Override
