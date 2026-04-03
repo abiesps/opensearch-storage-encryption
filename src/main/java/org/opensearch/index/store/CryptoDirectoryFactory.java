@@ -93,9 +93,22 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         .boolSetting("node.store.crypto.prefetch.enabled", true, Property.NodeScope, Property.Dynamic);
 
     /**
+     * Controls whether encryption/decryption is enabled for bufferpool directories.
+     * When false, data is written and read as plaintext (no OSEF encryption).
+     * Default is false for benchmarking/testing without encryption overhead.
+     */
+    public static final Setting<Boolean> ENCRYPTION_ENABLED_SETTING = Setting
+        .boolSetting("node.store.crypto.encryption.enabled", false, Property.NodeScope, Property.Dynamic);
+
+    /**
      * Current value of the prefetch enabled setting, updated dynamically via cluster settings.
      */
     private static volatile boolean prefetchEnabled = true;
+
+    /**
+     * Current value of the encryption enabled setting, updated dynamically via cluster settings.
+     */
+    private static volatile boolean encryptionEnabled = false;
 
     /**
      * Shared pool resources including pool, cache, and telemetry.
@@ -549,7 +562,7 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
             loader,
             readaheadWorker,
             encryptionMetadataCache,
-            true // encryption always enabled in production
+            encryptionEnabled
         );
     }
 
@@ -563,6 +576,7 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         nodeSettings = settings;
         writeCacheEnabled = WRITE_CACHE_ENABLED_SETTING.get(settings);
         prefetchEnabled = PREFETCH_ENABLED_SETTING.get(settings);
+        encryptionEnabled = ENCRYPTION_ENABLED_SETTING.get(settings);
     }
 
     public static void setThreadPool(ThreadPool tp) {
@@ -588,6 +602,10 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
             service.getClusterSettings().addSettingsUpdateConsumer(PREFETCH_ENABLED_SETTING, value -> {
                 LOGGER.info("Updating prefetch.enabled to {}", value);
                 prefetchEnabled = value;
+            });
+            service.getClusterSettings().addSettingsUpdateConsumer(ENCRYPTION_ENABLED_SETTING, value -> {
+                LOGGER.info("Updating encryption.enabled to {}", value);
+                encryptionEnabled = value;
             });
         }
     }
