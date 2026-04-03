@@ -152,7 +152,7 @@ public class BufferPoolDirectory extends FSDirectory {
         this.masterKeyBytes = keyResolver.getDataKey().getEncoded();
         this.encryptionMetadataCache = encryptionMetadataCache;
         this.l1Factory = l1Factory;
-        this.encryptionEnabled = encryptionEnabled;
+        this.encryptionEnabled = false; // default to false for this constructor
 
         // startCacheStatsTelemetry(); // uncomment for local testing
     }
