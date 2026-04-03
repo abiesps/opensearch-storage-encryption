@@ -209,6 +209,11 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
         currentBlockOffset = blockOffset;
         currentBlock = cacheValue;
 
+        // Track prefetch effectiveness: record that this block was read
+        if (CryptoDirectoryFactory.isPrefetchTrackingEnabled()) {
+            PrefetchEffectivenessTracker.getInstance().recordRead(blockOffset);
+        }
+
         // Notify readahead manager of access pattern
         if (readaheadContext != null && CryptoDirectoryFactory.isReadaheadEnabled()) {
             readaheadContext.onAccess(blockOffset, cacheHitHolder.wasCacheHit());
@@ -792,6 +797,13 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
         }
 
         blockCache.loadMissingBlocks(path, startBlockOffset, blockCount);
+
+        if (CryptoDirectoryFactory.isPrefetchTrackingEnabled()) {
+            PrefetchEffectivenessTracker tracker = PrefetchEffectivenessTracker.getInstance();
+            for (long i = 0; i < blockCount; i++) {
+                tracker.recordPrefetch(startBlockOffset + i * CACHE_BLOCK_SIZE);
+            }
+        }
     }
 
     @Override

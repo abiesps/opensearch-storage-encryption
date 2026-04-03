@@ -118,6 +118,15 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         .boolSetting("node.store.crypto.lucene_prefetch.enabled", false, Property.NodeScope, Property.Dynamic);
 
     /**
+     * Controls whether prefetch effectiveness tracking is enabled.
+     * When enabled, tracks which prefetched blocks are actually read (effective) vs never read (wasted).
+     * Zero overhead when disabled — a single volatile boolean read guards the hot path.
+     * Default is false (tracking disabled).
+     */
+    public static final Setting<Boolean> PREFETCH_TRACKING_ENABLED_SETTING = Setting
+        .boolSetting("node.store.crypto.prefetch_tracking.enabled", false, Property.NodeScope, Property.Dynamic);
+
+    /**
      * Current value of the prefetch enabled setting, updated dynamically via cluster settings.
      */
     private static volatile boolean prefetchEnabled = true;
@@ -136,6 +145,11 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
      * Current value of the Lucene prefetch enabled setting, updated dynamically via cluster settings.
      */
     private static volatile boolean lucenePrefetchEnabled = false;
+
+    /**
+     * Current value of the prefetch tracking enabled setting, updated dynamically via cluster settings.
+     */
+    private static volatile boolean prefetchTrackingEnabled = false;
 
     /**
      * Shared pool resources including pool, cache, and telemetry.
@@ -606,6 +620,7 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         encryptionEnabled = ENCRYPTION_ENABLED_SETTING.get(settings);
         readaheadEnabled = READAHEAD_ENABLED_SETTING.get(settings);
         lucenePrefetchEnabled = LUCENE_PREFETCH_ENABLED_SETTING.get(settings);
+        prefetchTrackingEnabled = PREFETCH_TRACKING_ENABLED_SETTING.get(settings);
         // Propagate to Lucene's PrefetchConfig so all bulk prefetch paths respect this setting
         try {
             Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig");
@@ -662,6 +677,10 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
                     LOGGER.debug("PrefetchConfig not available, skipping: {}", e.getMessage());
                 }
             });
+            service.getClusterSettings().addSettingsUpdateConsumer(PREFETCH_TRACKING_ENABLED_SETTING, value -> {
+                LOGGER.info("Updating prefetch_tracking.enabled to {}", value);
+                prefetchTrackingEnabled = value;
+            });
         }
     }
 
@@ -683,6 +702,16 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
      */
     public static boolean isPrefetchEnabled() {
         return prefetchEnabled;
+    }
+
+    /**
+     * Returns whether prefetch effectiveness tracking is currently enabled.
+     * This is a single volatile boolean read — zero overhead when disabled.
+     *
+     * @return true if prefetch tracking is enabled
+     */
+    public static boolean isPrefetchTrackingEnabled() {
+        return prefetchTrackingEnabled;
     }
 
     /**
