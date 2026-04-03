@@ -136,6 +136,7 @@ compileJava {
     exclude '**/translog/CryptoTranslogFactory.java'
     exclude '**/translog/CryptoTranslog.java'
     exclude '**/translog/CryptoRemoteFsTimestampAwareTranslog.java'
+    exclude '**/store/CryptoEngineFactory.java'
 }
 
 compileTestJava {

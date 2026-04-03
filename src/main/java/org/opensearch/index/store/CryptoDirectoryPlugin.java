@@ -196,14 +196,7 @@ public class CryptoDirectoryPlugin extends Plugin implements IndexStorePlugin, E
      */
     @Override
     public Optional<EngineFactory> getEngineFactory(IndexSettings indexSettings) {
-        if (isDisabled()) {
-            return Optional.empty();
-        }
-
-        // Only provide our custom engine factory for cryptofs indices
-        if (CryptoDirectoryFactory.STORE_TYPE.equals(indexSettings.getValue(IndexModule.INDEX_STORE_TYPE_SETTING))) {
-            return Optional.of(new CryptoEngineFactory());
-        }
+        // CryptoEngineFactory excluded for 3.3.x compatibility — translog encryption not supported
         return Optional.empty();
     }
 
