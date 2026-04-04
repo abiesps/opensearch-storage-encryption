@@ -112,10 +112,10 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
      * Controls whether Lucene-level prefetch calls (via IndexInput.prefetch()) are executed.
      * When false, prefetch() calls in CachedMemorySegmentIndexInput become no-ops.
      * This controls all the bulk prefetch logic added in Lucene (doc values, norms, postings, sorted values).
-     * Default is false (prefetch disabled until explicitly enabled for benchmarking).
+     * Default is true (prefetch enabled).
      */
     public static final Setting<Boolean> LUCENE_PREFETCH_ENABLED_SETTING = Setting
-        .boolSetting("node.store.crypto.lucene_prefetch.enabled", false, Property.NodeScope, Property.Dynamic);
+        .boolSetting("node.store.crypto.lucene_prefetch.enabled", true, Property.NodeScope, Property.Dynamic);
 
     /**
      * Controls whether prefetch effectiveness tracking is enabled.
