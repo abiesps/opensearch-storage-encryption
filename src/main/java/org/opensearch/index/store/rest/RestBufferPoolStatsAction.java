@@ -96,6 +96,7 @@ public class RestBufferPoolStatsAction extends BaseRestHandler {
         builder.field("readahead_enabled", CryptoDirectoryFactory.isReadaheadEnabled());
         builder.field("lucene_prefetch_enabled", CryptoDirectoryFactory.isPrefetchEnabled());
         builder.field("prefetch_tracking_enabled", CryptoDirectoryFactory.isPrefetchTrackingEnabled());
+        builder.field("prefetch_batch_size", CryptoDirectoryFactory.getPrefetchBatchSize());
         builder.endObject();
 
         builder.endObject();

@@ -127,6 +127,16 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         .boolSetting("node.store.crypto.prefetch_tracking.enabled", false, Property.NodeScope, Property.Dynamic);
 
     /**
+     * Controls the batch size for bulk doc values prefetch in aggregators.
+     * This determines the size of the int[] buffer used to drain DocIdStream in
+     * collect(DocIdStream) overrides. Larger values allow more docs to be prefetched
+     * per batch but use more stack/heap memory per collector.
+     * Default is 4096 (matches BooleanScorer window size).
+     */
+    public static final Setting<Integer> PREFETCH_BATCH_SIZE_SETTING = Setting
+        .intSetting("node.store.crypto.prefetch_batch_size", 4096, 128, 65536, Property.NodeScope, Property.Dynamic);
+
+    /**
      * Current value of the prefetch enabled setting, updated dynamically via cluster settings.
      */
     private static volatile boolean prefetchEnabled = true;
@@ -150,6 +160,11 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
      * Current value of the prefetch tracking enabled setting, updated dynamically via cluster settings.
      */
     private static volatile boolean prefetchTrackingEnabled = false;
+
+    /**
+     * Current value of the prefetch batch size setting, updated dynamically via cluster settings.
+     */
+    private static volatile int prefetchBatchSize = 4096;
 
     /**
      * Shared pool resources including pool, cache, and telemetry.
@@ -625,10 +640,12 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         readaheadEnabled = READAHEAD_ENABLED_SETTING.get(settings);
         lucenePrefetchEnabled = LUCENE_PREFETCH_ENABLED_SETTING.get(settings);
         prefetchTrackingEnabled = PREFETCH_TRACKING_ENABLED_SETTING.get(settings);
+        prefetchBatchSize = PREFETCH_BATCH_SIZE_SETTING.get(settings);
         // Propagate to Lucene's PrefetchConfig so all bulk prefetch paths respect this setting
         try {
             Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig");
             prefetchConfig.getMethod("setEnabled", boolean.class).invoke(null, lucenePrefetchEnabled);
+            prefetchConfig.getMethod("setBatchSize", int.class).invoke(null, prefetchBatchSize);
         } catch (Exception e) {
             LOGGER.debug("PrefetchConfig not available, skipping: {}", e.getMessage());
         }
@@ -685,6 +702,16 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
                 LOGGER.info("Updating prefetch_tracking.enabled to {}", value);
                 prefetchTrackingEnabled = value;
             });
+            service.getClusterSettings().addSettingsUpdateConsumer(PREFETCH_BATCH_SIZE_SETTING, value -> {
+                LOGGER.info("Updating prefetch_batch_size to {}", value);
+                prefetchBatchSize = value;
+                try {
+                    Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig");
+                    prefetchConfig.getMethod("setBatchSize", int.class).invoke(null, value);
+                } catch (Exception e) {
+                    LOGGER.debug("PrefetchConfig not available, skipping: {}", e.getMessage());
+                }
+            });
         }
     }
 
@@ -716,6 +743,11 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
      */
     public static boolean isPrefetchTrackingEnabled() {
         return prefetchTrackingEnabled;
+    }
+
+    /** Returns the current prefetch batch size for bulk doc values collection. */
+    public static int getPrefetchBatchSize() {
+        return prefetchBatchSize;
     }
 
     /**

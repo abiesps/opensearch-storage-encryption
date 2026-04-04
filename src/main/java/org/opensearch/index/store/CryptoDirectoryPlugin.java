@@ -167,6 +167,7 @@ public class CryptoDirectoryPlugin extends Plugin implements IndexStorePlugin, E
                 CryptoDirectoryFactory.READAHEAD_ENABLED_SETTING,
                 CryptoDirectoryFactory.LUCENE_PREFETCH_ENABLED_SETTING,
                 CryptoDirectoryFactory.PREFETCH_TRACKING_ENABLED_SETTING,
+                CryptoDirectoryFactory.PREFETCH_BATCH_SIZE_SETTING,
                 PoolSizeCalculator.NODE_POOL_SIZE_PERCENTAGE_SETTING,
                 PoolSizeCalculator.NODE_CACHE_TO_POOL_RATIO_SETTING,
                 PoolSizeCalculator.NODE_WARMUP_PERCENTAGE_SETTING,
