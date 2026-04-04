@@ -57,7 +57,9 @@ public final class PrefetchEffectivenessTracker {
     /** Called when a block is prefetched. Records the timestamp. */
     public void recordPrefetch(java.nio.file.Path path, long blockOffset) {
         totalPrefetches.increment();
-        prefetchedBlocks.put(makeKey(path, blockOffset), System.nanoTime());
+        String key = makeKey(path, blockOffset);
+        prefetchedBlocks.put(key, System.nanoTime());
+        samplePrefetchKey(key);
     }
 
     /** @deprecated Use recordPrefetch(Path, long) instead. Kept for backward compat. */
@@ -72,7 +74,9 @@ public final class PrefetchEffectivenessTracker {
      */
     public void recordRead(java.nio.file.Path path, long blockOffset) {
         totalReads.increment();
-        Long prefetchTime = prefetchedBlocks.remove(makeKey(path, blockOffset));
+        String key = makeKey(path, blockOffset);
+        sampleReadKey(key);
+        Long prefetchTime = prefetchedBlocks.remove(key);
         if (prefetchTime != null) {
             effectivePrefetches.increment();
             long latencyNanos = System.nanoTime() - prefetchTime;
@@ -150,6 +154,29 @@ public final class PrefetchEffectivenessTracker {
         latency20to100ms.reset();
         latencyOver100ms.reset();
         prefetchedBlocks.clear();
+        recentPrefetchKeys.clear();
+        recentReadKeys.clear();
+    }
+
+    // Sample recent keys for debugging
+    private final java.util.concurrent.ConcurrentLinkedDeque<String> recentPrefetchKeys = new java.util.concurrent.ConcurrentLinkedDeque<>();
+    private final java.util.concurrent.ConcurrentLinkedDeque<String> recentReadKeys = new java.util.concurrent.ConcurrentLinkedDeque<>();
+    private static final int MAX_SAMPLE_KEYS = 10;
+
+    private void samplePrefetchKey(String key) {
+        if (recentPrefetchKeys.size() < MAX_SAMPLE_KEYS) {
+            recentPrefetchKeys.addLast(key);
+        }
+    }
+
+    private void sampleReadKey(String key) {
+        if (recentReadKeys.size() < MAX_SAMPLE_KEYS) {
+            recentReadKeys.addLast(key);
+        }
+    }
+
+    public String sampleKeys() {
+        return "prefetch_keys=" + recentPrefetchKeys + ", read_keys=" + recentReadKeys;
     }
 
     // Getters for programmatic access

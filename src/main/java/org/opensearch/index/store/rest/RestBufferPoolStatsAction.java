@@ -82,6 +82,7 @@ public class RestBufferPoolStatsAction extends BaseRestHandler {
             builder.field("pending", tracker.getPendingCount());
             builder.field("avg_prefetch_to_read_latency_us", tracker.getAvgLatencyMicros());
             builder.field("summary", tracker.stats());
+            builder.field("sample_keys", tracker.sampleKeys());
 
             if (resetTracking) {
                 tracker.reset();
