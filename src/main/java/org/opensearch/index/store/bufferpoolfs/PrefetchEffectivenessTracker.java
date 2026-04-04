@@ -26,8 +26,9 @@ import java.util.concurrent.atomic.LongAdder;
 public final class PrefetchEffectivenessTracker {
     private static final PrefetchEffectivenessTracker INSTANCE = new PrefetchEffectivenessTracker();
 
-    // Key: blockOffset → Value: System.nanoTime() when prefetch was issued
-    private final ConcurrentHashMap<Long, Long> prefetchedBlocks = new ConcurrentHashMap<>();
+    // Key: "path:blockOffset" → Value: System.nanoTime() when prefetch was issued
+    // Using String key (path + blockOffset) to match Caffeine's FileBlockCacheKey semantics
+    private final ConcurrentHashMap<String, Long> prefetchedBlocks = new ConcurrentHashMap<>();
 
     // Counters
     private final LongAdder totalPrefetches = new LongAdder();
@@ -49,19 +50,43 @@ public final class PrefetchEffectivenessTracker {
         return INSTANCE;
     }
 
+    private static String makeKey(java.nio.file.Path path, long blockOffset) {
+        return path.toString() + ":" + blockOffset;
+    }
+
     /** Called when a block is prefetched. Records the timestamp. */
+    public void recordPrefetch(java.nio.file.Path path, long blockOffset) {
+        totalPrefetches.increment();
+        prefetchedBlocks.put(makeKey(path, blockOffset), System.nanoTime());
+    }
+
+    /** @deprecated Use recordPrefetch(Path, long) instead. Kept for backward compat. */
     public void recordPrefetch(long blockOffset) {
         totalPrefetches.increment();
-        prefetchedBlocks.put(blockOffset, System.nanoTime());
+        prefetchedBlocks.put("unknown:" + blockOffset, System.nanoTime());
     }
 
     /**
      * Called when a block is read by a search/searcher thread.
      * If the block was previously prefetched, records the prefetch-to-read latency.
      */
+    public void recordRead(java.nio.file.Path path, long blockOffset) {
+        totalReads.increment();
+        Long prefetchTime = prefetchedBlocks.remove(makeKey(path, blockOffset));
+        if (prefetchTime != null) {
+            effectivePrefetches.increment();
+            long latencyNanos = System.nanoTime() - prefetchTime;
+            totalLatencyNanos.add(latencyNanos);
+            bucketLatency(latencyNanos);
+        } else {
+            coldReads.increment();
+        }
+    }
+
+    /** @deprecated Use recordRead(Path, long) instead. Kept for backward compat. */
     public void recordRead(long blockOffset) {
         totalReads.increment();
-        Long prefetchTime = prefetchedBlocks.remove(blockOffset);
+        Long prefetchTime = prefetchedBlocks.remove("unknown:" + blockOffset);
         if (prefetchTime != null) {
             effectivePrefetches.increment();
             long latencyNanos = System.nanoTime() - prefetchTime;
