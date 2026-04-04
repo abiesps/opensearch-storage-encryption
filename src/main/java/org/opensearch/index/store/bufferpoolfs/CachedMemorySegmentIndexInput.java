@@ -63,6 +63,11 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
     final ReadaheadManager readaheadManager;
     final ReadaheadContext readaheadContext;
 
+    // Disable L1 cache for debugging prefetch tracking. Set via -Dbufferpool.l1.disabled=true
+    static final boolean L1_DISABLED = "true".equalsIgnoreCase(
+        System.getProperty("bufferpool.l1.disabled",
+            System.getenv().getOrDefault("BUFFERPOOL_L1_DISABLED", "false")));
+
     final long absoluteBaseOffset; // absolute position in original file where this input starts
     final boolean isSlice; // true for slices, false for main instances
 
@@ -182,21 +187,27 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
         final int offsetInBlock = (int) (fileOffset - blockOffset);
 
         // Fast path: reuse current block if still valid.
-        // this access is safe without generation check because currentBlock
-        // is pinned (refCount > 1) so it cannot be returned to pool or reused
-        // for different data while we hold it.
         if (blockOffset == currentBlockOffset && currentBlock != null) {
             lastOffsetInBlock = offsetInBlock;
             return currentBlock.value().segment();
         }
 
-        cacheHitHolder.reset();
+        final BlockCacheValue<RefCountedMemorySegment> cacheValue;
 
-        // L1BlockCache returns already-pinned values
-        final BlockCacheValue<RefCountedMemorySegment> cacheValue = l1Cache.acquireRefCountedValue(blockOffset, cacheHitHolder);
-
-        if (cacheValue == null) {
-            throw new IOException("Failed to acquire cache value for block at offset " + blockOffset);
+        if (L1_DISABLED) {
+            // L1 disabled: go directly to L2 Caffeine
+            cacheValue = blockCache.getOrLoad(
+                new org.opensearch.index.store.block_cache.FileBlockCacheKey(path, blockOffset));
+            if (cacheValue == null) {
+                throw new IOException("Failed to load cache value for block at offset " + blockOffset);
+            }
+        } else {
+            cacheHitHolder.reset();
+            // L1BlockCache returns already-pinned values
+            cacheValue = l1Cache.acquireRefCountedValue(blockOffset, cacheHitHolder);
+            if (cacheValue == null) {
+                throw new IOException("Failed to acquire cache value for block at offset " + blockOffset);
+            }
         }
 
         RefCountedMemorySegment pinnedBlock = cacheValue.value();
@@ -215,7 +226,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
         }
 
         // Notify readahead manager of access pattern
-        if (readaheadContext != null && CryptoDirectoryFactory.isReadaheadEnabled()) {
+        if (!L1_DISABLED && readaheadContext != null && CryptoDirectoryFactory.isReadaheadEnabled()) {
             readaheadContext.onAccess(blockOffset, cacheHitHolder.wasCacheHit());
         }
 
@@ -792,7 +803,7 @@ public class CachedMemorySegmentIndexInput extends IndexInput implements RandomA
 
         // Most prefetch will be for block size 1, do a quick look up
         // TODO: tune this for large prefetch (e.g. vectors)
-        if (blockCount == 1 && l1Cache.contains(startBlockOffset)) {
+        if (!L1_DISABLED && blockCount == 1 && l1Cache.contains(startBlockOffset)) {
             return;
         }
 
