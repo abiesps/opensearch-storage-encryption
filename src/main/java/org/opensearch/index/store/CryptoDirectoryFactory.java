@@ -210,9 +210,7 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         "",
         Function.identity(),
         (s) -> {
-            if (s == null || s.isEmpty()) {
-                throw new SettingsException("index.store.crypto.key_provider must be set");
-            }
+            // Key provider is optional — empty means plain bufferpool without encryption
         },
         Property.NodeScope,
         Property.IndexScope,
