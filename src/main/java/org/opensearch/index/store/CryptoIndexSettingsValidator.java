@@ -54,8 +54,9 @@ public class CryptoIndexSettingsValidator {
     private static void validateKeyProvider(Settings indexSettings) {
         String keyProvider = indexSettings.get(CryptoDirectoryFactory.INDEX_KEY_PROVIDER_SETTING.getKey());
 
+        // Key provider is optional — when not specified, bufferpool runs without encryption
         if (keyProvider == null || keyProvider.isEmpty()) {
-            throw new IllegalArgumentException("index.store.crypto.key_provider must be specified when index.store.type is 'cryptofs'");
+            return;
         }
     }
 

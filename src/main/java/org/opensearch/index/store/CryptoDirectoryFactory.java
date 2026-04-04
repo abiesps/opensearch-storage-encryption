@@ -305,6 +305,12 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
     MasterKeyProvider getKeyProvider(IndexSettings indexSettings) {
         final String KEY_PROVIDER = indexSettings.getValue(INDEX_KEY_PROVIDER_SETTING);
 
+        // No key provider specified — use dummy provider for plain bufferpool without encryption
+        if (KEY_PROVIDER == null || KEY_PROVIDER.isEmpty()) {
+            LOGGER.info("No key provider specified for cryptofs index {}, using dummy provider (no encryption)", indexSettings.getIndex().getName());
+            return DummyKeyProvider.create();
+        }
+
         // Handle dummy type for testing
         if (KeyProviderType.DUMMY.getValue().equals(KEY_PROVIDER)) {
             LOGGER.debug("Using dummy key provider for testing");
