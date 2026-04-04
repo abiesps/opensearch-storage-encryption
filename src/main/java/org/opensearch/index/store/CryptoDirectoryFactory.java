@@ -643,7 +643,7 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
         prefetchBatchSize = PREFETCH_BATCH_SIZE_SETTING.get(settings);
         // Propagate to Lucene's PrefetchConfig so all bulk prefetch paths respect this setting
         try {
-            Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig");
+            Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig", true, org.apache.lucene.index.IndexReader.class.getClassLoader());
             prefetchConfig.getMethod("setEnabled", boolean.class).invoke(null, lucenePrefetchEnabled);
             prefetchConfig.getMethod("setBatchSize", int.class).invoke(null, prefetchBatchSize);
         } catch (Exception e) {
@@ -692,7 +692,7 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
                 LOGGER.info("Updating lucene_prefetch.enabled to {}", value);
                 lucenePrefetchEnabled = value;
                 try {
-                    Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig");
+                    Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig", true, org.apache.lucene.index.IndexReader.class.getClassLoader());
                     prefetchConfig.getMethod("setEnabled", boolean.class).invoke(null, value);
                 } catch (Exception e) {
                     LOGGER.debug("PrefetchConfig not available, skipping: {}", e.getMessage());
@@ -706,7 +706,7 @@ public class CryptoDirectoryFactory implements IndexStorePlugin.DirectoryFactory
                 LOGGER.info("Updating prefetch_batch_size to {}", value);
                 prefetchBatchSize = value;
                 try {
-                    Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig");
+                    Class<?> prefetchConfig = Class.forName("org.apache.lucene.search.PrefetchConfig", true, org.apache.lucene.index.IndexReader.class.getClassLoader());
                     prefetchConfig.getMethod("setBatchSize", int.class).invoke(null, value);
                 } catch (Exception e) {
                     LOGGER.debug("PrefetchConfig not available, skipping: {}", e.getMessage());
