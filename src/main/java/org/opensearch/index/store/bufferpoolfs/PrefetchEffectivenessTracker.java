@@ -76,7 +76,7 @@ public final class PrefetchEffectivenessTracker {
         totalReads.increment();
         String key = makeKey(path, blockOffset);
         sampleReadKey(key);
-        Long prefetchTime = prefetchedBlocks.remove(key);
+        Long prefetchTime = prefetchedBlocks.get(key);
         if (prefetchTime != null) {
             effectivePrefetches.increment();
             long latencyNanos = System.nanoTime() - prefetchTime;
@@ -90,7 +90,7 @@ public final class PrefetchEffectivenessTracker {
     /** @deprecated Use recordRead(Path, long) instead. Kept for backward compat. */
     public void recordRead(long blockOffset) {
         totalReads.increment();
-        Long prefetchTime = prefetchedBlocks.remove("unknown:" + blockOffset);
+        Long prefetchTime = prefetchedBlocks.get("unknown:" + blockOffset);
         if (prefetchTime != null) {
             effectivePrefetches.increment();
             long latencyNanos = System.nanoTime() - prefetchTime;
